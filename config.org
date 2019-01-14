@@ -61,6 +61,9 @@ iteration of config.org, as well as various other sources.
   ;; https://www.emacswiki.org/emacs/WinnerMode
   (when (fboundp 'winner-mode)
     (winner-mode 1))
+  ;; 11Jan2019
+  ;; Enable global show-paren-mode
+  (show-paren-mode 1)
 #+END_SRC
 
 Save recent files (snippet taken from Prelude).
