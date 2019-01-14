@@ -530,7 +530,8 @@ Colours paired parenthesis.
   (require 'rainbow-delimiters)
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
-** smartparens
+
+** CANCELLED smartparens
    #+BEGIN_SRC emacs-lisp
    (use-package smartparens
      ;; 17Aug2017
