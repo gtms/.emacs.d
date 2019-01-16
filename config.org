@@ -19,7 +19,7 @@ iteration of config.org, as well as various other sources.
 
 #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Gil Tomás"
-	user-mail-address "gil.tms@gmail.com")
+        user-mail-address "gil.tms@gmail.com")
   ;; Always load newest byte code
   (setq load-prefer-newer t)
   ;; Reduce the frequency of garbage collection by making it happen on
@@ -62,6 +62,63 @@ iteration of config.org, as well as various other sources.
   (when (fboundp 'winner-mode)
     (winner-mode 1))
 #+END_SRC
+
+[2019-01-16 Wed]
+From bbatov init.el file:
+
+#+BEGIN_SRC emacs-lisp
+;; Emacs modes typically provide a standard means to change the
+;; indentation width -- eg. c-basic-offset: use that to adjust your
+;; personal indentation width, while maintaining the style (and
+;; meaning) of any files you load.
+(setq-default indent-tabs-mode nil)   ;; don't use tabs to indent
+(setq-default tab-width 8)            ;; but maintain correct appearance
+
+;; Newline at end of file
+(setq require-final-newline t)
+
+;; delete the selection with a keypress
+(delete-selection-mode t)
+
+;; store all backup and autosave files in the tmp dir
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;; revert buffers automatically when underlying files are changed externally
+(global-auto-revert-mode t)
+
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
+;; hippie expand is dabbrev expand on steroids
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
+                                         try-expand-dabbrev-all-buffers
+                                         try-expand-dabbrev-from-kill
+                                         try-complete-file-name-partially
+                                         try-complete-file-name
+                                         try-expand-all-abbrevs
+                                         try-expand-list
+                                         try-expand-line
+                                         try-complete-lisp-symbol-partially
+                                         try-complete-lisp-symbol))
+
+;; use hippie-expand instead of dabbrev
+(global-set-key (kbd "M-/") #'hippie-expand)
+
+;; replace buffer-menu with ibuffer
+(global-set-key (kbd "C-x C-b") #'ibuffer)
+
+;; align code in a pretty way
+(global-set-key (kbd "C-x \\") #'align-regexp)
+
+;; smart tab behavior - indent or complete
+(setq tab-always-indent 'complete)
+#+END_SRC
+
 * Package Management
 ** package archives
 First, we add melpa to our list of repositories.  Packages are installed in the
@@ -72,10 +129,10 @@ the local cache is missing.
 (require 'package)
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-	     (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
-	     (package-initialize)
-	     (unless package-archive-contents
-	     (package-refresh-contents))
+             (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
+             (package-initialize)
+             (unless package-archive-contents
+             (package-refresh-contents))
 #+END_SRC
 
 ** use-package
@@ -106,12 +163,12 @@ Most of these settings are taken from prelude-ui.el.
   (setq inhibit-startup-screen t)
   ;; Better scrolling
   (setq scroll-margin 0
-	scroll-conservatively 100000
-	scroll-preserve-screen-position 1)
+        scroll-conservatively 100000
+        scroll-preserve-screen-position 1)
   ;; More useful frame title, that show either a file or a
   ;; buffer name (if the buffer isn't visiting a file)
   (setq frame-title-format '((:eval (if (buffer-file-name)
-					(abbreviate-file-name (buffer-file-name))
+                                        (abbreviate-file-name (buffer-file-name))
                                       "%b"))))
 #+END_SRC
 
@@ -206,7 +263,7 @@ character of one of the paired characters, the other is highlighted.
 #+END_SRC
 
 ** hl-line
-[[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] version 21 has library `hl-line.el’, which provides a local and a
+[[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] version 21 has library `hl-line.el', which provides a local and a
 global minor mode for highlighting the current line.  See [[http://www.emacswiki.org/cgi-bin/info-ref?find=highlight%2520current%2520line][highlight current
 line]].
 
@@ -326,18 +383,7 @@ subdirectories to byte-compiling files, searching files, and of course visiting
 
 *** dired configuration
 #+BEGIN_SRC emacs-lisp
-(use-package dired
-  :config
-  ;; reuse current buffer by pressing 'a'
-  (put 'dired-find-alternate-file 'disabled nil)
-  ;; always delete and copy recursively
-  (setq dired-recursive-deletes 'always)
-  (setq dired-recursive-copies 'always)
-  ;; if there is a dired buffer displayed in the next window, use its
-  ;; current subdir, instead of the current subdir of this dired buffer
-  (setq dired-dwim-target t)
-  ;; defines variable dired-listing-switches
-  (setq dired-listing-switches "-alh"))
+(put 'dired-find-alternate-file 'disabled nil)
 #+END_SRC
 
 *** dired-x
@@ -397,8 +443,9 @@ The following snippet was taken from [[http://pragmaticemacs.com/emacs/dynamical
 #+BEGIN_SRC emacs-lisp
 (use-package dired-narrow
   :ensure t
-  :bind (:map dired-mode-map
-              ("/" . dired-narrow)))
+  :bind
+  (:map dired-mode-map
+        ("/" . dired-narrow)))
 #+END_SRC
 
 *** find-dired
@@ -420,7 +467,7 @@ better to collate the matches and then use =xargs= to run the command.
 #+BEGIN_SRC emacs-lisp
 (use-package find-dired
   :config
-  (setq find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld"))
+  (setq find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld")))
 #+END_SRC
 
 *** dired sort directories first
@@ -484,23 +531,23 @@ better to collate the matches and then use =xargs= to run the command.
       (let ((fname (intern (concat "my-" (symbol-name mode) "-end-of-buffer")))
             (mode-map (intern (concat (symbol-name mode) "-mode-map")))
             (mode-hook (intern (concat (symbol-name mode) "-mode-hook"))))
-	`(progn
-	   (defun ,fname ()
+        `(progn
+           (defun ,fname ()
              (interactive)
              (let ((p (point)))
                (goto-char (point-max))
                ,@forms
                (when (= p (point))
-		 (goto-char (point-max)))))
-	   (add-hook ',mode-hook
+                 (goto-char (point-max)))))
+           (add-hook ',mode-hook
                      (lambda ()
                        (define-key ,mode-map
-			 [remap end-of-buffer] ',fname))))))
+                         [remap end-of-buffer] ',fname))))))
 
     ;; Dired
     (my-special-beginning-of-buffer dired
       (while (not (ignore-errors (dired-get-filename)))
-	(dired-next-line 1)))
+        (dired-next-line 1)))
     (my-special-end-of-buffer dired
       (dired-previous-line 1))
 
@@ -519,7 +566,7 @@ better to collate the matches and then use =xargs= to run the command.
     ;; Recentf
     (my-special-beginning-of-buffer recentf-dialog
       (when (re-search-forward "^  \\[" nil t)
-	(goto-char (match-beginning 0))))
+        (goto-char (match-beginning 0))))
     (my-special-end-of-buffer recentf-dialog
       (re-search-backward "^  \\[" nil t))
 
@@ -555,6 +602,21 @@ better to collate the matches and then use =xargs= to run the command.
      (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
    #+END_SRC
 
+** whitespace
+From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
+
+#+BEGIN_SRC emacs-lisp
+  (use-package whitespace
+    :init
+    (dolist (hook '(prog-mode-hook text-mode-hook))
+      (add-hook hook #'whitespace-mode))
+    :config
+    (setq whitespace-line-column 80)
+    (setq whitespace-style '(face trailing tabs spaces lines-tail newline
+                                  empty-line indentation space-mark
+                                  newline-mark)))
+#+END_SRC
+
 * Third Party Packages
 ** ag
    #+BEGIN_SRC emacs-lisp
@@ -568,39 +630,40 @@ better to collate the matches and then use =xargs= to run the command.
      :ensure t
      :config
      (setq company-show-numbers t)
-     (setq company-minimum-prefix-length 3))
+     (setq company-minimum-prefix-length 3)
+     (add-hook 'after-init-hook 'global-company-mode))
    #+END_SRC
 
 ** crux
    #+BEGIN_SRC emacs-lisp
    (use-package crux
      :ensure t
-     :bind (("C-c o"                            . crux-open-with)
-            ("M-o"                              . crux-smart-open-line)
-            ("C-c n"                            . crux-cleanup-buffer-or-region)
-            ("C-c f"                            . crux-recentf-find-file)
-          ("C-M-z"                              . crux-indent-defun)
-            ("C-c u"                              . crux-view-url)
-            ("C-c e"                              . crux-eval-and-replace)
-            ("C-c w"                            . crux-swap-windows)
-            ("C-c D"                            . crux-delete-file-and-buffer)
-            ("C-c r"                            . crux-rename-buffer-and-file)
-            ("C-c t"                            . crux-visit-term-buffer)
-            ;; ("C-c k"                         . crux-kill-other-buffers)
-            ("C-c k"                            . crux-kill-line-backwards)
-            ("C-c I"                              . crux-find-user-init-file)
-            ("C-c S"                              . crux-find-shell-init-file)
-            ("s-r"                                . crux-recentf-find-file)
-            ("s-j"                                . crux-top-join-line)
-            ("C-^"                                . crux-top-join-line)
-            ("s-k"                                . crux-kill-whole-line)
-            ("C-<backspace>"                      . crux-kill-line-backwards)
-            ("s-o"                                . crux-smart-open-line-above)
-            ([remap move-beginning-of-line]       . crux-move-beginning-of-line)
-            ([(shift return)]                     . crux-smart-open-line)
-            ([(control shift return)]             . crux-smart-open-line-above)
-            ([remap kill-whole-line]              . crux-kill-whole-line)
-            ("C-c s"                              . crux-ispell-word-then-abbrev))
+     :bind (("C-c o"                        . crux-open-with)
+            ("M-o"                          . crux-smart-open-line)
+            ("C-c n"                        . crux-cleanup-buffer-or-region)
+            ("C-c f"                        . crux-recentf-find-file)
+          ("C-M-z"                          . crux-indent-defun)
+            ("C-c u"                        . crux-view-url)
+            ("C-c e"                        . crux-eval-and-replace)
+            ("C-c w"                        . crux-swap-windows)
+            ("C-c D"                        . crux-delete-file-and-buffer)
+            ("C-c r"                        . crux-rename-buffer-and-file)
+            ("C-c t"                        . crux-visit-term-buffer)
+            ;; ("C-c k"                     . crux-kill-other-buffers)
+            ("C-c k"                        . crux-kill-line-backwards)
+            ("C-c I"                        . crux-find-user-init-file)
+            ("C-c S"                        . crux-find-shell-init-file)
+            ("s-r"                          . crux-recentf-find-file)
+            ("s-j"                          . crux-top-join-line)
+            ("C-^"                          . crux-top-join-line)
+            ("s-k"                          . crux-kill-whole-line)
+            ("C-<backspace>"                . crux-kill-line-backwards)
+            ("s-o"                          . crux-smart-open-line-above)
+            ([remap move-beginning-of-line] . crux-move-beginning-of-line)
+            ([(shift return)]               . crux-smart-open-line)
+            ([(control shift return)]       . crux-smart-open-line-above)
+            ([remap kill-whole-line]        . crux-kill-whole-line)
+            ("C-c s"                        . crux-ispell-word-then-abbrev))
      :config
      (setq crux-shell "/bin/zsh"))
    #+END_SRC
@@ -778,15 +841,15 @@ Colours paired parenthesis.
 
       :config
       (use-package flx
-	:ensure t)
+        :ensure t)
       ;; mix fuzzy with plus (.* for each space)
       ;; http://oremacs.com/2016/01/06/ivy-flx/
       (setq ivy-re-builders-alist
-        '((ivy-switch-buffer	. ivy--regex-plus)
-          (swiper		. ivy--regex-plus)
-          (swiper-all		. regexp-quote)
-          (t			. ivy--regex-fuzzy)))
-  (setq ivy-initial-inputs-alist nil))
+            '((ivy-switch-buffer . ivy--regex-plus)
+              (swiper            . ivy--regex-plus)
+              (swiper-all	 . regexp-quote)
+              (t		 . ivy--regex-fuzzy)))
+      (setq ivy-initial-inputs-alist nil))
 #+END_SRC
 
 *** ivy
@@ -841,17 +904,5 @@ Colours paired parenthesis.
 (use-package which-key
   :ensure t
   :config
-  (which-key-mode +1))
-#+END_SRC
-
-** whitespace
-#+BEGIN_SRC emacs-lisp
-  (use-package whitespace
-    :init
-    (dolist (hook '(prog-mode-hook text-mode-hook))
-      (add-hook hook #'whitespace-mode))
-    (add-hook 'before-save-hook #'whitespace-cleanup)
-    :config
-    (setq whitespace-line-column 80) ;; limit line length
-    (setq whitespace-style '(face tabs empty trailing lines-tail)))
+  (which-key-mode 1))
 #+END_SRC
