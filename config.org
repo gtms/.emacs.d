@@ -624,6 +624,32 @@ From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
      :ensure t)
    #+END_SRC
 
+** ace-window
+GNU Emacs package for selecting a window to switch to.
+
+#+BEGIN_SRC emacs-lisp
+(use-package ace-window
+  :ensure t
+  :after key-chord)
+#+END_SRC
+
+** avy
+=avy= is a GNU Emacs package for jumping to visible text using a char-based
+decision tree.
+
+#+BEGIN_SRC emacs-lisp
+(use-package avy
+  :ensure t
+  :after key-chord)
+#+END_SRC
+
+** browse-kill-ring
+#+BEGIN_SRC emacs-lisp
+(use-package browse-kill-ring
+  :ensure t
+  :after key-chord)
+#+END_SRC
+
 ** company
    #+BEGIN_SRC emacs-lisp
    (use-package company
@@ -638,11 +664,12 @@ From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
    #+BEGIN_SRC emacs-lisp
    (use-package crux
      :ensure t
+     :after key-chord
      :bind (("C-c o"                        . crux-open-with)
             ("M-o"                          . crux-smart-open-line)
             ("C-c n"                        . crux-cleanup-buffer-or-region)
             ("C-c f"                        . crux-recentf-find-file)
-          ("C-M-z"                          . crux-indent-defun)
+            ("C-M-z"                          . crux-indent-defun)
             ("C-c u"                        . crux-view-url)
             ("C-c e"                        . crux-eval-and-replace)
             ("C-c w"                        . crux-swap-windows)
@@ -668,13 +695,18 @@ From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
      (setq crux-shell "/bin/zsh"))
    #+END_SRC
 
-** dired
-** git-timemachine
-   #+BEGIN_SRC emacs-lisp
-   (use-package git-timemachine
-     :ensure t
-     :bind (("s-g" . git-timemachine)))
-   #+END_SRC
+** easy-kill
+=[[https://github.com/leoliu/easy-kill][easy-kill]]= is an awesome package that allows you to save up on the steps you’d
+normally have to take when saving and killing stuff.  It's called easy-kill, but
+could have just as easily been named easy-save or fast-kill.
+
+#+BEGIN_SRC emacs-lisp
+(use-package easy-kill
+  :ensure t
+  :config
+  (global-set-key [remap kill-ring-save] #'easy-kill)
+  (global-set-key [remap mark-sexp] #'easy-mark))
+#+END_SRC
 
 ** ess
    #+BEGIN_SRC emacs-lisp
@@ -700,6 +732,13 @@ From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
   :bind ("C-=" . er/expand-region))
 #+END_SRC
 
+** git-timemachine
+#+BEGIN_SRC emacs-lisp
+(use-package git-timemachine
+  :ensure t
+  :bind (("s-g" . git-timemachine)))
+#+END_SRC
+
 ** hungry-delete
 From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html][post]].
 #+BEGIN_SRC emacs-lisp
@@ -707,6 +746,26 @@ From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html]
   :ensure t
   :config
   (global-hungry-delete-mode))
+#+END_SRC
+
+** key-chord
+Key-chord lets you bind commands to combinations of key-strokes. Here a “key
+chord” means two keys pressed simultaneously, or a single key quickly pressed
+twice.
+
+#+BEGIN_SRC emacs-lisp
+(use-package key-chord
+  :ensure t
+  :config
+  (key-chord-define-global "jj" 'avy-goto-word-1)
+  (key-chord-define-global "jl" 'avy-goto-line)
+  (key-chord-define-global "jk" 'avy-goto-char)
+  (key-chord-define-global "JJ" 'crux-switch-to-previous-buffer)
+  (key-chord-define-global "uu" 'undo-tree-visualize)
+  (key-chord-define-global "ww" 'ace-window)
+  (key-chord-define-global "xx" 'execute-extended-command)
+  (key-chord-define-global "yy" 'browse-kill-ring)
+  (key-chord-mode 1))
 #+END_SRC
 
 ** lispy
@@ -723,6 +782,18 @@ From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html]
      :ensure t
      :bind (("C-x g" . magit-status)))
    #+END_SRC
+
+** move-text
+   MoveText allows you to move the current line using M-up / M-down (or any other
+   bindings you choose) if a region is marked, it will move the region instead.
+
+   Using the prefix arg (C-u number or META number) will predetermine how many
+   lines to move.
+
+ #+BEGIN_SRC emacs-lisp
+ (use-package move-text
+   :ensure t)
+ #+END_SRC
 
 ** page-break-lines
 From Steve Purcell.  Github page [[https://github.com/purcell/page-break-lines][here]].
@@ -884,6 +955,7 @@ Colours paired parenthesis.
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
   :ensure t
+  :after key-chord
   :config
   ;; autosave the undo-tree history
   (setq undo-tree-history-directory-alist
