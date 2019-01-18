@@ -61,6 +61,11 @@ iteration of config.org, as well as various other sources.
   ;; https://www.emacswiki.org/emacs/WinnerMode
   (when (fboundp 'winner-mode)
     (winner-mode 1))
+  ;; 17Jan2019
+  ;; Window switching backwards
+  (global-set-key (kbd "C-x O") (lambda ()
+                                  (interactive)
+                                  (other-window -1)))
 #+END_SRC
 
 [2019-01-16 Wed]
@@ -519,68 +524,68 @@ better to collate the matches and then use =xargs= to run the command.
                        (define-key ,mode-map
                          [remap beginning-of-buffer] ',fname))))))
 
-    (defmacro my-special-end-of-buffer (mode &rest forms)
-      "Define a special version of `end-of-buffer' in MODE.
+(defmacro my-special-end-of-buffer (mode &rest forms)
+  "Define a special version of `end-of-buffer' in MODE.
 
     The special function is defined such that the point first moves
     to `point-max' and then FORMS are evaluated.  If the point did
     not change because of the evaluation of FORMS, jump
     unconditionally to `point-max'.  This way repeated invocations
     toggle between real end and logical end of the buffer."
-      (declare (indent 1))
-      (let ((fname (intern (concat "my-" (symbol-name mode) "-end-of-buffer")))
-            (mode-map (intern (concat (symbol-name mode) "-mode-map")))
-            (mode-hook (intern (concat (symbol-name mode) "-mode-hook"))))
-        `(progn
-           (defun ,fname ()
-             (interactive)
-             (let ((p (point)))
-               (goto-char (point-max))
-               ,@forms
-               (when (= p (point))
-                 (goto-char (point-max)))))
-           (add-hook ',mode-hook
-                     (lambda ()
-                       (define-key ,mode-map
-                         [remap end-of-buffer] ',fname))))))
+  (declare (indent 1))
+  (let ((fname (intern (concat "my-" (symbol-name mode) "-end-of-buffer")))
+        (mode-map (intern (concat (symbol-name mode) "-mode-map")))
+        (mode-hook (intern (concat (symbol-name mode) "-mode-hook"))))
+    `(progn
+       (defun ,fname ()
+         (interactive)
+         (let ((p (point)))
+           (goto-char (point-max))
+           ,@forms
+           (when (= p (point))
+             (goto-char (point-max)))))
+       (add-hook ',mode-hook
+                 (lambda ()
+                   (define-key ,mode-map
+                     [remap end-of-buffer] ',fname))))))
 
-    ;; Dired
-    (my-special-beginning-of-buffer dired
-      (while (not (ignore-errors (dired-get-filename)))
-        (dired-next-line 1)))
-    (my-special-end-of-buffer dired
-      (dired-previous-line 1))
+;; Dired
+(my-special-beginning-of-buffer dired
+  (while (not (ignore-errors (dired-get-filename)))
+    (dired-next-line 1)))
+(my-special-end-of-buffer dired
+  (dired-previous-line 1))
 
-    ;; Occur
-    (my-special-beginning-of-buffer occur
-      (occur-next 1))
-    (my-special-end-of-buffer occur
-      (occur-prev 1))
+;; Occur
+(my-special-beginning-of-buffer occur
+  (occur-next 1))
+(my-special-end-of-buffer occur
+  (occur-prev 1))
 
-    ;; IBuffer
-    (my-special-beginning-of-buffer ibuffer
-      (ibuffer-forward-line 1))
-    (my-special-end-of-buffer ibuffer
-      (ibuffer-backward-line 1))
+;; IBuffer
+(my-special-beginning-of-buffer ibuffer
+  (ibuffer-forward-line 1))
+(my-special-end-of-buffer ibuffer
+  (ibuffer-backward-line 1))
 
-    ;; Recentf
-    (my-special-beginning-of-buffer recentf-dialog
-      (when (re-search-forward "^  \\[" nil t)
-        (goto-char (match-beginning 0))))
-    (my-special-end-of-buffer recentf-dialog
-      (re-search-backward "^  \\[" nil t))
+;; Recentf
+(my-special-beginning-of-buffer recentf-dialog
+  (when (re-search-forward "^  \\[" nil t)
+    (goto-char (match-beginning 0))))
+(my-special-end-of-buffer recentf-dialog
+  (re-search-backward "^  \\[" nil t))
 
-    ;; Org-agenda
-    (my-special-beginning-of-buffer org-agenda
-      (org-agenda-next-item 1))
-    (my-special-end-of-buffer org-agenda
-      (org-agenda-previous-item 1))
+;; Org-agenda
+(my-special-beginning-of-buffer org-agenda
+  (org-agenda-next-item 1))
+(my-special-end-of-buffer org-agenda
+  (org-agenda-previous-item 1))
 
-    ;; ag
-    (my-special-beginning-of-buffer ag
-      (compilation-next-error 1))
-    (my-special-end-of-buffer ag
-      (compilation-previous-error 1))
+;; ag
+(my-special-beginning-of-buffer ag
+  (compilation-next-error 1))
+(my-special-end-of-buffer ag
+  (compilation-previous-error 1))
 #+END_SRC
 
 ** lisp-mode
@@ -596,34 +601,48 @@ better to collate the matches and then use =xargs= to run the command.
      (define-key emacs-lisp-mode-map (kbd "C-c C-b") #'eval-buffer)
      (add-hook 'lisp-interaction-mode-hook #'eldoc-mode)
      (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode))
-   (use-package ielm
-     :config
-     (add-hook 'ielm-mode-hook #'eldoc-mode)
-     (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
+(use-package ielm
+  :config
+  (add-hook 'ielm-mode-hook #'eldoc-mode)
+  (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
    #+END_SRC
-
+   
 ** whitespace
-From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
+   From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
 
-#+BEGIN_SRC emacs-lisp
-  (use-package whitespace
-    :init
-    (dolist (hook '(prog-mode-hook text-mode-hook))
-      (add-hook hook #'whitespace-mode))
-    :config
-    (setq whitespace-line-column 80)
-    (setq whitespace-style '(face trailing tabs spaces lines-tail newline
-                                  empty-line indentation space-mark
-                                  newline-mark)))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package whitespace
+     :init
+     (dolist (hook '(prog-mode-hook text-mode-hook))
+       (add-hook hook #'whitespace-mode))
+     :config
+     (setq whitespace-line-column 80)
+     (setq whitespace-style '(face trailing tabs spaces lines-tail newline
+                                   empty-line indentation space-mark
+                                   newline-mark)))
+   #+END_SRC
+   
 * Third Party Packages
 ** ag
    #+BEGIN_SRC emacs-lisp
    (use-package ag
      :ensure t)
    #+END_SRC
+** aggressive-indent
+ =electric-indent-mode= is enough to keep your code nicely aligned when all you
+ do is type.  However, once you start shifting blocks around, transposing lines,
+ or slurping and barfing sexps, indentation is bound to go wrong.
 
+=aggressive-indent-mode= is a minor mode that keeps your code always indented.
+ It reindents after every change, making it more reliable than
+=electric-indent-mode=.
+
+#+BEGIN_SRC emacs-lisp
+(use-package aggressive-indent
+  :ensure t
+  :config
+  (global-aggressive-indent-mode 1))
+#+END_SRC
 ** ace-window
 GNU Emacs package for selecting a window to switch to.
 
@@ -659,7 +678,7 @@ decision tree.
      (setq company-minimum-prefix-length 3)
      (add-hook 'after-init-hook 'global-company-mode))
    #+END_SRC
-
+   
 ** crux
    #+BEGIN_SRC emacs-lisp
    (use-package crux
@@ -669,7 +688,7 @@ decision tree.
             ("M-o"                          . crux-smart-open-line)
             ("C-c n"                        . crux-cleanup-buffer-or-region)
             ("C-c f"                        . crux-recentf-find-file)
-            ("C-M-z"                          . crux-indent-defun)
+          ("C-M-z"                          . crux-indent-defun)
             ("C-c u"                        . crux-view-url)
             ("C-c e"                        . crux-eval-and-replace)
             ("C-c w"                        . crux-swap-windows)
@@ -694,19 +713,19 @@ decision tree.
      :config
      (setq crux-shell "/bin/zsh"))
    #+END_SRC
-
+   
 ** easy-kill
-=[[https://github.com/leoliu/easy-kill][easy-kill]]= is an awesome package that allows you to save up on the steps you’d
-normally have to take when saving and killing stuff.  It's called easy-kill, but
-could have just as easily been named easy-save or fast-kill.
+   =[[https://github.com/leoliu/easy-kill][easy-kill]]= is an awesome package that allows you to save up on the steps you’d
+   normally have to take when saving and killing stuff.  It's called easy-kill, but
+   could have just as easily been named easy-save or fast-kill.
 
-#+BEGIN_SRC emacs-lisp
-(use-package easy-kill
-  :ensure t
-  :config
-  (global-set-key [remap kill-ring-save] #'easy-kill)
-  (global-set-key [remap mark-sexp] #'easy-mark))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package easy-kill
+     :ensure t
+     :config
+     (global-set-key [remap kill-ring-save] #'easy-kill)
+     (global-set-key [remap mark-sexp] #'easy-mark))
+   #+END_SRC
 
 ** ess
    #+BEGIN_SRC emacs-lisp
@@ -726,63 +745,63 @@ could have just as easily been named easy-save or fast-kill.
    #+END_SRC
 
 ** expand-region
-#+BEGIN_SRC emacs-lisp
-(use-package expand-region
-  :ensure t
-  :bind ("C-=" . er/expand-region))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package expand-region
+     :ensure t
+     :bind ("C-=" . er/expand-region))
+   #+END_SRC
+   
 ** git-timemachine
-#+BEGIN_SRC emacs-lisp
-(use-package git-timemachine
-  :ensure t
-  :bind (("s-g" . git-timemachine)))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package git-timemachine
+     :ensure t
+     :bind (("s-g" . git-timemachine)))
+   #+END_SRC
+   
 ** hungry-delete
-From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html][post]].
-#+BEGIN_SRC emacs-lisp
-(use-package hungry-delete
-  :ensure t
-  :config
-  (global-hungry-delete-mode))
-#+END_SRC
-
+   From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html][post]].
+   #+BEGIN_SRC emacs-lisp
+   (use-package hungry-delete
+     :ensure t
+     :config
+     (global-hungry-delete-mode))
+   #+END_SRC
+   
 ** key-chord
-Key-chord lets you bind commands to combinations of key-strokes. Here a “key
-chord” means two keys pressed simultaneously, or a single key quickly pressed
-twice.
+   Key-chord lets you bind commands to combinations of key-strokes. Here a “key
+   chord” means two keys pressed simultaneously, or a single key quickly pressed
+   twice.
 
-#+BEGIN_SRC emacs-lisp
-(use-package key-chord
-  :ensure t
-  :config
-  (key-chord-define-global "jj" 'avy-goto-word-1)
-  (key-chord-define-global "jl" 'avy-goto-line)
-  (key-chord-define-global "jk" 'avy-goto-char)
-  (key-chord-define-global "JJ" 'crux-switch-to-previous-buffer)
-  (key-chord-define-global "uu" 'undo-tree-visualize)
-  (key-chord-define-global "ww" 'ace-window)
-  (key-chord-define-global "xx" 'execute-extended-command)
-  (key-chord-define-global "yy" 'browse-kill-ring)
-  (key-chord-mode 1))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package key-chord
+     :ensure t
+     :config
+     (key-chord-define-global "jj" 'avy-goto-word-1)
+     (key-chord-define-global "jl" 'avy-goto-line)
+     (key-chord-define-global "jk" 'avy-goto-char)
+     (key-chord-define-global "JJ" 'crux-switch-to-previous-buffer)
+     (key-chord-define-global "uu" 'undo-tree-visualize)
+     (key-chord-define-global "ww" 'ace-window)
+     (key-chord-define-global "xx" 'execute-extended-command)
+     (key-chord-define-global "yy" 'browse-kill-ring)
+     (key-chord-mode 1))
+   #+END_SRC
+   
 ** lispy
-#+BEGIN_SRC emacs-lisp
-(use-package lispy
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1))))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package lispy
+     :ensure t
+     :config
+     (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1))))
+   #+END_SRC
+   
 ** magit
    #+BEGIN_SRC emacs-lisp
    (use-package magit
      :ensure t
      :bind (("C-x g" . magit-status)))
    #+END_SRC
-
+   
 ** move-text
    MoveText allows you to move the current line using M-up / M-down (or any other
    bindings you choose) if a region is marked, it will move the region instead.
@@ -790,50 +809,50 @@ twice.
    Using the prefix arg (C-u number or META number) will predetermine how many
    lines to move.
 
- #+BEGIN_SRC emacs-lisp
- (use-package move-text
-   :ensure t)
- #+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package move-text
+     :ensure t)
+   #+END_SRC
+   
 ** page-break-lines
-From Steve Purcell.  Github page [[https://github.com/purcell/page-break-lines][here]].
-#+BEGIN_SRC emacs-lisp
-(use-package page-break-lines
-  :ensure t
-  :config
-  (global-page-break-lines-mode))
-#+END_SRC
-
+   From Steve Purcell.  Github page [[https://github.com/purcell/page-break-lines][here]].
+   #+BEGIN_SRC emacs-lisp
+   (use-package page-break-lines
+     :ensure t
+     :config
+     (global-page-break-lines-mode))
+   #+END_SRC
+   
 ** polymode
    Taken from [[https://github.com/basille/.emacs.d/blob/master/init.el][here]], on [2017-01-09 Mon].
    #+BEGIN_SRC emacs-lisp
    ;; Polymode to load several modes (e.g. Markdown + ESS)
-   ;; https://github.com/vitoshka/polymode
-   (use-package polymode
-     :ensure t
-     :config
-     (use-package poly-R
-       :ensure t)
-     (use-package poly-markdown
-       :ensure t)
-     (use-package poly-noweb
-       :ensure t)
-     (use-package poly-org
-       :ensure t)
-     :mode
-     ("\\.md"       . poly-markdown-mode)       ; Markdown files
-     ("\\.[rR]md"   . poly-markdown+r-mode)     ; RMarkdown files
-     ("\\.[sSrR]nw" . poly-noweb+r-mode))       ; Sweave files
+;; https://github.com/vitoshka/polymode
+(use-package polymode
+  :ensure t
+  :config
+  (use-package poly-R
+    :ensure t)
+  (use-package poly-markdown
+    :ensure t)
+  (use-package poly-noweb
+    :ensure t)
+  (use-package poly-org
+    :ensure t)
+  :mode
+  ("\\.md"       . poly-markdown-mode)       ; Markdown files
+  ("\\.[rR]md"   . poly-markdown+r-mode)     ; RMarkdown files
+  ("\\.[sSrR]nw" . poly-noweb+r-mode))       ; Sweave files
    #+END_SRC
 
 ** rainbow-delimiters
-Colours paired parenthesis.
-
-#+BEGIN_SRC emacs-lisp
-(use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+   Colours paired parenthesis.
+   
+   #+BEGIN_SRC emacs-lisp
+   (use-package rainbow-delimiters
+     :ensure t
+     :config
+     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 #+END_SRC
 
 ** CANCELLED smartparens
