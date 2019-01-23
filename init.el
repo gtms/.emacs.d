@@ -44,6 +44,10 @@
 (defvar my-start-time (current-time)
   "Time when loading of personal configurations was started.")
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p "custom.el")
+  (load custom-file))
+
 ;; This is GPLv2. If you still don't know the details, read
 ;; http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 
@@ -89,7 +93,8 @@
                      (not canc))
             (add-to-list 'body-list body)))))
     (with-temp-file elfile
-      (insert (format ";; Don't edit this file, edit %s instead ...\n\n" orgfile))
+      (insert
+       (format ";; Don't edit this file, edit %s instead ...\n\n" orgfile))
       (apply 'insert (reverse body-list)))
     (message "Wrote %s ..." elfile)))
 
@@ -103,6 +108,7 @@
     (my-tangle-config-org orgfile elfile))
   (load-file elfile))
 
-(message "Start up time %.2fs." (float-time (time-subtract (current-time) my-start-time)))
+(message "Start up time %.2fs."
+         (float-time (time-subtract (current-time) my-start-time)))
 
 ;;; untangle.el ends here
