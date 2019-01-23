@@ -152,43 +152,30 @@ Package management is done via =use-package=.
 
 * User Interface
 ** miscelaneous
-Most of these settings are taken from prelude-ui.el.
-
-#+BEGIN_SRC emacs-lisp
-  ;; Remove toolbar, menubar and scrollbar
-  (when (fboundp 'tool-bar-mode)
-    (tool-bar-mode -1))
-  (menu-bar-mode -1)
-  (toggle-scroll-bar -1)
-  ;; Remove blinking cursor
-  (blink-cursor-mode -1)
-  ;; Disable the ring bell
-  (setq ring-bell-function 'ignore)
-  ;; Disable startup screen
-  (setq inhibit-startup-screen t)
-  ;; Better scrolling
-  (setq scroll-margin 0
-        scroll-conservatively 100000
-        scroll-preserve-screen-position 1)
-  ;; More useful frame title, that show either a file or a
-  ;; buffer name (if the buffer isn't visiting a file)
-  (setq frame-title-format '((:eval (if (buffer-file-name)
-                                        (abbreviate-file-name (buffer-file-name))
-                                      "%b"))))
-#+END_SRC
-
-** theme
-   Default theme is Eclipse.  Zenburn is also installed.  Themes can be changed
-   via counsel-load-theme.
+   Most of these settings are taken from prelude-ui.el.
 
    #+BEGIN_SRC emacs-lisp
-   (use-package zenburn-theme
-     :ensure t)
-   (use-package eclipse
-     :ensure t
-     :config
-     (load-theme 'eclipse t))
-#+END_SRC
+   ;; Remove toolbar, menubar and scrollbar
+   (when (fboundp 'tool-bar-mode)
+     (tool-bar-mode -1))
+   (menu-bar-mode -1)
+   (toggle-scroll-bar -1)
+   ;; Remove blinking cursor
+   (blink-cursor-mode -1)
+   ;; Disable the ring bell
+   (setq ring-bell-function 'ignore)
+   ;; Disable startup screen
+   (setq inhibit-startup-screen t)
+   ;; Better scrolling
+   (setq scroll-margin 0
+         scroll-conservatively 100000
+         scroll-preserve-screen-position 1)
+   ;; More useful frame title, that show either a file or a
+   ;; buffer name (if the buffer isn't visiting a file)
+   (setq frame-title-format '((:eval (if (buffer-file-name)
+                                         (abbreviate-file-name (buffer-file-name))
+                                       "%b"))))
+   #+END_SRC
 
 ** font
    The default font is Source Code Pro, where available.
@@ -199,30 +186,50 @@ Most of these settings are taken from prelude-ui.el.
      (set-frame-font "Source code Pro 13"))
    #+END_SRC
 
-** mode line
-*** what to show
-From [[https://www.emacswiki.org/emacs/ModeLineConfiguration][EmacsWiki]].
-Taken on [2017-07-05 Wed]
+** theme
+   Default theme is Eclipse.  Zenburn and Solarized are also installed.  Themes
+   can be changed via counsel-load-theme.
 
 #+BEGIN_SRC emacs-lisp
-;; (setq line-number-mode nil)
-(setq column-number-mode t)
-(setq size-indication-mode nil)
-(setq display-time-day-and-date t)
-(setq display-time-default-load-average nil)
-(display-time)
+(use-package zenburn-theme
+  :ensure t
+  :defer t)
+
+(use-package solarized-theme
+  :ensure t
+  :defer t)
+
+(use-package eclipse-theme
+  :ensure t
+  :config
+  (load-theme 'eclipse t))
 #+END_SRC
+
+** mode line
+*** what to show
+    From [[https://www.emacswiki.org/emacs/ModeLineConfiguration][EmacsWiki]].
+    Taken on [2017-07-05 Wed]
+
+    #+BEGIN_SRC emacs-lisp
+      ;; (setq line-number-mode nil)
+      (setq column-number-mode t)
+      (setq size-indication-mode nil)
+      (setq display-time-day-and-date t)
+      (setq display-time-default-load-average nil)
+      (display-time)
+    #+END_SRC
 
 *** smart-mode-line
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line
   :ensure t
   :config
-  (sml/setup)
-  (sml/apply-theme 'automatic)
+  (setq sml/theme 'respectful)
   (setq sml/name-width 30)
-  (setq sml/mode-width 'full))
-#+END_SRC
+  (setq sml/mode-width 'full)
+  (setq sml/no-confirm-load-theme t)
+  (sml/setup))
+  #+END_SRC
 
 *** rich-minority
 #+BEGIN_SRC emacs-lisp
@@ -267,7 +274,7 @@ character of one of the paired characters, the other is highlighted.
 #+BEGIN_SRC emacs-lisp
 (use-package paren
   :config
-  (show-paren-mode +1))
+  (show-paren-mode 1))
 #+END_SRC
 
 ** hl-line
@@ -277,7 +284,7 @@ line]].
 
 #+BEGIN_SRC emacs-lisp
 (use-package hl-line
-  :config (global-hl-line-mode +1))
+  :config (global-hl-line-mode 1))
 #+END_SRC
 
 ** abbrev
@@ -351,7 +358,7 @@ available here: [[https://www.emacswiki.org/emacs/savehist-20+.el][Lisp:savehist
         savehist-autosave-interval 60
         ;; keep the home clean
         savehist-file (expand-file-name "savehist" savefile-dir))
-  (savehist-mode +1))
+  (savehist-mode 1))
 #+END_SRC
 
 ** recentf
@@ -368,7 +375,7 @@ access this list through a command or the menu.
         ;; disable recentf-cleanup on Emacs start, because it can cause
         ;; problems with remote files
         recentf-auto-cleanup 'never)
-  (recentf-mode +1))
+  (recentf-mode 1))
 #+END_SRC
 
 ** windmove
@@ -610,7 +617,7 @@ better to collate the matches and then use =xargs= to run the command.
   (add-hook 'ielm-mode-hook #'eldoc-mode)
   (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
    #+END_SRC
-   
+
 ** whitespace
    From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
 
@@ -625,7 +632,7 @@ better to collate the matches and then use =xargs= to run the command.
                                    empty-line indentation space-mark
                                    newline-mark)))
    #+END_SRC
-   
+
 * Third Party Packages
 ** ag
    #+BEGIN_SRC emacs-lisp
