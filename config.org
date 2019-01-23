@@ -677,6 +677,7 @@ decision tree.
 #+BEGIN_SRC emacs-lisp
 (use-package browse-kill-ring
   :ensure t
+  :defer t
   :after key-chord)
 #+END_SRC
 
@@ -691,6 +692,7 @@ decision tree.
      (setq company-tooltip-flip-when-above t)
      (add-hook 'after-init-hook 'global-company-mode))
    #+END_SRC
+
 ** crux
    #+BEGIN_SRC emacs-lisp
    (use-package crux
@@ -724,7 +726,7 @@ decision tree.
      :config
      (setq crux-shell "/bin/zsh"))
    #+END_SRC
-   
+
 ** easy-kill
    =[[https://github.com/leoliu/easy-kill][easy-kill]]= is an awesome package that allows you to save up on the steps you’d
    normally have to take when saving and killing stuff.  It's called easy-kill, but
@@ -737,10 +739,12 @@ decision tree.
      (global-set-key [remap kill-ring-save] #'easy-kill)
      (global-set-key [remap mark-sexp] #'easy-mark))
    #+END_SRC
+
 ** ess
    #+BEGIN_SRC emacs-lisp
    (use-package ess
      :ensure t
+     :defer t
      :init
      (require 'ess-site)
      :config
@@ -753,6 +757,7 @@ decision tree.
      (define-key ess-r-mode-map "_" #'ess-insert-assign)
      (define-key inferior-ess-r-mode-map "_" #'ess-insert-assign))
    #+END_SRC
+
 ** exec-path-from-shell
    A GNU Emacs library to ensure environment variables inside Emacs look the same
    as in the user's shell.
@@ -760,23 +765,28 @@ decision tree.
    #+BEGIN_SRC emacs-lisp
    (use-package exec-path-from-shell
      :ensure t
+     :defer t
      :config
      (when (memq window-system '(mac ns))
        (exec-path-from-shell-initialize)))
    #+END_SRC
+
 ** expand-region
    #+BEGIN_SRC emacs-lisp
    (use-package expand-region
      :ensure t
+     :defer t
      :bind ("C-=" . er/expand-region))
    #+END_SRC
-   
+
 ** git-timemachine
    #+BEGIN_SRC emacs-lisp
    (use-package git-timemachine
      :ensure t
+     :defer t
      :bind (("s-g" . git-timemachine)))
    #+END_SRC
+
 ** imenu-anywhere
    =imenu-anywhere= provides navigation for imenu tags across all buffers that
    satisfy a filtering criteria.  Available criteria are: all buffers with the same
@@ -785,8 +795,10 @@ decision tree.
    #+BEGIN_SRC emacs-lisp
    (use-package imenu-anywhere
      :ensure t
+     :defer t
      :bind (("C-c i" . imenu-anywhere)))
    #+END_SRC
+
 ** haskell-mode
    This is an Emacs mode for editing, debugging and developing Haskell
    programs. [[http://haskell.github.io/haskell-mode/][Home page]].
@@ -794,9 +806,11 @@ decision tree.
    #+BEGIN_SRC emacs-lisp
    (use-package haskell-mode
      :ensure t
+     :defer t
      :config
      (add-hook 'haskell-mode #'subword-mode))
    #+END_SRC
+
 ** hungry-delete
    From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html][post]].
    #+BEGIN_SRC emacs-lisp
@@ -805,7 +819,7 @@ decision tree.
      :config
      (global-hungry-delete-mode))
    #+END_SRC
-   
+
 ** key-chord
    Key-chord lets you bind commands to combinations of key-strokes. Here a “key
    chord” means two keys pressed simultaneously, or a single key quickly pressed
@@ -825,6 +839,7 @@ decision tree.
      (key-chord-define-global "yy" 'browse-kill-ring)
      (key-chord-mode 1))
    #+END_SRC
+
 ** lispy
    #+BEGIN_SRC emacs-lisp
    (use-package lispy
@@ -832,12 +847,15 @@ decision tree.
      :config
      (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1))))
    #+END_SRC
+
 ** magit
    #+BEGIN_SRC emacs-lisp
    (use-package magit
      :ensure t
+     :defer t
      :bind (("C-x g" . magit-status)))
    #+END_SRC
+
 ** markdown-mode
    =markdown-mode= is a major mode for GNU Emacs which provides syntax highlighting
    and supporting commands for editing Markdown files.  It provides keybindings and
@@ -849,11 +867,13 @@ decision tree.
    #+BEGIN_SRC emacs-lisp
    (use-package markdown-mode
      :ensure t
+     :defer t
      :mode (("\\.md\\'" . gfm-mode)
             ("\\.markdown\\'" . gfm-mode))
      :config
      (setq markdown-fontify-code-blocks-natively t))
    #+END_SRC
+
 ** move-text
    MoveText allows you to move the current line using M-up / M-down (or any other
    bindings you choose) if a region is marked, it will move the region instead.
@@ -864,10 +884,12 @@ decision tree.
    #+BEGIN_SRC emacs-lisp
    (use-package move-text
      :ensure t
+     :defer t
      :bind
      (("M-," . move-text-up))
      (("M-." . move-text-down)))
    #+END_SRC
+
 ** page-break-lines
    From Steve Purcell.  Github page [[https://github.com/purcell/page-break-lines][here]].
    #+BEGIN_SRC emacs-lisp
@@ -876,6 +898,7 @@ decision tree.
      :config
      (global-page-break-lines-mode))
    #+END_SRC
+
 ** polymode
    Taken from [[https://github.com/basille/.emacs.d/blob/master/init.el][here]], on [2017-01-09 Mon].
    #+BEGIN_SRC emacs-lisp
@@ -883,6 +906,7 @@ decision tree.
 ;; https://github.com/vitoshka/polymode
 (use-package polymode
   :ensure t
+  :defer t
   :config
   (use-package poly-R
     :ensure t)
@@ -893,39 +917,41 @@ decision tree.
   (use-package poly-org
     :ensure t)
   :mode
-  ("\\.md"       . poly-markdown-mode)       ; Markdown files
-  ("\\.[rR]md"   . poly-markdown+r-mode)     ; RMarkdown files
+  ("\\.md"       . poly-markdown-mode)   ; Markdown files
+  ("\\.[rR]md"   . poly-markdown+r-mode) ; RMarkdown files
   ("\\.[sSrR]nw" . poly-noweb+r-mode))       ; Sweave files
    #+END_SRC
 
 ** projectile
-Projectile is a project interaction library for Emacs.  Its goal is to provide a
-nice set of features operating on a project level without introducing external
-dependencies (when feasible).  For instance---finding project files has a
-portable implementation written in pure Emacs Lisp without the use of GNU find
-(but for performance sake an indexing mechanism backed by external commands
-exists as well).
+   Projectile is a project interaction library for Emacs.  Its goal is to provide a
+   nice set of features operating on a project level without introducing external
+   dependencies (when feasible).  For instance---finding project files has a
+   portable implementation written in pure Emacs Lisp without the use of GNU find
+   (but for performance sake an indexing mechanism backed by external commands
+   exists as well).
 
-Projectile tries to be practical---portability is great, but if some external
-tools could speed up some task substantially and the tools are available,
-Projectile will leverage them.
+   Projectile tries to be practical---portability is great, but if some external
+   tools could speed up some task substantially and the tools are available,
+   Projectile will leverage them.
 
-This library provides easy project management and navigation.  The concept of a
-project is pretty basic---just a folder containing special file.  Currently
-=git=, =mercurial=, =darcs= and =bazaar= repos are considered projects by
-default.  So are =lein=, =maven=, =sbt=, =scons=, =rebar= and =bundler=
-projects.  If you want to mark a folder manually as a project just create an
-empty =.projectile= file in it.
+   This library provides easy project management and navigation.  The concept of a
+   project is pretty basic---just a folder containing special file.  Currently
+   =git=, =mercurial=, =darcs= and =bazaar= repos are considered projects by
+   default.  So are =lein=, =maven=, =sbt=, =scons=, =rebar= and =bundler=
+   projects.  If you want to mark a folder manually as a project just create an
+   empty =.projectile= file in it.
 
-#+BEGIN_SRC emacs-lisp
-(use-package projectile
-  :ensure t
-  :init
-  (setq projectile-completion-system 'ivy)
-  :config
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package projectile
+     :ensure t
+     :defer t
+     :init
+     (setq projectile-completion-system 'ivy)
+     :config
+     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+     (projectile-mode +1))
+   #+END_SRC
+
 ** rainbow-delimiters
    Colours paired parenthesis.
 
@@ -935,6 +961,7 @@ empty =.projectile= file in it.
      :config
      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
    #+END_SRC
+
 ** rainbow-mode
    Colorize color names in buffers.
 
@@ -944,14 +971,16 @@ empty =.projectile= file in it.
      :config
      (add-hook 'prog-mode-hook #'rainbow-mode))
    #+END_SRC
-** CANCELLED smartparens
+
+** smartparens
    #+BEGIN_SRC emacs-lisp
    (use-package smartparens
      ;; 17Aug2017
      ;; https://gist.github.com/oantolin/5751fbaa7b8ab4f9570893f2adfe1862
      :ensure t
+     :defer t
      :init
-     (smartparens-global-mode)
+     ;; (smartparens-global-mode)
      ;; (smartparens-global-strict-mode)
      :bind
      (:map smartparens-mode-map
@@ -1007,6 +1036,7 @@ empty =.projectile= file in it.
      :config
      (add-hook 'eval-expression-minibuffer-setup-hook #'smartparens-mode))
    #+END_SRC
+
 ** swiper
 *** counsel
     #+BEGIN_SRC emacs-lisp
@@ -1028,6 +1058,7 @@ empty =.projectile= file in it.
               (t		 . ivy--regex-fuzzy)))
       (setq ivy-initial-inputs-alist nil))
     #+END_SRC
+
 *** ivy
     #+BEGIN_SRC emacs-lisp
     (use-package ivy
@@ -1040,7 +1071,7 @@ empty =.projectile= file in it.
       (progn
         (global-set-key (kbd "C-c C-r") 'ivy-resume)))
     #+END_SRC
-    
+
 *** swiper
     #+BEGIN_SRC emacs-lisp
     (use-package swiper
@@ -1048,12 +1079,14 @@ empty =.projectile= file in it.
       :bind (("C-s" . swiper)
              ("C-c q" . swiper-all)))
     #+END_SRC
+
 *** hydra
     #+BEGIN_SRC emacs-lisp
     (use-package hydra
       :ensure t
       :defer t)
     #+END_SRC
+
 ** undo-tree
    #+BEGIN_SRC emacs-lisp
    (use-package undo-tree
@@ -1065,28 +1098,32 @@ empty =.projectile= file in it.
            `((".*" . ,temporary-file-directory)))
      (setq undo-tree-auto-save-history t))
    #+END_SRC
+
 ** volatile-highlights
    #+BEGIN_SRC emacs-lisp
    (use-package volatile-highlights
      :ensure t
+     :defer t
      :config
      (volatile-highlights-mode +1))
    #+END_SRC
-   
+
 ** which-key
    #+BEGIN_SRC emacs-lisp
    (use-package which-key
      :ensure t
+     :defer t
      :config
      (which-key-mode 1))
    #+END_SRC
-   
+
 ** zop-top-char
    A visual zap-to-char command for Emacs.
 
    #+BEGIN_SRC emacs-lisp
    (use-package zop-to-char
      :ensure t
+     :defer t
      :bind (("M-z" . zop-up-to-char)
             ("M-Z" . zop-to-char)))
    #+END_SRC
