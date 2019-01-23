@@ -389,37 +389,38 @@ subdirectories to byte-compiling files, searching files, and of course visiting
 *** dired configuration
 #+BEGIN_SRC emacs-lisp
 (put 'dired-find-alternate-file 'disabled nil)
+(setq dired-dwim-target t)
 #+END_SRC
 
 *** dired-x
-The [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] library [[https://www.emacswiki.org/emacs?search=%2522Dired+X%2522][Dired X]] ([[https://www.emacswiki.org/emacs?search=%2522dired-x%2522][dired-x]].el) provides extra functionality for
-DiredMode.  It comes with Emacs.
+    The [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] library [[https://www.emacswiki.org/emacs?search=%2522Dired+X%2522][Dired X]] ([[https://www.emacswiki.org/emacs?search=%2522dired-x%2522][dired-x]].el) provides extra functionality for
+    DiredMode.  It comes with Emacs.
 
-A manual comes with Emacs documenting these extra features for Dired
-Mode.  Origanally written by [[https://www.emacswiki.org/emacs/SebastianKremer][SebastianKremer]].
+    A manual comes with Emacs documenting these extra features for Dired
+    Mode.  Origanally written by [[https://www.emacswiki.org/emacs/SebastianKremer][SebastianKremer]].
 
-#+BEGIN_SRC emacs-lisp
-  ;; enable some really cool extensions like C-x C-j (dired-jump)
-  (use-package dired-x
-    :config
-    ;; 15Aug2018
-    ;; include hidden files in dired-omit-files variable
-    ;; section 3.2 of dired-x manual
-    (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$"))
+    #+BEGIN_SRC emacs-lisp
+    ;; enable some really cool extensions like C-x C-j (dired-jump)
+(use-package dired-x
+  :config
+  ;; 15Aug2018
+  ;; include hidden files in dired-omit-files variable
+  ;; section 3.2 of dired-x manual
+  (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$"))
 #+END_SRC
 
 *** dired-rsync
-This package adds a single command dired-rsync which allows the user to copy
-marked files in a dired buffer via rsync.  This is useful, especially for large
-files, because the copy happens in the background and doesn’t lock up Emacs.  It
-is also more efficient than using tramps own encoding methods for moving data
-between systems.
+    This package adds a single command dired-rsync which allows the user to copy
+    marked files in a dired buffer via rsync.  This is useful, especially for large
+    files, because the copy happens in the background and doesn’t lock up Emacs.  It
+    is also more efficient than using tramps own encoding methods for moving data
+    between systems.
 
-#+BEGIN_SRC emacs-lisp
-(use-package dired-rsync
-  :ensure t
-  :config
-  (bind-key "Y" 'dired-rsync dired-mode-map))
+    #+BEGIN_SRC emacs-lisp
+    (use-package dired-rsync
+      :ensure t
+      :config
+      (bind-key "Y" 'dired-rsync dired-mode-map))
 #+END_SRC
 
 *** dired-filter
