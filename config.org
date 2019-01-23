@@ -677,9 +677,10 @@ decision tree.
      :config
      (setq company-show-numbers t)
      (setq company-minimum-prefix-length 3)
+     (setq company-tooltip-align-annotations t)
+     (setq company-tooltip-flip-when-above t)
      (add-hook 'after-init-hook 'global-company-mode))
    #+END_SRC
-   
 ** crux
    #+BEGIN_SRC emacs-lisp
    (use-package crux
