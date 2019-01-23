@@ -822,14 +822,28 @@ decision tree.
      :config
      (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1))))
    #+END_SRC
-   
 ** magit
    #+BEGIN_SRC emacs-lisp
    (use-package magit
      :ensure t
      :bind (("C-x g" . magit-status)))
    #+END_SRC
-   
+** markdown-mode
+   =markdown-mode= is a major mode for GNU Emacs which provides syntax highlighting
+   and supporting commands for editing Markdown files.  It provides keybindings and
+   commands for inserting Markdown elements and to assist in calling =markdown= to
+   parse the source code or preview the document in a browser.  It also, optionally,
+   provides syntax highlighting for wiki links and embedded itex mathematical
+   expressions.
+
+   #+BEGIN_SRC emacs-lisp
+   (use-package markdown-mode
+     :ensure t
+     :mode (("\\.md\\'" . gfm-mode)
+            ("\\.markdown\\'" . gfm-mode))
+     :config
+     (setq markdown-fontify-code-blocks-natively t))
+   #+END_SRC
 ** move-text
    MoveText allows you to move the current line using M-up / M-down (or any other
    bindings you choose) if a region is marked, it will move the region instead.
