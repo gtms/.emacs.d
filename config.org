@@ -629,7 +629,7 @@ better to collate the matches and then use =xargs= to run the command.
    (use-package ag
      :ensure t)
    #+END_SRC
-** aggressive-indent
+** CANCELLED aggressive-indent
  =electric-indent-mode= is enough to keep your code nicely aligned when all you
  do is type.  However, once you start shifting blocks around, transposing lines,
  or slurping and barfing sexps, indentation is bound to go wrong.
@@ -997,7 +997,6 @@ empty =.projectile= file in it.
      :config
      (add-hook 'eval-expression-minibuffer-setup-hook #'smartparens-mode))
    #+END_SRC
-
 ** swiper
 *** counsel
     #+BEGIN_SRC emacs-lisp
@@ -1007,7 +1006,6 @@ empty =.projectile= file in it.
              ("C-x C-f"       . counsel-find-file)
              ("C-h v"         . counsel-describe-variable)
              ("C-h f"         . counsel-describe-function))
-
       :config
       (use-package flx
         :ensure t)
@@ -1019,60 +1017,66 @@ empty =.projectile= file in it.
               (swiper-all	 . regexp-quote)
               (t		 . ivy--regex-fuzzy)))
       (setq ivy-initial-inputs-alist nil))
-#+END_SRC
-
+    #+END_SRC
 *** ivy
-#+BEGIN_SRC emacs-lisp
-(use-package ivy
-  :ensure t
-  :bind (("C-x b" . ivy-switch-buffer))
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-display-style 'fancy)
-  (progn
-    (global-set-key (kbd "C-c C-r") 'ivy-resume)))
-#+END_SRC
-
+    #+BEGIN_SRC emacs-lisp
+    (use-package ivy
+      :ensure t
+      :bind (("C-x b" . ivy-switch-buffer))
+      :config
+      (ivy-mode 1)
+      (setq ivy-use-virtual-buffers t)
+      (setq ivy-display-style 'fancy)
+      (progn
+        (global-set-key (kbd "C-c C-r") 'ivy-resume)))
+    #+END_SRC
+    
 *** swiper
-#+BEGIN_SRC emacs-lisp
-(use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper)
-         ("C-c q" . swiper-all)))
-#+END_SRC
-
+    #+BEGIN_SRC emacs-lisp
+    (use-package swiper
+      :ensure t
+      :bind (("C-s" . swiper)
+             ("C-c q" . swiper-all)))
+    #+END_SRC
 *** hydra
-#+BEGIN_SRC emacs-lisp
-(use-package hydra
-  :ensure t
-  :defer t)
-#+END_SRC
-
+    #+BEGIN_SRC emacs-lisp
+    (use-package hydra
+      :ensure t
+      :defer t)
+    #+END_SRC
 ** undo-tree
-#+BEGIN_SRC emacs-lisp
-(use-package undo-tree
-  :ensure t
-  :after key-chord
-  :config
-  ;; autosave the undo-tree history
-  (setq undo-tree-history-directory-alist
-        `((".*" . ,temporary-file-directory)))
-  (setq undo-tree-auto-save-history t))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package undo-tree
+     :ensure t
+     :after key-chord
+     :config
+     ;; autosave the undo-tree history
+     (setq undo-tree-history-directory-alist
+           `((".*" . ,temporary-file-directory)))
+     (setq undo-tree-auto-save-history t))
+   #+END_SRC
 ** volatile-highlights
-#+BEGIN_SRC emacs-lisp
-(use-package volatile-highlights
-  :ensure t
-  :config
-  (volatile-highlights-mode +1))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (use-package volatile-highlights
+     :ensure t
+     :config
+     (volatile-highlights-mode +1))
+   #+END_SRC
+   
 ** which-key
-#+BEGIN_SRC emacs-lisp
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode 1))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package which-key
+     :ensure t
+     :config
+     (which-key-mode 1))
+   #+END_SRC
+   
+** zop-top-char
+   A visual zap-to-char command for Emacs.
+
+   #+BEGIN_SRC emacs-lisp
+   (use-package zop-to-char
+     :ensure t
+     :bind (("M-z" . zop-up-to-char)
+            ("M-Z" . zop-to-char)))
+   #+END_SRC
