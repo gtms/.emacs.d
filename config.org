@@ -853,9 +853,11 @@ decision tree.
 
    #+BEGIN_SRC emacs-lisp
    (use-package move-text
-     :ensure t)
+     :ensure t
+     :bind
+     (("M-," . move-text-up))
+     (("M-." . move-text-down)))
    #+END_SRC
-   
 ** page-break-lines
    From Steve Purcell.  Github page [[https://github.com/purcell/page-break-lines][here]].
    #+BEGIN_SRC emacs-lisp
@@ -864,7 +866,6 @@ decision tree.
      :config
      (global-page-break-lines-mode))
    #+END_SRC
-   
 ** polymode
    Taken from [[https://github.com/basille/.emacs.d/blob/master/init.el][here]], on [2017-01-09 Mon].
    #+BEGIN_SRC emacs-lisp
@@ -887,16 +888,52 @@ decision tree.
   ("\\.[sSrR]nw" . poly-noweb+r-mode))       ; Sweave files
    #+END_SRC
 
+** projectile
+Projectile is a project interaction library for Emacs.  Its goal is to provide a
+nice set of features operating on a project level without introducing external
+dependencies (when feasible).  For instance---finding project files has a
+portable implementation written in pure Emacs Lisp without the use of GNU find
+(but for performance sake an indexing mechanism backed by external commands
+exists as well).
+
+Projectile tries to be practical---portability is great, but if some external
+tools could speed up some task substantially and the tools are available,
+Projectile will leverage them.
+
+This library provides easy project management and navigation.  The concept of a
+project is pretty basic---just a folder containing special file.  Currently
+=git=, =mercurial=, =darcs= and =bazaar= repos are considered projects by
+default.  So are =lein=, =maven=, =sbt=, =scons=, =rebar= and =bundler=
+projects.  If you want to mark a folder manually as a project just create an
+empty =.projectile= file in it.
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-completion-system 'ivy)
+  :config
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (projectile-mode +1))
+#+END_SRC
 ** rainbow-delimiters
    Colours paired parenthesis.
-   
+
    #+BEGIN_SRC emacs-lisp
    (use-package rainbow-delimiters
      :ensure t
      :config
      (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
-#+END_SRC
+   #+END_SRC
+** rainbow-mode
+   Colorize color names in buffers.
 
+   #+BEGIN_SRC emacs-lisp
+   (use-package rainbow-mode
+     :ensure t
+     :config
+     (add-hook 'prog-mode-hook #'rainbow-mode))
+   #+END_SRC
 ** CANCELLED smartparens
    #+BEGIN_SRC emacs-lisp
    (use-package smartparens
