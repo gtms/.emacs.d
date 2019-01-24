@@ -201,7 +201,8 @@ The default font is Source Code Pro, where available.
 (use-package eclipse-theme
   :ensure t
   :config
-  (load-theme 'eclipse t))
+  (if (display-graphic-p)
+      (load-theme 'eclipse t)))
 #+END_SRC
 
 ** mode line
