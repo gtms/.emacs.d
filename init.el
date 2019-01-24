@@ -44,10 +44,6 @@
 (defvar my-start-time (current-time)
   "Time when loading of personal configurations was started.")
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p "custom.el")
-  (load custom-file))
-
 ;; This is GPLv2. If you still don't know the details, read
 ;; http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
 

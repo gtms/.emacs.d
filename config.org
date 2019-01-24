@@ -13,6 +13,23 @@ Snippets in this file that:
 are tangled into the config.el file living in ~/.emacs.d, in an efficient and
 elligible manner.
 
+* Load =custom.el=
+Saving customizations works by writing code to a file, usually the
+initialization file (=init.el=).  Subsequent emacs sessions automatically read
+this file at startup, which sets up the customizations again.
+
+To avoid cluttering the =init.el= file, customizations can be saved into a
+=custom.el= file, which can even be specified for different Emacs versions (see
+section 49.1.4 of the Emacs manual).  Note that Emacs sessions invoked with the
+=`-q'= or =`--no-init-file' options will not save customizations to the
+initialization file.
+
+#+BEGIN_SRC emacs-lisp
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p "custom.el")
+  (load custom-file))
+#+END_SRC
+
 * Core
 These were taken from [[https://github.com/bbatsov/prelude%5D][Prelude Emacs]], Bozidar Batsov [[https://github.com/bbatsov/emacs.d][init.el]], my previous
 iteration of config.org, as well as various other sources.
@@ -179,30 +196,31 @@ Package management is done via =use-package=.
    #+END_SRC
 
 ** font
-The default font is Source Code Pro, where available.
+   The default font is Source Code Pro, where available.
 
-#+BEGIN_SRC emacs-lisp
-(set-frame-font "Source Code Pro")
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (set-frame-font "Source Code Pro 13")
+   #+END_SRC
 
 ** theme
    Default theme is Eclipse.  Zenburn and Solarized are also installed.  Themes
    can be changed via counsel-load-theme.
 
 #+BEGIN_SRC emacs-lisp
-(use-package zenburn-theme
-  :ensure t
-  :defer t)
+  (use-package zenburn-theme
+    :ensure t
+    :defer t)
 
-(use-package solarized-theme
-  :ensure t
-  :defer t)
+  (use-package solarized-theme
+    :ensure t
+    :defer t)
 
-(use-package eclipse-theme
-  :ensure t
-  :config
-  (if (display-graphic-p)
-      (load-theme 'eclipse t)))
+  (use-package eclipse-theme
+    :ensure t
+    :demand t
+    :config
+    (if (display-graphic-p)
+        (load-theme 'eclipse t)))
 #+END_SRC
 
 ** mode line
@@ -268,6 +286,7 @@ Org Mode is kept as a package managed by use-package.
 (use-package org
   :ensure
   org-plus-contrib
+  :pin gnu
   :config
   (add-hook 'org-mode-hook 'worf-mode)
   (use-package org-bullets
