@@ -1129,6 +1129,15 @@ decision tree.
      (which-key-mode 1))
    #+END_SRC
 
+** worg
+   GNU Emacs minor mode that provides vi-like bindings for org-mode.
+
+#+BEGIN_SRC emacs-lisp
+(use-package worf
+  :ensure t
+  :defer t)
+#+END_SRC
+
 ** zop-top-char
    A visual zap-to-char command for Emacs.
 
