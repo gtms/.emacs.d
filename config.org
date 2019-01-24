@@ -641,9 +641,8 @@ better to collate the matches and then use =xargs= to run the command.
        (add-hook hook #'whitespace-mode))
      :config
      (setq whitespace-line-column 80)
-     (setq whitespace-style '(face trailing tabs spaces lines-tail newline
-                                   empty-line indentation space-mark
-                                   newline-mark)))
+     (setq whitespace-style '(face trailing tabs lines-tail newline
+                                   empty-line indentation newline-mark)))
    #+END_SRC
 
 * Third Party Packages
@@ -834,7 +833,7 @@ decision tree.
    #+END_SRC
 
 ** key-chord
-   Key-chord lets you bind commands to combinations of key-strokes. Here a “key
+   Key-chord lets you bind commands to combinations of key-strokes.  Here a “key
    chord” means two keys pressed simultaneously, or a single key quickly pressed
    twice.
 
