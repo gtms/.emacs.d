@@ -133,11 +133,12 @@ the local cache is missing.
 #+BEGIN_SRC emacs-lisp
 (require 'package)
 (add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
-             (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
-             (package-initialize)
-             (unless package-archive-contents
-             (package-refresh-contents))
+             '("melpa" . "https://melpa.org/packages/")
+             '("org"   . "https://orgmode.org/elpa/"))
+(setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 #+END_SRC
 
 ** use-package
