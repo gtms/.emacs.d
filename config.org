@@ -179,13 +179,11 @@ Package management is done via =use-package=.
    #+END_SRC
 
 ** font
-   The default font is Source Code Pro, where available.
+The default font is Source Code Pro, where available.
 
-   #+BEGIN_SRC emacs-lisp
-   (if (string-equal system-type "darwin")
-       (set-frame-font "Source Code Pro 14")
-     (set-frame-font "Source code Pro 13"))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(set-frame-font "Source Code Pro")
+#+END_SRC
 
 ** theme
    Default theme is Eclipse.  Zenburn and Solarized are also installed.  Themes
