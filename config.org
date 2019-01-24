@@ -259,9 +259,22 @@ The default font is Source Code Pro, where available.
 ** other editing commands
 * The Practicals of Emacs
 * Org Mode
-  Org Mode is kept as a package managed by use-package.
+Org Mode is kept as a package managed by use-package.
+
 #+BEGIN_SRC emacs-lisp
-(use-package org)
+;; 05Jun2018 solution to install org-mode on top of bundled version, as
+;; suggested on this reddit thread:
+;; https://www.reddit.com/r/emacs/comments/5sx7j0/how_do_i_get_usepackage_to_ignore_the_bundled/
+(use-package org
+  :ensure
+  org-plus-contrib
+  :config
+  (add-hook 'org-mode-hook 'worf-mode)
+  (use-package org-bullets
+    :ensure t
+    :config
+    (add-hook 'org-mode-hook 'org-bullets-mode)
+    (setq org-bullets-bullet-list '("•"))))
 #+END_SRC
 
 * Built-in Packages
