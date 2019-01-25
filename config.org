@@ -21,7 +21,7 @@ this file at startup, which sets up the customizations again.
 To avoid cluttering the =init.el= file, customizations can be saved into a
 =custom.el= file, which can even be specified for different Emacs versions (see
 section 49.1.4 of the Emacs manual).  Note that Emacs sessions invoked with the
-=`-q'= or =`--no-init-file' options will not save customizations to the
+=`-q'= or =`--no-init-file'= options will not save customizations to the
 initialization file.
 
 #+BEGIN_SRC emacs-lisp
@@ -149,9 +149,8 @@ the local cache is missing.
 
 #+BEGIN_SRC emacs-lisp
 (require 'package)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/")
-             '("org"   . "https://orgmode.org/elpa/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("org"   . "https://orgmode.org/elpa/") t)
 (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
 (package-initialize)
 (unless package-archive-contents
@@ -199,28 +198,43 @@ Package management is done via =use-package=.
    The default font is Source Code Pro, where available.
 
    #+BEGIN_SRC emacs-lisp
-     (set-frame-font "Source Code Pro 13")
+     (set-frame-font "Source Code Pro")
    #+END_SRC
 
 ** theme
-   Default theme is Eclipse.  Zenburn and Solarized are also installed.  Themes
-   can be changed via counsel-load-theme.
+   Default theme is a customized version of Eclipse, by Oleh Krehel.  Zenburn
+   and Solarized are also installed.  Themes can be changed via
+   =counsel-load-theme=.
 
 #+BEGIN_SRC emacs-lisp
   (use-package zenburn-theme
     :ensure t
     :defer t)
 
-  (use-package solarized-theme
-    :ensure t
-    :defer t)
-
-  (use-package eclipse-theme
-    :ensure t
-    :demand t
-    :config
-    (if (display-graphic-p)
-        (load-theme 'eclipse t)))
+(use-package eclipse-theme
+  :ensure t
+  :demand t
+  :config
+  (if (display-graphic-p)
+      (load-theme 'eclipse t))
+  (let ((class '((class color) (min-colors 88) (background light)))
+      (eclipse-bg "grey100")
+      (eclipse-fg "grey0")
+      (eclipse-const "#navy")
+      (eclipse-comment "dark khaki")
+      (eclipse-error "red1")
+      (eclipse-builtin "#7F0055")
+      (eclipse-string "dark blue")
+      (eclipse-blue-3 "#758BC6")
+      (eclipse-region "#plum")
+      (eclipse-shadow "grey50")))
+  (custom-set-faces
+   '(font-lock-type-face ((t (:foreground "firebrick"
+                                          :underline nil
+                                          :slant normal
+                                          :weight bold))))
+   '(line-number-current-line ((t (:inherit line-number
+                                            :foreground "chocolate"))))))
 #+END_SRC
 
 ** mode line
@@ -280,13 +294,9 @@ Package management is done via =use-package=.
 Org Mode is kept as a package managed by use-package.
 
 #+BEGIN_SRC emacs-lisp
-;; 05Jun2018 solution to install org-mode on top of bundled version, as
-;; suggested on this reddit thread:
-;; https://www.reddit.com/r/emacs/comments/5sx7j0/how_do_i_get_usepackage_to_ignore_the_bundled/
 (use-package org
-  :ensure
-  org-plus-contrib
-  :pin gnu
+  :ensure org-plus-contrib
+  :pin org
   :config
   (add-hook 'org-mode-hook 'worf-mode)
   (use-package org-bullets
@@ -954,19 +964,19 @@ decision tree.
    #+END_SRC
 
 ** projectile
-   Projectile is a project interaction library for Emacs.  Its goal is to provide a
-   nice set of features operating on a project level without introducing external
-   dependencies (when feasible).  For instance---finding project files has a
-   portable implementation written in pure Emacs Lisp without the use of GNU find
-   (but for performance sake an indexing mechanism backed by external commands
-   exists as well).
+   Projectile is a project interaction library for Emacs.  Its goal is to
+   provide a nice set of features operating on a project level without
+   introducing external dependencies (when feasible).  For instance---finding
+   project files has a portable implementation written in pure Emacs Lisp
+   without the use of GNU find (but for performance sake an indexing mechanism
+   backed by external commands exists as well).
 
    Projectile tries to be practical---portability is great, but if some external
    tools could speed up some task substantially and the tools are available,
    Projectile will leverage them.
 
-   This library provides easy project management and navigation.  The concept of a
-   project is pretty basic---just a folder containing special file.  Currently
+   This library provides easy project management and navigation.  The concept of
+   a project is pretty basic---just a folder containing special file.  Currently
    =git=, =mercurial=, =darcs= and =bazaar= repos are considered projects by
    default.  So are =lein=, =maven=, =sbt=, =scons=, =rebar= and =bundler=
    projects.  If you want to mark a folder manually as a project just create an
@@ -1151,11 +1161,11 @@ decision tree.
 ** worg
    GNU Emacs minor mode that provides vi-like bindings for org-mode.
 
-#+BEGIN_SRC emacs-lisp
-(use-package worf
-  :ensure t
-  :defer t)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package worf
+     :ensure t
+     :defer t)
+   #+END_SRC
 
 ** zop-top-char
    A visual zap-to-char command for Emacs.
