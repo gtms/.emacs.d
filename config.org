@@ -236,23 +236,25 @@ Package management is done via =use-package=.
 
 *** smart-mode-line
 #+BEGIN_SRC emacs-lisp
-(use-package smart-mode-line
-  :ensure t
-  :config
-  (setq sml/theme 'respectful)
-  (setq sml/name-width 30)
-  (setq sml/mode-width 'full)
-  (setq sml/no-confirm-load-theme t)
-  (sml/setup))
+  (use-package smart-mode-line
+    :ensure t
+    :config
+    (setq sml/theme 'respectful)
+    (setq sml/name-width 30)
+    (setq sml/mode-width 'full)
+    (setq sml/no-confirm-load-theme t)
+    (setf rm-whitelist " SP")
+    (sml/setup))
   #+END_SRC
 
-*** rich-minority
+*** CANCELLED rich-minority
+    Already configured by smart-mode-line.
+
 #+BEGIN_SRC emacs-lisp
-(use-package rich-minority
-  :ensure t
-  :config
-  (rich-minority-mode 1)
-  (setf rm-whitelist " SP"))
+  (use-package rich-minority
+    :ensure t
+    :config
+    (setf rm-whitelist " SP"))
 #+END_SRC
 
 * The Theory of Movement
@@ -276,41 +278,40 @@ Package management is done via =use-package=.
 * Org Mode
   Org Mode is kept up-to-date via the orgmode.org archive repository.
 
-#+BEGIN_SRC emacs-lisp
-(use-package org
-  :ensure org-plus-contrib
-  :pin org
-  :config
-  (add-hook 'org-mode-hook 'worf-mode)
-  (use-package org-bullets
-    :ensure t
-    :config
-    (use-package org-tempo)
-    (add-hook 'org-mode-hook 'org-bullets-mode)
-    (setq org-bullets-bullet-list '("•"))))
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp
+    (use-package org
+      :ensure org-plus-contrib
+      :pin org
+      :config
+      (add-hook 'org-mode-hook 'worf-mode)
+      (use-package org-tempo)
+      (use-package org-bullets
+        :ensure t
+        :config
+        (setq org-bullets-bullet-list '("•"))))
+  #+END_SRC
 
 * Built-in Packages
 ** paren
-=show-paren-mode= allows one to see matching pairs of parentheses and other
-characters.  When point is on the opening character of one of the paired
-characters, the other is highlighted.  When the point is after the closing
-character of one of the paired characters, the other is highlighted.
+   =show-paren-mode= allows one to see matching pairs of parentheses and other
+   characters.  When point is on the opening character of one of the paired
+   characters, the other is highlighted.  When the point is after the closing
+   character of one of the paired characters, the other is highlighted.
 
 #+BEGIN_SRC emacs-lisp
-(use-package paren
-  :config
-  (show-paren-mode 1))
+  (use-package paren
+    :config
+    (show-paren-mode 1))
 #+END_SRC
 
 ** hl-line
-[[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] version 21 has library `hl-line.el', which provides a local and a
-global minor mode for highlighting the current line.  See [[http://www.emacswiki.org/cgi-bin/info-ref?find=highlight%2520current%2520line][highlight current
-line]].
+   [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] version 21 has library `hl-line.el', which provides a local and a
+   global minor mode for highlighting the current line.  See [[http://www.emacswiki.org/cgi-bin/info-ref?find=highlight%2520current%2520line][highlight current
+   line]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package hl-line
-  :config (global-hl-line-mode 1))
+  (use-package hl-line
+    :config (global-hl-line-mode 1))
 #+END_SRC
 
 ** abbrev
