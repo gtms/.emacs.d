@@ -202,24 +202,22 @@ Package management is done via =use-package=.
    #+END_SRC
 
 ** theme
-   Default theme is my fork of Eclipse, by Oleh Krehel.  Zenburn and
-   Solarized are also installed.  Themes can be changed via
-   =counsel-load-theme=.
+   Default theme is doom-nord-light.  Zenburn is also installed.  Themes can be
+   changed via =counsel-load-theme=.
 
    #+BEGIN_SRC emacs-lisp
    (use-package zenburn-theme
      :ensure t
      :defer t)
 
-   (use-package solarized-theme
+   (use-package doom-themes
      :ensure t
-     :defer t)
-
-   (use-package eclipse-theme
-     :ensure t
-     :defer t)
-
-   (load "~/.emacs.d/personal/gil-eclipse.el")
+     :config
+     (setq doom-themes-enable-bold t
+           doom-themes-enable-italic t)
+     (doom-themes-org-config)
+     (if (display-graphic-p)
+         (load-theme 'doom-nord-light t)))
    #+END_SRC
 
 ** mode line
