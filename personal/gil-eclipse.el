@@ -137,7 +137,9 @@
             (ivy-highlight-face)
             (ivy-posframe :background "#eeeeee" :foreground "#000000")
             (wgrep-face :foreground ,eclipse-comment)
-            (cider-instrumented-face)))))
+            (cider-instrumented-face)
+            (line-number-current-line ((t (:inherit line-number :foreground "black"))))
+            (whitespace-line ((t (:background "gray90" :foreground "violet"))))))))
 
 (custom-theme-set-variables
  'eclipse
