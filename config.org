@@ -284,12 +284,20 @@ Package management is done via =use-package=.
       :pin org
       :config
       (add-hook 'org-mode-hook 'worf-mode)
-      (use-package org-tempo)
-      (use-package org-bullets
-        :ensure t
-        :config
-        (setq org-bullets-bullet-list '("•"))))
+      (add-hook 'org-mode-hook 'org-bullets-mode)
+      (use-package org-tempo))
   #+END_SRC
+
+** org-bullets
+   Show bullets in org-mode as UTF-8 characters.
+
+   #+begin_src emacs-lisp
+   (use-package org-bullets
+     :ensure t
+     :defer t
+     :config
+     (setq org-bullets-bullet-list '("•")))
+   #+end_src
 
 * Built-in Packages
 ** paren
@@ -1173,7 +1181,7 @@ better to collate the matches and then use =xargs= to run the command.
   This snippet dispatches programs to 'ansi-term' automatically:
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'eshell-visual-commands "htop")
+  ;; (add-to-list 'eshell-visual-commands "htop")
 #+END_SRC
 
 This snippet defines eshell aliases:
