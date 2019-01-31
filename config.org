@@ -1165,3 +1165,40 @@ better to collate the matches and then use =xargs= to run the command.
      :bind (("M-z" . zop-up-to-char)
             ("M-Z" . zop-to-char)))
    #+END_SRC
+* Eshell
+  This Mike Petersen's [[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][article]] on Eshell on his Mastering Emacs blog is a must
+  read.  Also, see this [[http://howardism.org/Technical/Emacs/eshell-present.html][blogpost]] from Howard Abrams outlining some of Eshell
+  strengths.
+
+  This snippet dispatches programs to 'ansi-term' automatically:
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'eshell-visual-commands "htop")
+#+END_SRC
+
+This snippet defines eshell aliases:
+
+#+BEGIN_SRC emacs-lisp
+  (defalias 'ff 'find-file)
+  (defalias 'd 'dired)
+#+END_SRC
+
+This snippet configures the prompt:
+
+#+BEGIN_SRC emacs-lisp
+  (setq eshell-prompt-function
+        (lambda ()
+          (concat
+           (propertize "┌─[" 'face `(:foreground "grey50"))
+           (propertize (user-login-name) 'face `(:foreground "#5272AF"))
+           (propertize "@" 'face `(:foreground "grey50"))
+           (propertize (system-name) 'face `(:foreground "#2257A0"))
+           (propertize "]──[" 'face `(:foreground "grey50"))
+           (propertize (format-time-string "%H:%M" (current-time)) 'face `(:foreground "#a9a1e1"))
+           (propertize "]──[" 'face `(:foreground "grey50"))
+           (propertize (concat (eshell/pwd)) 'face `(:foreground "#842879"))
+           (propertize "]\n" 'face `(:foreground "grey50"))
+           (propertize "└─>" 'face `(:foreground "grey50"))
+           (propertize (if (= (user-uid) 0) " # " " $ ")))))
+#+END_SRC
+
