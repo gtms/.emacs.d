@@ -247,16 +247,6 @@ Package management is done via =use-package=.
     (sml/setup))
   #+END_SRC
 
-*** CANCELLED rich-minority
-    Already configured by smart-mode-line.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package rich-minority
-    :ensure t
-    :config
-    (setf rm-whitelist " SP"))
-#+END_SRC
-
 * The Theory of Movement
 ** the basics
 ** window management
