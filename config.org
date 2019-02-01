@@ -2,6 +2,12 @@
 #+AUTHOR: Gil Tomás
 #+STARTUP: overview
 
+* What needs to be done
+  The plan is to reorganise the structure of this file along that of the Emacs
+  Manual and that of Mickey Petersen's Mastering Emacs.  Also to do is the
+  optimisation of Emacs' startup time.  And the uniformisation of the global
+  keybindings and major modes.
+
 * Intro
 This file is my personal literate ~Emacs~ configuration, written in Org Mode.
 Snippets in this file that:
@@ -253,6 +259,7 @@ Package management is done via =use-package=.
 ** elemental movement
 ** selections and regions
 ** searching and indexing
+
 * The Theory of Editing
 ** killing and yanking text
 ** transposing text
