@@ -872,6 +872,14 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
      :bind ("C-=" . er/expand-region))
    #+END_SRC
 
+** gitignore-mode
+   A major mode for editing .gitignore files.  Added on [2019-02-04 Mon].
+
+   #+begin_src emacs-lisp
+   (use-package gitignore-mode
+     :ensure t)
+   #+end_src
+
 ** git-timemachine
    #+BEGIN_SRC emacs-lisp
    (use-package git-timemachine
