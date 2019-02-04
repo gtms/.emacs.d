@@ -1124,6 +1124,41 @@ better to collate the matches and then use =xargs= to run the command.
      (which-key-mode 1))
    #+END_SRC
 
+** wrap-region
+   Wrap region is a minor mode for Emacs that wraps a region with punctuations.
+   For "tagged" markup modes, such as HTML and XML, it wraps with tags.  This
+   configuration is taken from Howard Abrams [[https://github.com/howardabrams/dot-files/blob/master/emacs.org#block-wrappers][emacs.org]] file on [2019-02-04 Mon].
+
+   #+begin_src emacs-lisp
+   (use-package wrap-region
+     :ensure t
+     :config
+     (wrap-region-global-mode t)
+     (wrap-region-add-wrappers
+      '(("(" ")")
+        ("[" "]")
+        ("{" "}")
+        ("<" ">")
+        ("'" "'")
+        ("\"" "\"")
+        ("‘" "’" "q")
+        ("“" "”" "Q")
+        ("*" "*" "b" org-mode)                   ; bolden
+        ("*" "*" "*" org-mode)                   ; bolden
+        ("/" "/" "i" org-mode)                   ; italics
+        ("/" "/" "/" org-mode)                   ; italics
+        ("~" "~" "c" org-mode)                   ; code
+        ("~" "~" "~" org-mode)                   ; code
+        ("=" "=" "v" org-mode)                   ; verbatim
+        ("=" "=" "=" org-mode)                   ; verbatim
+        ("_" "_" "u" '(org-mode markdown-mode))  ; underline
+        ("**" "**" "b" markdown-mode)            ; bolden
+        ("*" "*" "i" markdown-mode)              ; italics
+        ("`" "`" "c" '(markdown-mode ruby-mode)) ; code
+        ("`" "'" "c" lisp-mode)                  ; code
+        )))
+   #+end_src
+
 ** worg
    GNU Emacs minor mode that provides vi-like bindings for org-mode.
 
