@@ -4,9 +4,13 @@
 
 * What needs to be done
   The plan is to reorganise the structure of this file along that of the Emacs
-  Manual and that of Mickey Petersen's Mastering Emacs.  Also to do is the
-  optimisation of Emacs' startup time.  And the uniformisation of the global
-  keybindings and major modes.
+  Manual and that of Mickey Petersen's Mastering Emacs.  Another great source of
+  ideas to guide the reorganisation of this file is the [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]] site on
+  Github.
+
+** TODO Also to do is the optimisation of Emacs' startup time
+
+** TODO And the uniformisation of the global keybindings and major modes
 
 * Intro
 This file is my personal literate ~Emacs~ configuration, written in Org Mode.
