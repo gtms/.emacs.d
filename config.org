@@ -93,6 +93,11 @@ iteration of config.org, as well as various other sources.
   (global-set-key (kbd "C-x O") (lambda ()
                                   (interactive)
                                   (other-window -1)))
+  ;; Mickey Petersen
+  ;; Effective Editing Movement
+  ;; https://www.masteringemacs.org/article/effective-editing-movement
+  ;; 04Feb2019
+  (setq next-line-add-newlines t)
 #+END_SRC
 
 [2019-01-16 Wed]
