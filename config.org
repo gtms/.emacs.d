@@ -456,6 +456,28 @@ better to collate the matches and then use =xargs= to run the command.
   (setq find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld")))
 #+END_SRC
 
+*** peep-dired
+    This is a minor mode that can be enabled from a dired buffer.  Once enabled
+    it will show the file from point in the other window.  Moving to the other
+    file within the dired buffer with =down=/=up= or =C-n=/=C-p= will display a
+    different file.  Hitting =SPC= will scroll the peeped file down, whereas
+    =C-SPC= and =backspace= will scroll it up.
+
+    The configuration for this snippet was taken from Howard Abrams' [[https://github.com/howardabrams/dot-files/blob/master/emacs.org#dired-options][emacs.org]]
+    and from the github [[https://github.com/asok/peep-dired][README]] of the project on [2019-02-04 Mon].
+
+    #+begin_src emacs-lisp
+    (use-package peep-dired
+      :ensure t
+      :defer t
+      :bind (:map dired-mode-map
+                  ("P" . peep-dired))
+      :config
+      (setq peep-dired-cleanup-eagerly t)
+      (setq peep-dired-enable-on-directories t)
+      (setq peep-dired-ignored-extensions '("mkv" "iso" "mp4")))
+    #+end_src
+
 *** dired sort directories first
 #+BEGIN_SRC emacs-lisp
 ;; 03Oct2012
