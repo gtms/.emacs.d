@@ -317,8 +317,8 @@ a file =~/.abbrev_defs=.
 
 #+BEGIN_SRC emacs-lisp
 (use-package abbrev
-  :config
   :defer t
+  :config
   (setq save-abbrevs 'silently)
   (setq-default abbrev-mode t)
   (add-hook 'text-mode-hook 'abbrev-mode))
