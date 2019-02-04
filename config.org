@@ -581,7 +581,7 @@ better to collate the matches and then use =xargs= to run the command.
     :config (global-hl-line-mode 1))
 #+END_SRC
 
-** lisp-mode
+** CANCELLED lisp-mode
    Emacs Lisp Mode is one of the best Programming Modes that comes with Emacs
    for working with EmacsLisp.
 
