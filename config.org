@@ -834,7 +834,7 @@ better to collate the matches and then use =xargs= to run the command.
    (use-package key-chord
      :ensure t
      :config
-     (key-chord-define-global "jj" 'avy-goto-word-1)
+     (key-chord-define-global "jh" 'avy-goto-word-1)
      (key-chord-define-global "jl" 'avy-goto-line)
      (key-chord-define-global "jk" 'avy-goto-char)
      (key-chord-define-global "JJ" 'crux-switch-to-previous-buffer)
