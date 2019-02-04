@@ -1215,3 +1215,9 @@ This snippet configures the prompt:
            (propertize (if (= (user-uid) 0) " # " " $ ")))))
 #+END_SRC
 
+This snippet taken from Prelude (prelude-editor.el:335) sets Eshell's directory
+name:
+
+#+begin_src emacs-lisp
+(setq eshell-directory-name (expand-file-name "eshell" savefile-dir))
+#+end_src
