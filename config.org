@@ -719,6 +719,18 @@ better to collate the matches and then use =xargs= to run the command.
      (setq crux-shell "/bin/zsh"))
    #+END_SRC
 
+** discover-my-major
+   Discover my major enables the easy finding of the key bindings of the current
+   Emacs major mode.  This headline was added on [2019-02-04 Mon].
+
+   #+begin_src emacs-lisp
+   (use-package discover-my-major
+     :ensure t
+     :defer t
+     :bind
+     ("C-h C-m" . discover-my-major))
+   #+end_src
+
 ** easy-kill
    [[https://github.com/leoliu/easy-kill][=easy-kill=]] is an awesome package that allows you to save up on the steps
    you’d normally have to take when saving and killing stuff.  It's called
