@@ -318,8 +318,10 @@ a file =~/.abbrev_defs=.
 #+BEGIN_SRC emacs-lisp
 (use-package abbrev
   :config
+  :defer t
   (setq save-abbrevs 'silently)
-  (setq-default abbrev-mode t))
+  (setq-default abbrev-mode t)
+  (add-hook 'text-mode-hook 'abbrev-mode))
 #+END_SRC
 ** bookmarks
    Taken from section 13.8 of the Emacs Manual, on [2019-02-04 Mon].  Bookmarks
