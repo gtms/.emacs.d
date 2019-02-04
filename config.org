@@ -954,6 +954,7 @@ better to collate the matches and then use =xargs= to run the command.
      :init
      (setq projectile-completion-system 'ivy)
      :config
+     (setq projectile-cache-file (expand-file-name "projectile.cache" savefile-dir))
      (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
      (projectile-mode +1))
    #+END_SRC
