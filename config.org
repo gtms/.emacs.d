@@ -343,93 +343,21 @@ a file =~/.abbrev_defs=.
   (setq save-abbrevs 'silently)
   (setq-default abbrev-mode t))
 #+END_SRC
+** bookmarks
+   Taken from section 13.8 of the Emacs Manual, on [2019-02-04 Mon].  Bookmarks
+   are somewhat like registers in that they record positions you can jump to.
+   Unlike registers, they have long names, and they persist automatically from
+   one Emacs session to the next.  The prototypical use of bookmarks is to
+   record where you reading in various files.
 
-** uniquify
-The library [[https://www.emacswiki.org/emacs/uniquify][uniquify]] overrides Emacs’ default mechanism for making buffer names
-unique (using suffixes like <2>, <3> etc.) with a more sensible behaviour which
-use parts of the file names to make the buffer names distinguishable.
-
-#+BEGIN_SRC emacs-lisp
-(use-package uniquify
-  :config
-  (setq uniquify-buffer-name-style 'forward)
-  (setq uniquify-separator "/")
-  ;; rename after killing uniquified
-  (setq uniquify-after-kill-buffer-p t)
-  ;; don't muck with special buffers
-  (setq uniquify-ignore-buffers-re "^\\*"))
-#+END_SRC
-
-** saveplace
-When visit a file, point goes to the last place where it was when you previously
-visited the same file.
-
-#+BEGIN_SRC emacs-lisp
-;; saveplace remembers your location in a file when saving files
-(use-package saveplace
-  :config
-  (setq save-place-file (expand-file-name "saveplace" savefile-dir))
-  ;; activate it for all buffers
-  (setq-default save-place t))
-#+END_SRC
-
-** savehist
-A very simple alternative to more involved [[https://www.emacswiki.org/emacs/SessionManagement][SessionManagement]] solutions.
-
-By default, Savehist mode saves only your minibuffer histories, but you can
-optionally save other histories and other variables as well (see option
-='savehist-additional-variables’=).  You can, for instance save your search
-strings by setting ='savehist-additional-variables’= to (=search-ring
-regexp-search-ring=).
-
-You can also fine-tune Savehist to save only specific histories, not all
-minibuffer histories – see the doc string of option
-='savehist-save-minibuffer-history’=.
-
-Savehist mode is implemented by library savehist.el, which is part of Emacs 22.
-A version of the library that works Emacs 20 and 21, as well as 22+, is
-available here: [[https://www.emacswiki.org/emacs/savehist-20+.el][Lisp:savehist-20+.el]].
-
-#+BEGIN_SRC emacs-lisp
-(use-package savehist
-  :config
-  (setq savehist-additional-variables
-        ;; search entries
-        '(search-ring regexp-search-ring)
-        ;; save every minute
-        savehist-autosave-interval 60
-        ;; keep the home clean
-        savehist-file (expand-file-name "savehist" savefile-dir))
-  (savehist-mode 1))
-#+END_SRC
-
-** recentf
-=recentf= is a minor mode that builds a list of recently opened files.  This
-list is is automatically saved across sessions on exiting Emacs---you can then
-access this list through a command or the menu.
-
-#+BEGIN_SRC emacs-lisp
-(use-package recentf
-  :config
-  (setq recentf-save-file (expand-file-name "recentf" savefile-dir)
-        recentf-max-saved-items 500
-        recentf-max-menu-items 15
-        ;; disable recentf-cleanup on Emacs start, because it can cause
-        ;; problems with remote files
-        recentf-auto-cleanup 'never)
-  (recentf-mode 1))
-#+END_SRC
-
-** windmove
-=windmove= is a library built into [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] starting with version 21.  It lets
-you move point from window to window using Shift and the arrow keys.  This is
-easier to type than 'C-x o’ and, for some users, may be more intuitive.
-
-#+BEGIN_SRC emacs-lisp
-(use-package windmove
-  :config
-  (windmove-default-keybindings))
-#+END_SRC
+   #+begin_src emacs-lisp
+   (use-package bookmarks
+     :defer t
+     :config
+     (setq bookmark-default-file
+           (expand-file-name "bookmarks" savefile-dir)
+           bookmark-save-flag 1))
+   #+end_src
 
 ** dired
 [[https://www.emacswiki.org/emacs/DiredMode][DiredMode]] is the mode of a [[https://www.emacswiki.org/emacs?search=%2522Dired%2522][Dired]] buffer.  It shows a directory (folder) listing
