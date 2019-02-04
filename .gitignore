@@ -1,0 +1,13 @@
+## files
+abbrev_defs
+config.el
+custom.el
+tramp
+
+## directories
+auto-save-list
+elpa
+eshell
+personal
+savefile
+url
