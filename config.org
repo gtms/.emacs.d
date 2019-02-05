@@ -1368,3 +1368,140 @@ name:
 #+begin_src emacs-lisp
 (setq eshell-directory-name (expand-file-name "eshell" savefile-dir))
 #+end_src
+* CANCELLED LaTeX
+  This section was taken from Aaron Culich's Emacs configuration, with minor
+  modifications, on [2019-02-05 Tue].  It is currently a blueprint in need of
+  work.
+
+  #+begin_src emacs-lisp
+  (use-package tex-site
+    :ensure auctex)
+
+  (use-package tex-buf
+  :ensure auctex
+  :defer t
+  :config (setq TeX-save-query nil))
+
+  (use-package tex
+    :ensure auctex
+    :defer t
+    :config
+    (setq TeX-parse-self t
+          TeX-auto-save t
+          TeX-electric-sub-and-superscript t
+          TeX-electric-math '("\\(" "\\)")
+          TeX-quote-after-quote t
+          TeX-clean-confirm nil
+          TeX-source-correlate-mode t
+          TeX-source-correlate-method 'synctex)
+    (setq-default TeX-master nil
+                  TeX-engine 'luatex
+                  TeX-PDF-mode t)
+
+    (setcar (cdr (assoc "Check" TeX-command-list)) "chktex -v6 %s"))
+
+  (use-package tex-style
+    :ensure auctex
+    :defer t
+    :config
+    (setq LaTeX-csquotes-close-quote "}"
+          LaTeX-csquotes-open-quote "\\enquote{"))
+
+  (use-package tex-fold
+    :ensure auctex
+    :defer t
+    :init (add-hook 'TeX-mode-hook #'TeX-fold-mode))
+
+  (use-package tex-mode
+    :ensure auctex
+    :defer t
+    :config
+    (font-lock-add-keywords 'latex-mode
+                            `((,(rx "\\"
+                                    symbol-start
+                                    "fx" (1+ (or (syntax word) (syntax symbol)))
+                                    symbol-end)
+                               . font-lock-warning-face))))
+
+  (use-package latex
+    :ensure auctex
+    :defer t
+    :config
+    (setq TeX-outline-extra `((,(rx (0+ space) "\\section*{") 2)
+                              (,(rx (0+ space) "\\subsection*{") 3)
+                              (,(rx (0+ space) "\\subsubsection*{") 4)
+                              (,(rx (0+ space) "\\minisec{") 5))
+          LaTeX-babel-hyphen nil)
+
+    (add-hook 'LaTeX-mode-hook #'LaTeX-math-mode))
+
+  (use-package auctex-latexmk
+    :ensure t
+    :defer t
+    :after latex
+    :config (auctex-latexmk-setup))
+
+  (use-package auctex-skim
+    :load-path "lisp/"
+    :commands (auctex-skim-select)
+    :after tex
+    :config (auctex-skim-select))
+
+  (use-package bibtex
+    :defer t
+    :config
+    ;; Run prog mode hooks for bibtex
+    (add-hook 'bibtex-mode-hook (lambda () (run-hooks 'prog-mode-hook)))
+
+    (bibtex-set-dialect 'biblatex))
+
+  (defun lunaryorn-reftex-find-ams-environment-caption (environment)
+    "Find the caption of an AMS ENVIRONMENT."
+    (let ((re (rx-to-string `(and "\\begin{" ,environment "}"))))
+      ;; Go to the beginning of the label first
+      (re-search-backward re)
+      (goto-char (match-end 0)))
+    (if (not (looking-at (rx (zero-or-more space) "[")))
+        (error "Environment %s has no title" environment)
+      (let ((beg (match-end 0)))
+        ;; Move point onto the title start bracket and move over to the end,
+        ;; skipping any other brackets in between, and eventually extract the text
+        ;; between the brackets
+        (goto-char (1- beg))
+        (forward-list)
+        (buffer-substring-no-properties beg (1- (point))))))
+
+  (use-package reftex
+    :defer t
+    :init (add-hook 'LaTeX-mode-hook #'reftex-mode)
+    :config
+    (setq reftex-plug-into-AUCTeX t
+          reftex-insert-label-flags '(t t)
+          reftex-label-alist
+          '(("definition" ?d "def:" "~\\ref{%s}"
+             lunaryorn-reftex-find-ams-environment-caption
+             ("definition" "def.") -3)
+            ("theorem" ?h "thm:" "~\\ref{%s}"
+             lunaryorn-reftex-find-ams-environment-caption
+             ("theorem" "th.") -3)
+            ("example" ?x "ex:" "~\\ref{%s}"
+             lunaryorn-reftex-find-ams-environment-caption
+             ("example" "ex") -3)
+            ("algorithm" ?a "alg:" "~\\ref{%s}"
+             "\\\\caption[[{]" ("algorithm" "alg") -3)))
+
+    ;; Provide basic RefTeX support for biblatex
+    (unless (assq 'biblatex reftex-cite-format-builtin)
+      (add-to-list 'reftex-cite-format-builtin
+                   '(biblatex "The biblatex package"
+                              ((?\C-m . "\\cite[]{%l}")
+                               (?t . "\\textcite{%l}")
+                               (?a . "\\autocite[]{%l}")
+                               (?p . "\\parencite{%l}")
+                               (?f . "\\footcite[][]{%l}")
+                               (?F . "\\fullcite[]{%l}")
+                               (?x . "[]{%l}")
+                               (?X . "{%l}"))))
+      (setq reftex-cite-format 'biblatex))
+    :diminish reftex-mode)
+  #+end_src
