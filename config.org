@@ -183,6 +183,19 @@ Package management is done via =use-package=.
 (setq use-package-verbose t)
 #+END_SRC
 
+** benchmark-init
+   This is a simple benchmark of calls to Emacs require and load functions.  It
+   can be used to keep track of where time is being spent during Emacs startup
+   in order to optimize startup times.
+
+   #+begin_src emacs-lisp
+   (use-package benchmark-init
+     :ensure t
+     :config
+     ;; To disable collection of benchmark data after init is done.
+     (add-hook 'after-init-hook 'benchmark-init/deactivate))
+   #+end_src
+
 * User Interface
 ** miscelaneous
    Most of these settings are taken from prelude-ui.el.
