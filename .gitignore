@@ -3,6 +3,7 @@ abbrev_defs
 config.el
 custom.el
 tramp
+.org-id-locations
 
 ## directories
 auto-save-list
