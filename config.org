@@ -372,7 +372,7 @@ a file =~/.abbrev_defs=.
             ;; Better dired flags: `-l' is mandatory, `-a' shows all files, `-h'
             ;; uses human-readable sizes, and `-F' appends file-type classifiers
             ;; to file names (for better highlighting)
-            dired-listing-switches "-alhF"
+            dired-listing-switches "-alh"
             dired-ls-F-marks-symlinks t
             dired-recursive-copies 'always
             dired-dwim-target t)
