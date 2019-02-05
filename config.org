@@ -353,34 +353,56 @@ a file =~/.abbrev_defs=.
    #+end_src
 
 ** dired
-[[https://www.emacswiki.org/emacs/DiredMode][DiredMode]] is the mode of a [[https://www.emacswiki.org/emacs?search=%2522Dired%2522][Dired]] buffer.  It shows a directory (folder) listing
-that you can use to perform various operations on files and subdirectories in
-the directory.  The operations you can perform are numerous, from creating
-subdirectories to byte-compiling files, searching files, and of course visiting
-(editing) files.
+   [[https://www.emacswiki.org/emacs/DiredMode][DiredMode]] is the mode of a [[https://www.emacswiki.org/emacs?search=%2522Dired%2522][Dired]] buffer.  It shows a directory (folder)
+   listing that you can use to perform various operations on files and
+   subdirectories in the directory.  The operations you can perform are
+   numerous, from creating subdirectories to byte-compiling files, searching
+   files, and of course visiting (editing) files.
 
 *** dired configuration
-#+BEGIN_SRC emacs-lisp
-(put 'dired-find-alternate-file 'disabled nil)
-(setq dired-dwim-target t)
-#+END_SRC
+    This configuration is taken from [[https://github.com/aculich/.emacs.d][Aaron Culich]]'s Emacs configuration on
+    [2019-02-05 Tue].
+
+    #+BEGIN_SRC emacs-lisp
+    (use-package dired
+      :defer t
+      :config
+      (put 'dired-find-alternate-file 'disabled nil)
+      (setq dired-auto-revert-buffer t
+            ;; Better dired flags: `-l' is mandatory, `-a' shows all files, `-h'
+            ;; uses human-readable sizes, and `-F' appends file-type classifiers
+            ;; to file names (for better highlighting)
+            dired-listing-switches "-alhF"
+            dired-ls-F-marks-symlinks t
+            dired-recursive-copies 'always
+            dired-dwim-target t)
+      (when (or (memq system-type '(gnu gnu/linux))
+                (string= (file-name-nondirectory insert-directory-program) "gls"))
+        ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
+        ;; `--group-directories-first' lists directories before files, and `-v'
+        ;; sorts numbers in file names naturally, i.e. "image1" goes before
+        ;; "image02"
+        (setq dired-listing-switches
+              (concat dired-listing-switches " --group-directories-first -v"))))
+    #+END_SRC
 
 *** dired-x
     The [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] library [[https://www.emacswiki.org/emacs?search=%2522Dired+X%2522][Dired X]] ([[https://www.emacswiki.org/emacs?search=%2522dired-x%2522][dired-x]].el) provides extra functionality for
     DiredMode.  It comes with Emacs.
 
     A manual comes with Emacs documenting these extra features for Dired
-    Mode.  Origanally written by [[https://www.emacswiki.org/emacs/SebastianKremer][SebastianKremer]].
+    Mode.  Originally written by [[https://www.emacswiki.org/emacs/SebastianKremer][SebastianKremer]].
 
     #+BEGIN_SRC emacs-lisp
-    ;; enable some really cool extensions like C-x C-j (dired-jump)
-(use-package dired-x
-  :config
-  ;; 15Aug2018
-  ;; include hidden files in dired-omit-files variable
-  ;; section 3.2 of dired-x manual
-  (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$"))
-#+END_SRC
+    (add-hook 'dired-load-hook
+              (lambda ()
+                (load "dired-x")
+                ;; Set dired-x global variables here.  For example:
+                ;; (setq dired-guess-shell-gnutar "gtar")
+                ;; (setq dired-x-hands-off-my-keys nil)
+                (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$")
+                ))
+    #+END_SRC
 
 *** dired-rsync
     This package adds a single command dired-rsync which allows the user to copy
@@ -394,19 +416,19 @@ subdirectories to byte-compiling files, searching files, and of course visiting
       :ensure t
       :config
       (bind-key "Y" 'dired-rsync dired-mode-map))
-#+END_SRC
+    #+END_SRC
 
 *** dired-filter
-The filtering system is designed after ibuffer: every dired buffer has
-associated "filter stack" where user can push filters (predicates).  These
-filters are by default logically "anded", meaning, only the files satsifying all
-the predicates are shown.
+    The filtering system is designed after ibuffer: every dired buffer has
+    associated "filter stack" where user can push filters (predicates).  These
+    filters are by default logically "anded", meaning, only the files satsifying
+    all the predicates are shown.
 
-#+BEGIN_SRC emacs-lisp
-(use-package dired-filter
-  :ensure t
-  :defer t)
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    (use-package dired-filter
+      :ensure t
+      :defer t)
+    #+END_SRC
 
 *** dired-narrow
     This package provides live filtering of files in dired buffers.  In general,
@@ -419,35 +441,35 @@ the predicates are shown.
 
     The following snippet was taken from [[http://pragmaticemacs.com/emacs/dynamically-filter-directory-listing-with-dired-narrow/][here]] on [2017-12-08 Fri].
 
-#+BEGIN_SRC emacs-lisp
-(use-package dired-narrow
-  :ensure t
-  :bind
-  (:map dired-mode-map
-        ("/" . dired-narrow)))
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    (use-package dired-narrow
+      :ensure t
+      :bind
+      (:map dired-mode-map
+            ("/" . dired-narrow)))
+    #+END_SRC
 
 *** find-dired
     [2018-07-03 Tue]
     From Mickey Petersen's [[https://www.masteringemacs.org/article/working-multiple-files-dired][masteringemacs.org]]:
 
-#+BEGIN_QUOTE
-The command =find-dired= will use =find= to match the files and =ls= to format
-them so dired can understand it.  It’s pretty bare-bones and it lets you change
-the syntax for find to suit your immediate needs.
+    #+BEGIN_QUOTE
+    The command =find-dired= will use =find= to match the files and =ls= to
+    format them so dired can understand it.  It’s pretty bare-bones and it lets
+    you change the syntax for find to suit your immediate needs.
 
-Generally, though, I find =find-name-dired= to be more useful for day-to-day use
-when all I want is to feed it a single string to match against.
+    Generally, though, I find =find-name-dired= to be more useful for day-to-day
+    use when all I want is to feed it a single string to match against.
 
-By default Emacs will pass =-exec= to =find= and that makes it very slow.  It is
-better to collate the matches and then use =xargs= to run the command.
-#+END_QUOTE
+    By default Emacs will pass =-exec= to =find= and that makes it very slow.
+    It is better to collate the matches and then use =xargs= to run the command.
+    #+END_QUOTE
 
-#+BEGIN_SRC emacs-lisp
-(use-package find-dired
-  :config
-  (setq find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld")))
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    (use-package find-dired
+      :config
+      (setq find-ls-option '("-print0 | xargs -0 ls -ld" . "-ld")))
+    #+END_SRC
 
 *** peep-dired
     This is a minor mode that can be enabled from a dired buffer.  Once enabled
@@ -471,23 +493,26 @@ better to collate the matches and then use =xargs= to run the command.
       (setq peep-dired-ignored-extensions '("mkv" "iso" "mp4")))
     #+end_src
 
-*** dired sort directories first
-#+BEGIN_SRC emacs-lisp
-;; 03Oct2012
-;; http://www.emacswiki.org/emacs/DiredSortDirectoriesFirst
-(defun mydired-sort ()
-  "Sort dired listings with directories first."
-  (save-excursion
-    (let (buffer-read-only)
-      (forward-line 2) ;; beyond dir. header
-      (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
-    (set-buffer-modified-p nil)))
+*** CANCELLED dired sort directories first
+    This snippet has become obsolete on [2019-02-05 Tue], due to adoption of
+    Aaron Culich's dired configuration (above).
 
-(defadvice dired-readin
-    (after dired-after-updating-hook first () activate)
-  "Sort dired listings with directories first before adding marks."
-  (mydired-sort))
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    ;; 03Oct2012
+    ;; http://www.emacswiki.org/emacs/DiredSortDirectoriesFirst
+    (defun mydired-sort ()
+      "Sort dired listings with directories first."
+      (save-excursion
+        (let (buffer-read-only)
+          (forward-line 2) ;; beyond dir. header
+          (sort-regexp-fields t "^.*$" "[ ]*." (point) (point-max)))
+        (set-buffer-modified-p nil)))
+
+    (defadvice dired-readin
+        (after dired-after-updating-hook first () activate)
+      "Sort dired listings with directories first before adding marks."
+      (mydired-sort))
+   #+END_SRC
 
 *** enhanced beginning- and end-of-buffer
     This code snippet is not just specific to dired, but is of most use there.
@@ -520,69 +545,69 @@ better to collate the matches and then use =xargs= to run the command.
                        (define-key ,mode-map
                          [remap beginning-of-buffer] ',fname))))))
 
-(defmacro my-special-end-of-buffer (mode &rest forms)
-  "Define a special version of `end-of-buffer' in MODE.
+    (defmacro my-special-end-of-buffer (mode &rest forms)
+      "Define a special version of `end-of-buffer' in MODE.
 
     The special function is defined such that the point first moves
     to `point-max' and then FORMS are evaluated.  If the point did
     not change because of the evaluation of FORMS, jump
     unconditionally to `point-max'.  This way repeated invocations
     toggle between real end and logical end of the buffer."
-  (declare (indent 1))
-  (let ((fname (intern (concat "my-" (symbol-name mode) "-end-of-buffer")))
-        (mode-map (intern (concat (symbol-name mode) "-mode-map")))
-        (mode-hook (intern (concat (symbol-name mode) "-mode-hook"))))
-    `(progn
-       (defun ,fname ()
-         (interactive)
-         (let ((p (point)))
-           (goto-char (point-max))
-           ,@forms
-           (when (= p (point))
-             (goto-char (point-max)))))
-       (add-hook ',mode-hook
-                 (lambda ()
-                   (define-key ,mode-map
-                     [remap end-of-buffer] ',fname))))))
+      (declare (indent 1))
+      (let ((fname (intern (concat "my-" (symbol-name mode) "-end-of-buffer")))
+            (mode-map (intern (concat (symbol-name mode) "-mode-map")))
+            (mode-hook (intern (concat (symbol-name mode) "-mode-hook"))))
+        `(progn
+           (defun ,fname ()
+             (interactive)
+             (let ((p (point)))
+               (goto-char (point-max))
+               ,@forms
+               (when (= p (point))
+                 (goto-char (point-max)))))
+           (add-hook ',mode-hook
+                     (lambda ()
+                       (define-key ,mode-map
+                         [remap end-of-buffer] ',fname))))))
 
-;; Dired
-(my-special-beginning-of-buffer dired
-  (while (not (ignore-errors (dired-get-filename)))
-    (dired-next-line 1)))
-(my-special-end-of-buffer dired
-  (dired-previous-line 1))
+    ;; Dired
+    (my-special-beginning-of-buffer dired
+                                    (while (not (ignore-errors (dired-get-filename)))
+                                      (dired-next-line 1)))
+    (my-special-end-of-buffer dired
+                              (dired-previous-line 1))
 
-;; Occur
-(my-special-beginning-of-buffer occur
-  (occur-next 1))
-(my-special-end-of-buffer occur
-  (occur-prev 1))
+    ;; Occur
+    (my-special-beginning-of-buffer occur
+                                    (occur-next 1))
+    (my-special-end-of-buffer occur
+                              (occur-prev 1))
 
-;; IBuffer
-(my-special-beginning-of-buffer ibuffer
-  (ibuffer-forward-line 1))
-(my-special-end-of-buffer ibuffer
-  (ibuffer-backward-line 1))
+    ;; IBuffer
+    (my-special-beginning-of-buffer ibuffer
+                                    (ibuffer-forward-line 1))
+    (my-special-end-of-buffer ibuffer
+                              (ibuffer-backward-line 1))
 
-;; Recentf
-(my-special-beginning-of-buffer recentf-dialog
-  (when (re-search-forward "^  \\[" nil t)
-    (goto-char (match-beginning 0))))
-(my-special-end-of-buffer recentf-dialog
-  (re-search-backward "^  \\[" nil t))
+    ;; Recentf
+    (my-special-beginning-of-buffer recentf-dialog
+                                    (when (re-search-forward "^  \\[" nil t)
+                                      (goto-char (match-beginning 0))))
+    (my-special-end-of-buffer recentf-dialog
+                              (re-search-backward "^  \\[" nil t))
 
-;; Org-agenda
-(my-special-beginning-of-buffer org-agenda
-  (org-agenda-next-item 1))
-(my-special-end-of-buffer org-agenda
-  (org-agenda-previous-item 1))
+    ;; Org-agenda
+    (my-special-beginning-of-buffer org-agenda
+                                    (org-agenda-next-item 1))
+    (my-special-end-of-buffer org-agenda
+                              (org-agenda-previous-item 1))
 
-;; ag
-(my-special-beginning-of-buffer ag
-  (compilation-next-error 1))
-(my-special-end-of-buffer ag
-  (compilation-previous-error 1))
-#+END_SRC
+    ;; ag
+    (my-special-beginning-of-buffer ag
+                                    (compilation-next-error 1))
+    (my-special-end-of-buffer ag
+                              (compilation-previous-error 1))
+    #+END_SRC
 
 ** hl-line
    [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] version 21 has library `hl-line.el', which provides a local and a
