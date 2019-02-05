@@ -838,17 +838,17 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
    (use-package ess
      :ensure t
      :defer t
-     :init
-     (require 'ess-site)
      :config
-     (require 'smartparens-ess)
+     (use-package ess-r-mode
+       :bind
+       (:map ess-r-mode-map
+             ("_" . ess-insert-assign))
+       (:map inferior-ess-r-mode-map
+             ("_" . ess-insert-assign)))
      (add-hook 'inferior-ess-mode-hook 'smartparens-strict-mode)
      (add-hook 'ess-mode-hook 'smartparens-strict-mode)
      (setq orgstruct-heading-prefix-regexp "## ")
-     (add-hook 'ess-mode-hook 'turn-on-orgstruct)
-     ;; new in ESS 19.04
-     (define-key ess-r-mode-map "_" #'ess-insert-assign)
-     (define-key inferior-ess-r-mode-map "_" #'ess-insert-assign))
+     (add-hook 'ess-mode-hook 'turn-on-orgstruct))
    #+END_SRC
 
 ** exec-path-from-shell
