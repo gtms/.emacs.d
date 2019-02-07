@@ -231,22 +231,22 @@
    #+END_SRC
 
 ** theme
-   Default theme is doom-nord-light.  Zenburn is also installed.  Themes can be
-   changed via =counsel-load-theme=.
+   Default theme Zenburn.  Themes can be changed via =counsel-load-theme=.
 
    #+BEGIN_SRC emacs-lisp
    (use-package zenburn-theme
      :ensure t
-     :defer t)
+     :config
+     (if(display-graphic-p)
+         (load-theme 'zenburn t)))
 
    (use-package doom-themes
      :ensure t
+     :defer t
      :config
      (setq doom-themes-enable-bold t
            doom-themes-enable-italic t)
-     (doom-themes-org-config)
-     (if (display-graphic-p)
-         (load-theme 'doom-nord-light t)))
+     (doom-themes-org-config))
    #+END_SRC
 
 ** mode line
@@ -1334,46 +1334,49 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
 
   This snippet dispatches programs to 'ansi-term' automatically:
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   ;; (add-to-list 'eshell-visual-commands "htop")
-#+END_SRC
+  #+END_SRC
 
-This snippet defines eshell aliases:
+  This snippet defines eshell aliases:
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   (defalias 'ff 'find-file)
   (defalias 'd 'dired)
-#+END_SRC
+  #+END_SRC
 
-This snippet configures the prompt:
+  This snippet configures the prompt:
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   (setq eshell-prompt-function
         (lambda ()
           (concat
            (propertize "┌─[" 'face `(:foreground "grey50"))
-           (propertize (user-login-name) 'face `(:foreground "#5272AF"))
+           (propertize (user-login-name) 'face `(:foreground "tomato"))
            (propertize "@" 'face `(:foreground "grey50"))
-           (propertize (system-name) 'face `(:foreground "#2257A0"))
+           (propertize (system-name) 'face `(:foreground "RoyalBlue"))
            (propertize "]──[" 'face `(:foreground "grey50"))
-           (propertize (format-time-string "%H:%M" (current-time)) 'face `(:foreground "#a9a1e1"))
+           (propertize (format-time-string "%H:%M" (current-time)) 'face `(:foreground "DarkOrange"))
            (propertize "]──[" 'face `(:foreground "grey50"))
-           (propertize (concat (eshell/pwd)) 'face `(:foreground "#842879"))
+           (propertize (concat (eshell/pwd)) 'face `(:foreground "bisque"))
            (propertize "]\n" 'face `(:foreground "grey50"))
            (propertize "└─>" 'face `(:foreground "grey50"))
            (propertize (if (= (user-uid) 0) " # " " $ ")))))
-#+END_SRC
+  #+END_SRC
 
-This snippet taken from Prelude (prelude-editor.el:335) sets Eshell's directory
-name:
+  This snippet taken from Prelude (prelude-editor.el:335) sets Eshell's directory
+  name:
 
-#+begin_src emacs-lisp
-(setq eshell-directory-name (expand-file-name "eshell" savefile-dir))
-#+end_src
+  #+begin_src emacs-lisp
+  (setq eshell-directory-name (expand-file-name "eshell" savefile-dir))
+  #+end_src
+
 * CANCELLED LaTeX
   This section was taken from Aaron Culich's Emacs configuration, with minor
   modifications, on [2019-02-05 Tue].  It is currently a blueprint in need of
   work.
+
+  Also, take a look at this reddit [[https://www.reddit.com/r/emacs/comments/akmwko/the_best_latex_editor/][post]] (titled "The best latex Editor").
 
   #+begin_src emacs-lisp
   (use-package tex-site
