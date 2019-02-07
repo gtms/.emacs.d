@@ -885,8 +885,9 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
              ("_" . ess-insert-assign)))
      (add-hook 'inferior-ess-mode-hook 'smartparens-strict-mode)
      (add-hook 'ess-mode-hook 'smartparens-strict-mode)
-     (setq orgstruct-heading-prefix-regexp "## ")
-     (add-hook 'ess-mode-hook 'turn-on-orgstruct))
+     ;; (setq orgstruct-heading-prefix-regexp "## ")
+     ;; (add-hook 'ess-mode-hook 'turn-on-orgstruct)
+     )
    #+END_SRC
 
 ** exec-path-from-shell
