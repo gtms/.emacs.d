@@ -1267,7 +1267,6 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
    #+BEGIN_SRC emacs-lisp
    (use-package which-key
      :ensure t
-     :defer t
      :config
      (which-key-mode 1))
    #+END_SRC
