@@ -13,38 +13,38 @@
 ** TODO And the uniformisation of the global keybindings and major modes
 
 * Intro
-This file is my personal literate ~Emacs~ configuration, written in Org Mode.
-Snippets in this file that:
+  This file is my personal literate ~Emacs~ configuration, written in Org Mode.
+  Snippets in this file that:
 
-- are not marked as :tangle no
-- are marked as =emacs lisp= source code
-- do not have the org-mode todo label CANCELLED
+  - are not marked as :tangle no
+  - are marked as =emacs lisp= source code
+  - do not have the org-mode todo label CANCELLED
 
-are tangled into the config.el file living in ~/.emacs.d, in an efficient and
-elligible manner.
+  are tangled into the config.el file living in ~/.emacs.d, in an efficient and
+  elligible manner.
 
 * Load =custom.el=
-Saving customizations works by writing code to a file, usually the
-initialization file (=init.el=).  Subsequent emacs sessions automatically read
-this file at startup, which sets up the customizations again.
+  Saving customizations works by writing code to a file, usually the
+  initialization file (=init.el=).  Subsequent emacs sessions automatically read
+  this file at startup, which sets up the customizations again.
 
-To avoid cluttering the =init.el= file, customizations can be saved into a
-=custom.el= file, which can even be specified for different Emacs versions (see
-section 49.1.4 of the Emacs manual).  Note that Emacs sessions invoked with the
-=`-q'= or =`--no-init-file'= options will not save customizations to the
-initialization file.
+  To avoid cluttering the =init.el= file, customizations can be saved into a
+  =custom.el= file, which can even be specified for different Emacs versions
+  (see section 49.1.4 of the Emacs manual).  Note that Emacs sessions invoked
+  with the =`-q'= or =`--no-init-file'= options will not save customizations to
+  the initialization file.
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (when (file-exists-p "custom.el")
     (load custom-file))
-#+END_SRC
-
+  #+END_SRC
+  
 * Core
-These were taken from [[https://github.com/bbatsov/prelude%5D][Prelude Emacs]], Bozidar Batsov [[https://github.com/bbatsov/emacs.d][init.el]], my previous
-iteration of config.org, as well as various other sources.
+  These were taken from [[https://github.com/bbatsov/prelude][Prelude Emacs]], Bozidar Batsov [[https://github.com/bbatsov/emacs.d][init.el]], my previous
+  iteration of config.org, as well as various other sources.
 
-#+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp
   (setq user-full-name "Gil Tomás"
         user-mail-address "gil.tms@gmail.com")
   ;; Always load newest byte code
@@ -80,14 +80,14 @@ iteration of config.org, as well as various other sources.
   ;; 26Jun2018
   ;; Activate display-line-numbers-mode on prog-mode
   (progn
-    (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode 1)))
-    (add-hook 'text-mode-hook (lambda () (display-line-numbers-mode 1))))
+  (add-hook 'prog-mode-hook (lambda () (display-line-numbers-mode 1)))
+  (add-hook 'text-mode-hook (lambda () (display-line-numbers-mode 1))))
   (setq display-line-numbers-type (quote visual))
   ;; 04Jan2019
   ;; Enable winner-mode
   ;; https://www.emacswiki.org/emacs/WinnerMode
   (when (fboundp 'winner-mode)
-    (winner-mode 1))
+  (winner-mode 1))
   ;; 17Jan2019
   ;; Window switching backwards
   (global-set-key (kbd "C-x O") (lambda ()
@@ -98,91 +98,91 @@ iteration of config.org, as well as various other sources.
   ;; https://www.masteringemacs.org/article/effective-editing-movement
   ;; 04Feb2019
   ;; (setq next-line-add-newlines t)
-#+END_SRC
+  #+END_SRC
 
-[2019-01-16 Wed]
-From bbatov init.el file:
+  [2019-01-16 Wed]
+  From bbatov init.el file:
+  
+  #+BEGIN_SRC emacs-lisp
+  ;; Emacs modes typically provide a standard means to change the
+  ;; indentation width -- eg. c-basic-offset: use that to adjust your
+  ;; personal indentation width, while maintaining the style (and
+  ;; meaning) of any files you load.
+  (setq-default indent-tabs-mode nil)   ;; don't use tabs to indent
+  (setq-default tab-width 8)            ;; but maintain correct appearance
 
-#+BEGIN_SRC emacs-lisp
-;; Emacs modes typically provide a standard means to change the
-;; indentation width -- eg. c-basic-offset: use that to adjust your
-;; personal indentation width, while maintaining the style (and
-;; meaning) of any files you load.
-(setq-default indent-tabs-mode nil)   ;; don't use tabs to indent
-(setq-default tab-width 8)            ;; but maintain correct appearance
+  ;; Newline at end of file
+  (setq require-final-newline t)
 
-;; Newline at end of file
-(setq require-final-newline t)
+  ;; delete the selection with a keypress
+  (delete-selection-mode t)
 
-;; delete the selection with a keypress
-(delete-selection-mode t)
+  ;; store all backup and autosave files in the tmp dir
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
 
-;; store all backup and autosave files in the tmp dir
-(setq backup-directory-alist
-      `((".*" . ,temporary-file-directory)))
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
+  ;; revert buffers automatically when underlying files are changed externally
+  (global-auto-revert-mode t)
+  
+  (prefer-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
 
-;; revert buffers automatically when underlying files are changed externally
-(global-auto-revert-mode t)
+  ;; hippie expand is dabbrev expand on steroids
+  (setq hippie-expand-try-functions-list '(try-expand-dabbrev
+                                           try-expand-dabbrev-all-buffers
+                                           try-expand-dabbrev-from-kill
+                                           try-complete-file-name-partially
+                                           try-complete-file-name
+                                           try-expand-all-abbrevs
+                                           try-expand-list
+                                           try-expand-line
+                                           try-complete-lisp-symbol-partially
+                                           try-complete-lisp-symbol))
+  
+  ;; use hippie-expand instead of dabbrev
+  (global-set-key (kbd "M-/") #'hippie-expand)
 
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+  ;; replace buffer-menu with ibuffer
+  (global-set-key (kbd "C-x C-b") #'ibuffer)
 
-;; hippie expand is dabbrev expand on steroids
-(setq hippie-expand-try-functions-list '(try-expand-dabbrev
-                                         try-expand-dabbrev-all-buffers
-                                         try-expand-dabbrev-from-kill
-                                         try-complete-file-name-partially
-                                         try-complete-file-name
-                                         try-expand-all-abbrevs
-                                         try-expand-list
-                                         try-expand-line
-                                         try-complete-lisp-symbol-partially
-                                         try-complete-lisp-symbol))
+  ;; align code in a pretty way
+  (global-set-key (kbd "C-x \\") #'align-regexp)
 
-;; use hippie-expand instead of dabbrev
-(global-set-key (kbd "M-/") #'hippie-expand)
-
-;; replace buffer-menu with ibuffer
-(global-set-key (kbd "C-x C-b") #'ibuffer)
-
-;; align code in a pretty way
-(global-set-key (kbd "C-x \\") #'align-regexp)
-
-;; smart tab behavior - indent or complete
-(setq tab-always-indent 'complete)
-#+END_SRC
-
+  ;; smart tab behavior - indent or complete
+  (setq tab-always-indent 'complete)
+  #+END_SRC
+  
 * Package Management
 ** package archives
    First, we add melpa to our list of repositories.  Packages are installed in
    the elpa folder under =user-emacs-directory=.  We then update package
    metadata if the local cache is missing.
 
-#+BEGIN_SRC emacs-lisp
-(require 'package)
-(setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("org"   . "https://orgmode.org/elpa/")))
-(setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (require 'package)
+   (setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
+                            ("melpa" . "https://melpa.org/packages/")
+                            ("org"   . "https://orgmode.org/elpa/")))
+   (setq package-user-dir (expand-file-name "elpa" user-emacs-directory))
+   (package-initialize)
+   (unless package-archive-contents
+     (package-refresh-contents))
+   #+END_SRC
+   
 ** use-package
-Package management is done via =use-package=.
+   Package management is done via =use-package=.
 
-#+BEGIN_SRC emacs-lisp
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-(require 'use-package)
-(setq use-package-verbose t)
-#+END_SRC
-
+   #+BEGIN_SRC emacs-lisp
+   (unless (package-installed-p 'use-package)
+     (package-install 'use-package))
+   (require 'use-package)
+   (setq use-package-verbose t)
+   #+END_SRC
+   
 ** benchmark-init
    This is a simple benchmark of calls to Emacs require and load functions.  It
    can be used to keep track of where time is being spent during Emacs startup
@@ -264,17 +264,17 @@ Package management is done via =use-package=.
     #+END_SRC
 
 *** smart-mode-line
-#+BEGIN_SRC emacs-lisp
-  (use-package smart-mode-line
-    :ensure t
-    :config
-    (setq sml/theme 'respectful)
-    (setq sml/name-width 30)
-    (setq sml/mode-width 'full)
-    (setq sml/no-confirm-load-theme t)
-    (setf rm-whitelist " SP")
-    (sml/setup))
-  #+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    (use-package smart-mode-line
+      :ensure t
+      :config
+      (setq sml/theme 'respectful)
+      (setq sml/name-width 30)
+      (setq sml/mode-width 'full)
+      (setq sml/no-confirm-load-theme t)
+      (setf rm-whitelist " SP")
+      (sml/setup))
+    #+END_SRC
 
 * The Theory of Movement
 ** the basics
@@ -321,21 +321,22 @@ Package management is done via =use-package=.
 
 * Built-in Packages
 ** abbrev
-Emacs has a nice feature to expand abbreviations.  If, for example, you wanted
-an abbreviation for ‘Your Name’ to be ‘yn’, just type ‘yn’ and with your point
-after the ‘n’ do =C-x a i g= (mnemonic add inverse global) and enter the
-expansion, in this case ‘Your Name’.  In the future, whenever you type ‘yn’ your
-name will be inserted.  The abbrevs are automatically saved between sessions in
-a file =~/.abbrev_defs=.
+   Emacs has a nice feature to expand abbreviations.  If, for example, you
+   wanted an abbreviation for ‘Your Name’ to be ‘yn’, just type ‘yn’ and with
+   your point after the ‘n’ do =C-x a i g= (mnemonic add inverse global) and
+   enter the expansion, in this case ‘Your Name’.  In the future, whenever you
+   type ‘yn’ your name will be inserted.  The abbrevs are automatically saved
+   between sessions in a file =~/.abbrev_defs=.
 
-#+BEGIN_SRC emacs-lisp
-(use-package abbrev
-  :defer t
-  :config
-  (setq save-abbrevs 'silently)
-  (setq-default abbrev-mode t)
-  (add-hook 'text-mode-hook 'abbrev-mode))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (use-package abbrev
+     :defer t
+     :config
+     (setq save-abbrevs 'silently)
+     (setq-default abbrev-mode t)
+     (add-hook 'text-mode-hook 'abbrev-mode))
+   #+END_SRC
+
 ** bookmarks
    Taken from section 13.8 of the Emacs Manual, on [2019-02-04 Mon].  Bookmarks
    are somewhat like registers in that they record positions you can jump to.
@@ -954,6 +955,7 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
 
 ** hungry-delete
    From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html][post]].
+
    #+BEGIN_SRC emacs-lisp
    (use-package hungry-delete
      :ensure t
@@ -1505,3 +1507,30 @@ name:
       (setq reftex-cite-format 'biblatex))
     :diminish reftex-mode)
   #+end_src
+
+* Key Bindings
+  Define global key bindings.  See:
+  - the [[info:emacs#key%20bindings][manual]]
+  - Mickey Petersen’s [[https://www.masteringemacs.org/article/mastering-key-bindings-emacs][blog]]
+
+  #+begin_src emacs-lisp
+  (global-set-key (kbd "C-c d") 'crux-duplicate-current-line-or-region)
+  (global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
+  (global-set-key (kbd "C-a") 'crux-move-beginning-of-line)
+  (global-set-key [(shift return)] 'crux-smart-open-line)
+  (global-set-key (kbd "M-o") 'crux-smart-open-line)
+  (global-set-key [(control shift return)] 'crux-smart-open-line-above)
+  (global-set-key (kbd "C-x m") 'eshell)
+  (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
+  (global-set-key (kbd "C-x M-m") 'shell)
+  #+end_src
+
+* To Try
+
+** ess-smart-equals
+   This package offers a flexible, context-sensitive assignment key for R and S
+   that is, by default, tied to the '=' key.  This key inserts or completes
+   relevant, properly spaced operators (assignment, comparison, etc.) based on
+   the syntactic context in the code.  It allows very easy cycling through the
+   possible operators in that context.  The contexts, the operators, and their
+   cycling order in each context are customizable.
