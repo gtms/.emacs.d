@@ -1308,13 +1308,16 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
         )))
    #+end_src
 
-** worg
+** worf
    GNU Emacs minor mode that provides vi-like bindings for org-mode.
 
    #+BEGIN_SRC emacs-lisp
    (use-package worf
      :ensure t
-     :defer t)
+     :defer t
+     :bind
+     (:map org-mode-map
+           ("C-c C-j" . worf-goto)))
    #+END_SRC
 
 ** zop-top-char
