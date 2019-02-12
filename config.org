@@ -240,6 +240,18 @@
      (if(display-graphic-p)
          (load-theme 'zenburn t)))
 
+   (use-package solarized-theme
+     :ensure t
+     :defer t
+     :config
+     (setq solarized-use-variable-pitch nil)
+     (setq solarized-high-contrast-mode-line t)
+     (setq solarized-height-minus-1 1.0)
+     (setq solarized-height-plus-1 1.0)
+     (setq solarized-height-plus-2 1.0)
+     (setq solarized-height-plus-3 1.0)
+     (setq solarized-height-plus-4 1.0))
+
    (use-package doom-themes
      :ensure t
      :defer t
