@@ -739,6 +739,16 @@ use parts of the file names to make the buffer names distinguishable.
   (setq uniquify-ignore-buffers-re "^\\*"))
 #+END_SRC
 
+** view-mode
+   In =*.el= and =*.org= buffers, =q= is not bound to =View quit= due to
+   aggressive bindings by =lispy mode= and =worf mode=.
+
+   #+begin_src emacs-lisp
+   (use-package view-mode
+     :bind
+     ("q" . View-quit))
+   #+end_src
+
 ** whitespace
    From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
 
