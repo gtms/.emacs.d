@@ -318,6 +318,7 @@
       :ensure org-plus-contrib
       :pin org
       :config
+      (add-hook 'org-mode-hook 'auto-fill-mode)
       (add-hook 'org-mode-hook 'worf-mode)
       (add-hook 'org-mode-hook 'org-bullets-mode)
       (use-package org-tempo))
