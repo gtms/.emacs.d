@@ -98,7 +98,10 @@
   ;; https://www.masteringemacs.org/article/effective-editing-movement
   ;; 04Feb2019
   ;; (setq next-line-add-newlines t)
-  #+END_SRC
+  ;; Set global visual mode on
+  ;; 13Feb2019
+  (global-visual-line-mode 1)
+#+END_SRC
 
   [2019-01-16 Wed]
   From bbatov init.el file:
