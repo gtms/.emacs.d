@@ -6,11 +6,13 @@
   The plan is to reorganise the structure of this file along that of the Emacs
   Manual and that of Mickey Petersen's Mastering Emacs.  Another great source of
   ideas to guide the reorganisation of this file is the [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]] site on
-  Github.
+  Github.  Finally, the Spacemacs distribution also provides a consitent and
+  integrated solution for Emacs configuration files from which to take note.
 
-** TODO Also to do is the optimisation of Emacs' startup time
-
-** TODO And the uniformisation of the global keybindings and major modes
+** TODO Optimise Emacs’ startup time
+** TODO Study global keybindings across major modes
+   Create a map of global keybindings with a policy for prefix modifications.
+** TODO Study Spacemacs
 
 * Intro
   This file is my personal literate ~Emacs~ configuration, written in Org Mode.
