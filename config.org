@@ -236,11 +236,13 @@
    #+END_SRC
 
 ** theme
-   Default theme Zenburn.  Themes can be changed via =counsel-load-theme=.
+   Default theme is doom-solarized-light.  Themes can be changed via
+   =counsel-load-theme=.
 
    #+BEGIN_SRC emacs-lisp
    (use-package zenburn-theme
      :ensure t
+     :defer t
      :config
      (if(display-graphic-p)
          (load-theme 'zenburn t)))
@@ -259,11 +261,11 @@
 
    (use-package doom-themes
      :ensure t
-     :defer t
      :config
      (setq doom-themes-enable-bold t
            doom-themes-enable-italic t)
-     (doom-themes-org-config))
+     (doom-themes-org-config)
+     (load-theme 'doom-solarized-light t))
    #+END_SRC
 
 ** mode line
@@ -1561,7 +1563,6 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
   #+end_src
 
 * To Try
-
 ** ess-smart-equals
    This package offers a flexible, context-sensitive assignment key for R and S
    that is, by default, tied to the '=' key.  This key inserts or completes
