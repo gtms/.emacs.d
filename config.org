@@ -325,7 +325,6 @@
       (setq org-use-speed-commands t)
       (setq org-goto-interface 'outline-path-completion)
       (add-hook 'org-mode-hook 'auto-fill-mode)
-      ;; (add-hook 'org-mode-hook 'worf-mode)
       (add-hook 'org-mode-hook 'org-bullets-mode)
       (use-package org-tempo))
   #+END_SRC
@@ -1393,18 +1392,6 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
         ("`" "'" "c" lisp-mode)                  ; code
         )))
    #+end_src
-
-** CANCELLED worf
-   GNU Emacs minor mode that provides vi-like bindings for org-mode.
-
-   #+BEGIN_SRC emacs-lisp
-   (use-package worf
-     :ensure t
-     :defer t
-     :bind
-     (:map org-mode-map
-           ("C-c C-j" . worf-goto)))
-   #+END_SRC
 
 ** zop-top-char
    A visual zap-to-char command for Emacs.
