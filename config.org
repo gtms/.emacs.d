@@ -324,6 +324,7 @@
       :config
       (setq org-use-speed-commands t)
       (setq org-goto-interface 'outline-path-completion)
+      (setq org-outline-path-complete-in-steps nil)
       (add-hook 'org-mode-hook 'auto-fill-mode)
       (add-hook 'org-mode-hook 'org-bullets-mode)
       (use-package org-tempo))
