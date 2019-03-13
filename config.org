@@ -352,12 +352,19 @@
     | p   | jump to previous visible outline heading |
     | f   | jump to next same-level heading          |
     | b   | jump to previous same-level heading      |
-    | u   | go up one level                          |
+    | F   | jump to next block                       |
+    | B   | jump to previous block                   |
+    | u   | jump to previous same-level heading      |
+    | j   | org-goto                                 |
+    | g   | (org-refile t)                            |
 *** outline visibility
     | key | action                                               |
     |-----+------------------------------------------------------|
     | c   | cycle visibility of structure below current headline |
     | C   | cycle visibility of entire buffer                    |
+    | s   | toggle narrow to subtree                             |
+    | k   | cut subtree                                          |
+    | =   | org columns                                          |
 *** outline structure editing
     | key | action                                                                  |
     |-----+-------------------------------------------------------------------------|
@@ -369,8 +376,9 @@
     | L   | promote current headline, including subtree                             |
     | i   | insert new same-level headline below current subtree                    |
     | ^   | sort children of current subtree (brings up list of sorting parameters) |
-    | W   | refile current subtree                                                  |
-    | .   | mark current subtree                                                    |
+    | w   | refile current subtree                                                  |
+    | @   | mark current subtree                                                    |
+    | #   | toggle comment                                                          |
 *** clock commands
     | key | action                             |
     |-----+------------------------------------|
@@ -379,21 +387,26 @@
 *** meta data editing
     | key | action                                           |
     |-----+--------------------------------------------------|
-    |   t | cycle through TODO states                        |
-    |   0 | erase priority cookie of current headline        |
-    |   1 | set priority cookies of current headline to [#A] |
-    |   2 | set priority cookies of current headline to [#B] |
-    |   3 | set priority cookies of current headline to [#C] |
-    |   ; | set tags for current headline                   |
+    | t   | cycle through TODO states                        |
+    | ,   | set priority                                     |
+    | 0   | erase priority cookie of current headline        |
+    | 1   | set priority cookies of current headline to [#A] |
+    | 2   | set priority cookies of current headline to [#B] |
+    | 3   | set priority cookies of current headline to [#C] |
+    | :   | set tags                                         |
+    | e   | set effort                                       |
 *** agenda
-    | key | action          |
-    |-----+-----------------|
-    | v   | bring up agenda |
+    | key | action            |
+    |-----+-------------------|
+    | v   | bring up agenda   |
+    | /   | (org-sparse-tree) |
 *** misc
-    | key | action                                       |
-    |-----+----------------------------------------------|
-    | o   | if current headline contains a link, open it |
-    | ?   | get a list of Speed Keys available           |
+    | key | action                                            |
+    |-----+---------------------------------------------------|
+    | o   | if current headline contains a link, open it      |
+    | ?   | get a list of Speed Keys available                |
+    | <   | (org-agenda-set-restriction-lock (quote subtree)) |
+    | >   | (org-agenda-remove-restriction-lock)              |
 * Built-in Packages
 ** abbrev
    Emacs has a nice feature to expand abbreviations.  If, for example, you
