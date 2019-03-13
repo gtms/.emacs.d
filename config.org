@@ -323,6 +323,7 @@
       :pin org
       :config
       (setq org-use-speed-commands t)
+      (setq org-goto-interface 'outline-path-completion)
       (add-hook 'org-mode-hook 'auto-fill-mode)
       ;; (add-hook 'org-mode-hook 'worf-mode)
       (add-hook 'org-mode-hook 'org-bullets-mode)
@@ -339,7 +340,60 @@
      :config
      (setq org-bullets-bullet-list '("•")))
    #+end_src
-
+** speed keys
+   Described in the Org Manual under [[info:org#speed%20keys][Miscellaneous]], this feature enables the
+   execution of custom commands when point is on the headline.  The list of
+   commands available can be obtained via ‘M-x org-speed-command-help’, or ‘?’
+   when point is at the beginning of an Org headline, and is reproduced below.
+*** outline navigation
+    | key | action                                   |
+    |-----+------------------------------------------|
+    | n   | jump to next visible outline heading     |
+    | p   | jump to previous visible outline heading |
+    | f   | jump to next same-level heading          |
+    | b   | jump to previous same-level heading      |
+    | u   | go up one level                          |
+*** outline visibility
+    | key | action                                               |
+    |-----+------------------------------------------------------|
+    | c   | cycle visibility of structure below current headline |
+    | C   | cycle visibility of entire buffer                    |
+*** outline structure editing
+    | key | action                                                                  |
+    |-----+-------------------------------------------------------------------------|
+    | U   | move current headline up                                                |
+    | D   | move current headline down                                              |
+    | r   | demote current headline                                                 |
+    | l   | promote current headline                                                |
+    | R   | demote current headline, including subtree                              |
+    | L   | promote current headline, including subtree                             |
+    | i   | insert new same-level headline below current subtree                    |
+    | ^   | sort children of current subtree (brings up list of sorting parameters) |
+    | W   | refile current subtree                                                  |
+    | .   | mark current subtree                                                    |
+*** clock commands
+    | key | action                             |
+    |-----+------------------------------------|
+    | I   | clock in task in current headline  |
+    | O   | clock out task in current headline |
+*** meta data editing
+    | key | action                                           |
+    |-----+--------------------------------------------------|
+    |   t | cycle through TODO states                        |
+    |   0 | erase priority cookie of current headline        |
+    |   1 | set priority cookies of current headline to [#A] |
+    |   2 | set priority cookies of current headline to [#B] |
+    |   3 | set priority cookies of current headline to [#C] |
+    |   ; | set tags for current headline                   |
+*** agenda
+    | key | action          |
+    |-----+-----------------|
+    | v   | bring up agenda |
+*** misc
+    | key | action                                       |
+    |-----+----------------------------------------------|
+    | o   | if current headline contains a link, open it |
+    | ?   | get a list of Speed Keys available           |
 * Built-in Packages
 ** abbrev
    Emacs has a nice feature to expand abbreviations.  If, for example, you
