@@ -3,6 +3,7 @@ abbrev_defs
 config.el
 custom.el
 tramp
+bookmarks
 .org-id-locations
 
 ## directories
