@@ -215,6 +215,8 @@
    (blink-cursor-mode -1)
    ;; Disable the ring bell
    (setq ring-bell-function 'ignore)
+   ;; enable visible bell
+   (setq visible-bell t)
    ;; Disable startup screen
    (setq inhibit-startup-screen t)
    ;; Better scrolling
