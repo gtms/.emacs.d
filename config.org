@@ -26,7 +26,7 @@
   elligible manner.
 
 * Load =custom.el=
-  Saving customizations works by writing code to a file, usually the
+  [[info:emacs#Saving%20Customizations][Saving customizations]] works by writing code to a file, usually the
   initialization file (=init.el=).  Subsequent emacs sessions automatically read
   this file at startup, which sets up the customizations again.
 
