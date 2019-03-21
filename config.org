@@ -8,7 +8,7 @@
   ideas to guide the reorganisation of this file is the [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]] site on
   Github.  Finally, the Spacemacs distribution also provides a consitent and
   integrated solution for Emacs configuration files from which to take note.
-
+  
 ** TODO Optimise Emacs’ startup time
 ** TODO Study global keybindings across major modes
    Create a map of global keybindings with a policy for prefix modifications.
@@ -937,31 +937,25 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
    (use-package crux
      :ensure t
      :after key-chord
-     :bind (("C-c o"                        . crux-open-with)
-            ("M-o"                          . crux-smart-open-line)
-            ("C-c n"                        . crux-cleanup-buffer-or-region)
-            ("C-c f"                        . crux-recentf-find-file)
-          ("C-M-z"                          . crux-indent-defun)
-            ("C-c u"                        . crux-view-url)
-            ("C-c e"                        . crux-eval-and-replace)
-            ("C-c w"                        . crux-swap-windows)
-            ("C-c D"                        . crux-delete-file-and-buffer)
-            ("C-c r"                        . crux-rename-buffer-and-file)
-            ("C-c t"                        . crux-visit-term-buffer)
-            ("C-c k"                        . crux-kill-line-backwards)
-            ("C-c I"                        . crux-find-user-init-file)
-            ("C-c S"                        . crux-find-shell-init-file)
-            ("s-r"                          . crux-recentf-find-file)
-            ("s-j"                          . crux-top-join-line)
-            ("C-^"                          . crux-top-join-line)
-            ("s-k"                          . crux-kill-whole-line)
-            ("C-<backspace>"                . crux-kill-line-backwards)
-            ("s-o"                          . crux-smart-open-line-above)
-            ([remap move-beginning-of-line] . crux-move-beginning-of-line)
-            ([(shift return)]               . crux-smart-open-line)
-            ([(control shift return)]       . crux-smart-open-line-above)
-            ([remap kill-whole-line]        . crux-kill-whole-line)
-            ("C-c s"                        . crux-ispell-word-then-abbrev))
+     :bind  (
+             ("C-c d"                  . crux-duplicate-current-line-or-region)
+             ("C-c M-d"                . crux-duplicate-and-comment-current-line-or-region)
+             ("C-c e"                  . crux-eval-and-replace)
+             ("C-c f"                  . crux-recentf-find-file)
+             ("C-c I"                  . crux-find-user-init-file)
+             ("C-c k"                  . crux-kill-line-backwards)
+             ("C-c n"                  . crux-cleanup-buffer-or-region)
+             ("C-c o"                  . crux-open-with)
+             ("C-c r"                  . crux-rename-buffer-and-file)
+             ("C-c s"                  . crux-ispell-word-then-abbrev)
+             ("C-c S"                  . crux-find-shell-init-file)
+             ("C-c t"                  . crux-visit-term-buffer)
+             ("C-c u"                  . crux-view-url)
+             ("C-^"                    . crux-top-join-line)
+             ([(shift return)]         . crux-smart-open-line)
+             ([(control shift return)] . crux-smart-open-line-above)
+             ([remap kill-whole-line]  . crux-kill-whole-line)
+             )
      :config
      (setq crux-shell "/bin/zsh"))
    #+END_SRC
@@ -1627,12 +1621,12 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
   - Mickey Petersen’s [[https://www.masteringemacs.org/article/mastering-key-bindings-emacs][blog]]
 
   #+begin_src emacs-lisp
-  (global-set-key (kbd "C-c d") 'crux-duplicate-current-line-or-region)
-  (global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
-  (global-set-key (kbd "C-a") 'crux-move-beginning-of-line)
-  (global-set-key [(shift return)] 'crux-smart-open-line)
-  (global-set-key (kbd "M-o") 'crux-smart-open-line)
-  (global-set-key [(control shift return)] 'crux-smart-open-line-above)
+  ;; (global-set-key (kbd "C-c d") 'crux-duplicate-current-line-or-region)
+  ;; (global-set-key (kbd "C-c M-d") 'crux-duplicate-and-comment-current-line-or-region)
+  ;; (global-set-key (kbd "C-a") 'crux-move-beginning-of-line)
+  ;; (global-set-key [(shift return)] 'crux-smart-open-line)
+  ;; (global-set-key (kbd "M-o") 'crux-smart-open-line)
+  ;; (global-set-key [(control shift return)] 'crux-smart-open-line-above)
   (global-set-key (kbd "C-x m") 'eshell)
   (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
   (global-set-key (kbd "C-x M-m") 'shell)
