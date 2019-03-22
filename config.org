@@ -1120,7 +1120,9 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
    (use-package lispy
      :ensure t
      :config
-     (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1))))
+     (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+     (use-package multiple-cursors
+       :ensure t))
    #+END_SRC
 
 ** magit
