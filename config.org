@@ -940,7 +940,6 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
      :bind  (
              ("C-c d"                  . crux-duplicate-current-line-or-region)
              ("C-c M-d"                . crux-duplicate-and-comment-current-line-or-region)
-             ("C-c e"                  . crux-eval-and-replace)
              ("C-c f"                  . crux-recentf-find-file)
              ("C-c i"                  . crux-ispell-word-then-abbrev)
              ("C-c k"                  . crux-kill-line-backwards)
