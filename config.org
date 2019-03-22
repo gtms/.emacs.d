@@ -700,6 +700,28 @@
                               (compilation-previous-error 1))
     #+END_SRC
 
+** ediff
+   [[info:ediff][Ediff]] is a comprehensive visual interface to Unix diff and patch utilities
+   built into Emacs.
+
+   This configuration forgoes the original setup with the control panel in a
+   separate frame and configures ediff to restore the original window
+   configuration after quitting the session (the relevant snippet was taken from
+   [[https://ipfs-sec.stackexchange.cloudflare-ipfs.com/emacs/A/question/7482.html][here]] on [2019-03-22 Fri]).
+
+   #+begin_src emacs-lisp
+   (use-package ediff
+     :config
+     (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+     (defvar my-ediff-last-windows nil)
+     (defun my-store-pre-ediff-winconfig ()
+       (setq my-ediff-last-windows (current-window-configuration)))
+     (defun my-restore-pre-ediff-winconfig ()
+       (set-window-configuration my-ediff-last-windows))
+     (add-hook 'ediff-before-setup-hook #'my-store-pre-ediff-winconfig)
+     (add-hook 'ediff-quit-hook #'my-restore-pre-ediff-winconfig))
+#+end_src
+
 ** hl-line
    [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] version 21 has library `hl-line.el', which provides a local and a
    global minor mode for highlighting the current line.  See [[http://www.emacswiki.org/cgi-bin/info-ref?find=highlight%2520current%2520line][highlight current
