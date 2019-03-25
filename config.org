@@ -959,22 +959,22 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
    (use-package crux
      :ensure t
      :after key-chord
-     :bind  (
-             ("C-c d"                  . crux-duplicate-current-line-or-region)
-             ("C-c M-d"                . crux-duplicate-and-comment-current-line-or-region)
-             ("C-c f"                  . crux-recentf-find-file)
-             ("C-c i"                  . crux-ispell-word-then-abbrev)
-             ("C-c k"                  . crux-kill-line-backwards)
-             ("C-c n"                  . crux-cleanup-buffer-or-region)
-             ("C-c o"                  . crux-open-with)
-             ("C-c r"                  . crux-rename-buffer-and-file)
-             ("C-c t"                  . crux-visit-term-buffer)
-             ("C-c u"                  . crux-view-url)
-             ("C-^"                    . crux-top-join-line)
-             ([(shift return)]         . crux-smart-open-line)
-             ([(control shift return)] . crux-smart-open-line-above)
-             ([remap kill-whole-line]  . crux-kill-whole-line)
-             )
+     :bind (
+            ("C-c d"                  . crux-duplicate-current-line-or-region)
+            ("C-c M-d"                . crux-duplicate-and-comment-current-line-or-region)
+            ("C-c f"                  . crux-recentf-find-file)
+            ("C-c i"                  . crux-ispell-word-then-abbrev)
+            ("C-c k"                  . crux-kill-line-backwards)
+            ("C-c n"                  . crux-cleanup-buffer-or-region)
+            ("C-c o"                  . crux-open-with)
+            ("C-c r"                  . crux-rename-buffer-and-file)
+            ("C-c t"                  . crux-visit-term-buffer)
+            ("C-c u"                  . crux-view-url)
+            ("C-^"                    . crux-top-join-line)
+            ([(shift return)]         . crux-smart-open-line)
+            ([(control shift return)] . crux-smart-open-line-above)
+            ([remap kill-whole-line]  . crux-kill-whole-line)
+            )
      :config
      (setq crux-shell "/bin/zsh"))
    #+END_SRC
@@ -1197,7 +1197,7 @@ easier to type than 'C-x o’ and, for some users, may be more intuitive.
      :mode
      ("\\.md"       . poly-markdown-mode)   ; Markdown files
      ("\\.[rR]md"   . poly-markdown+r-mode) ; RMarkdown files
-     ("\\.[sSrR]nw" . poly-noweb+r-mode))       ; Sweave files
+     ("\\.[sSrR]nw" . poly-noweb+r-mode))   ; Sweave files
    #+END_SRC
 
 ** projectile
