@@ -5,6 +5,7 @@ custom.el
 tramp
 bookmarks
 .org-id-locations
+.mc-lists.el
 
 ## directories
 auto-save-list
