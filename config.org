@@ -317,29 +317,30 @@
 ** other editing commands
 * The Practicals of Emacs
 * Org Mode
-  Org Mode is kept up-to-date via the orgmode.org archive repository.
+Org Mode is kept up-to-date via the orgmode.org archive repository.
 
-  #+BEGIN_SRC emacs-lisp
-    (use-package org
-      :ensure org-plus-contrib
-      :pin org
-      :config
-      (setq org-use-speed-commands t)
-      (setq org-goto-interface 'outline-path-completion)
-      (setq org-outline-path-complete-in-steps nil)
-      (setq org-special-ctrl-a/e t)
-      (setq org-special-ctrl-k t)
-      (setq org-ctrl-k-protect-subtree t)
-      (setq org-indent-mode t)
-      (add-hook 'org-mode-hook 'auto-fill-mode)
-      (add-hook 'org-mode-hook 'org-bullets-mode)
-      (use-package org-tempo)
-      :bind
-      (:map org-mode-map
-            ("C-a" . org-beginning-of-line)
-            ("C-e" . org-end-of-line)
-            ("C-k" . org-kill-line)))
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(use-package org
+  :ensure org-plus-contrib
+  :pin org
+  :config
+  (setq org-use-speed-commands t)
+  (setq org-goto-interface 'outline-path-completion)
+  (setq org-outline-path-complete-in-steps nil)
+  (setq org-special-ctrl-a/e t)
+  (setq org-special-ctrl-k t)
+  (setq org-ctrl-k-protect-subtree t)
+  (setq org-indent-mode t)
+  (setq org-startup-indented t)
+  (add-hook 'org-mode-hook 'auto-fill-mode)
+  (add-hook 'org-mode-hook 'org-bullets-mode)
+  (use-package org-tempo)
+  :bind
+  (:map org-mode-map
+        ("C-a" . org-beginning-of-line)
+        ("C-e" . org-end-of-line)
+        ("C-k" . org-kill-line)))
+#+END_SRC
 
 ** org-bullets
    Show bullets in org-mode as UTF-8 characters.
