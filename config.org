@@ -42,8 +42,9 @@ initialization file.
 #+END_SRC
 
 * Core
-These were taken from [[https://github.com/bbatsov/prelude][Prelude Emacs]], Bozidar Batsov [[https://github.com/bbatsov/emacs.d][init.el]], my previous
-iteration of config.org, as well as various other sources.
+These were taken from [[https://github.com/bbatsov/prelude][Prelude Emacs]], Bozidar Batsov [[https://github.com/bbatsov/emacs.d][init.el]], Phil Hagelberg’s
+[[https://github.com/technomancy/better-defaults][Better Defaults]], my previous iteration of config.org, as well as various other
+sources.
 
 #+BEGIN_SRC emacs-lisp
 (setq user-full-name "Gil Tomás"
@@ -204,11 +205,15 @@ to optimize startup times.
 Most of these settings are taken from prelude-ui.el.
 
 #+BEGIN_SRC emacs-lisp
-;; Remove toolbar, menubar and scrollbar
-(when (fboundp 'tool-bar-mode)
-  (tool-bar-mode -1))
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
+;; Remove menu bar, tool bar, and both scroll bars
+(progn (unless (eq window-system 'ns)
+         (menu-bar-mode -1))
+       (when (fboundp 'tool-bar-mode)
+         (tool-bar-mode -1))
+       (when (fboundp 'scroll-bar-mode)
+         (scroll-bar-mode -1))
+       (when (fboundp 'horizontal-scroll-bar-mode)
+         (horizontal-scroll-bar-mode -1)))
 ;; Remove blinking cursor
 (blink-cursor-mode -1)
 ;; Disable the ring bell
