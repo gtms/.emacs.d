@@ -330,6 +330,7 @@ Org Mode is kept up-to-date via the orgmode.org archive repository.
   (setq org-ctrl-k-protect-subtree t)
   (setq org-indent-mode t)
   (setq org-startup-indented t)
+    (setq org-catch-invisible-edits 'smart)
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'org-bullets-mode)
   (use-package org-tempo)
