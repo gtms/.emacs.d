@@ -1702,6 +1702,7 @@ Define global key bindings.  See:
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
 (global-set-key (kbd "C-x M-m") 'shell)
+(global-set-key (kbd "C-c C-f") 'counsel-recentf)
 #+end_src
 
 * To Try
