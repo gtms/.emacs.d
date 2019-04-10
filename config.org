@@ -786,14 +786,18 @@ access this list through a command or the menu.
 
 #+BEGIN_SRC emacs-lisp
 (use-package recentf
+  :defer nil
   :config
   (setq recentf-save-file (expand-file-name "recentf" savefile-dir)
         recentf-max-saved-items 500
         recentf-max-menu-items 15
-        ;; disable recentf-cleanup on Emacs start, because it can cause
-        ;; problems with remote files
+        ;; disable recentf-cleanup on Emacs start, because it can cause problems
+        ;; with remote files
         recentf-auto-cleanup 'never)
-  (recentf-mode 1))
+  (recentf-mode 1)
+  :bind (
+         ("C-c C-f" . counsel-recentf)
+         ))
 #+END_SRC
 
 ** saveplace
@@ -1705,7 +1709,6 @@ Define global key bindings.  See:
 (global-set-key (kbd "C-x m") 'eshell)
 (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
 (global-set-key (kbd "C-x M-m") 'shell)
-(global-set-key (kbd "C-c C-f") 'counsel-recentf)
 #+end_src
 
 * To Try
