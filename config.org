@@ -454,7 +454,9 @@ reading in various files.
   :config
   (setq bookmark-default-file
         (expand-file-name "bookmarks" savefile-dir)
-        bookmark-save-flag 1))
+        bookmark-save-flag 1)
+  :bind (
+         ("C-c C-b" . counsel-bookmark)))
 #+end_src
 
 ** dired
