@@ -1405,6 +1405,17 @@ Colorize color names in buffers.
   :defer t)
 #+END_SRC
 
+*** ivy rich
+Provides a more friendly interface for ivy.
+
+#+begin_src emacs-lisp
+(use-package ivy-rich
+  :ensure t
+  :config
+  (ivy-rich-mode 1)
+  (setq ivy-format-function #'ivy-format-function-line))
+#+end_src
+
 ** typo
 ‘Typo’ is an Emacs mode for typographical editing.  This entry was created on
 [2019-02-05 Tue].
