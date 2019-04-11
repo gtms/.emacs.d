@@ -1411,7 +1411,7 @@ Colorize color names in buffers.
   :defer t)
 #+END_SRC
 
-*** ivy rich
+*** CANCELLED ivy rich
 Provides a more friendly interface for ivy.
 
 #+begin_src emacs-lisp
