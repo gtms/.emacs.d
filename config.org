@@ -234,10 +234,10 @@ Most of these settings are taken from prelude-ui.el.
 #+END_SRC
 
 ** font
-The default font is Source Code Pro, where available.
+The default font is Office Code Pro, where available.
 
 #+BEGIN_SRC emacs-lisp
-  (set-frame-font "Source Code Pro")
+(set-frame-font "Office Code Pro")
 #+END_SRC
 
 ** theme
