@@ -234,10 +234,14 @@ Most of these settings are taken from prelude-ui.el.
 #+END_SRC
 
 ** font
-The default font is Office Code Pro, where available.
+The default font is Source Code Pro, where available.  Note that Emacs has an
+issue with properly selecting the “normal” size of Source Code Pro (it seems to
+load Source Code Pro Medium instead of Source Code Pro Regular by default;
+however, italic text shows in RegularIt, not MediumIt).  A discussion of the
+problem, and the respective solution can be found [[https://bugzilla.redhat.com/show_bug.cgi?id=1660512][here]].
 
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "Office Code Pro")
+(set-frame-font "Source Code Pro:weight=semilight")
 #+END_SRC
 
 The following was taken from custom.el, after having manually edited some faces
@@ -245,8 +249,8 @@ specific to info previously shown in DejaVu.
 
 #+begin_src emacs-lisp
 (custom-set-faces
- '(info-menu-header ((t (:inherit Office\ Source\ Pro :weight bold))))
- '(info-title-4 ((t (:inherit variable-pitch :weight bold :family "Office Source Pro")))))
+ '(info-menu-header ((t (:inherit Source\ Code\ Pro :weight bold))))
+ '(info-title-4 ((t (:inherit variable-pitch :weight bold :family "Source Code Pro")))))
 #+end_src
 
 ** theme
