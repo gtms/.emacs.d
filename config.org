@@ -240,6 +240,15 @@ The default font is Office Code Pro, where available.
 (set-frame-font "Office Code Pro")
 #+END_SRC
 
+The following was taken from custom.el, after having manually edited some faces
+specific to info previously shown in DejaVu.
+
+#+begin_src emacs-lisp
+(custom-set-faces
+ '(info-menu-header ((t (:inherit Office\ Source\ Pro :weight bold))))
+ '(info-title-4 ((t (:inherit variable-pitch :weight bold :family "Office Source Pro")))))
+#+end_src
+
 ** theme
 Default theme is doom-solarized-light.  Themes can be changed via
 =counsel-load-theme=.
