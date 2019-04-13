@@ -238,7 +238,7 @@ The default font is Source Code Pro, where available.  Note that Emacs has an
 issue with properly selecting the “normal” size of Source Code Pro (it seems to
 load Source Code Pro Medium instead of Source Code Pro Regular by default;
 however, italic text shows in RegularIt, not MediumIt).  A discussion of the
-problem, and the respective solution can be found [[https://bugzilla.redhat.com/show_bug.cgi?id=1660512][here]].
+problem, and the respective solution, can be found [[https://bugzilla.redhat.com/show_bug.cgi?id=1660512][here]].
 
 #+BEGIN_SRC emacs-lisp
 (set-frame-font "Source Code Pro:weight=semilight")
@@ -250,7 +250,8 @@ specific to info previously shown in DejaVu.
 #+begin_src emacs-lisp
 (custom-set-faces
  '(info-menu-header ((t (:inherit Source\ Code\ Pro :weight bold))))
- '(info-title-4 ((t (:inherit variable-pitch :weight bold :family "Source Code Pro")))))
+ '(info-title-4 ((t (:inherit variable-pitch :weight bold :family "Source Code Pro"))))
+ '(variable-pitch ((t (:family "Segoe UI")))))
 #+end_src
 
 ** theme
