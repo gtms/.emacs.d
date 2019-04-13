@@ -249,8 +249,6 @@ specific to info previously shown in DejaVu.
 
 #+begin_src emacs-lisp
 (custom-set-faces
- '(info-menu-header ((t (:inherit Source\ Code\ Pro :weight bold))))
- '(info-title-4 ((t (:inherit variable-pitch :weight bold :family "Source Code Pro"))))
  '(variable-pitch ((t (:family "Segoe UI")))))
 #+end_src
 
