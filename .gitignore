@@ -4,6 +4,8 @@ config.el
 custom.el
 tramp
 bookmarks
+amx-items
+smex-items
 .org-id-locations
 .mc-lists.el
 
