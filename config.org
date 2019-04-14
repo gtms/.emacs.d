@@ -1390,6 +1390,8 @@ Colorize color names in buffers.
          )
   :config
   (counsel-mode +1)
+  (use-package amx
+    :ensure t)
   (use-package flx
     :ensure t)
   ;; mix fuzzy with plus (.* for each space)
@@ -1408,6 +1410,8 @@ Colorize color names in buffers.
   :ensure t
   :bind (("C-x b" . ivy-switch-buffer))
   :config
+  (use-package ivy-hydra
+    :ensure t)
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-display-style 'fancy)
