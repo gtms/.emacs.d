@@ -804,10 +804,7 @@ access this list through a command or the menu.
         ;; disable recentf-cleanup on Emacs start, because it can cause problems
         ;; with remote files
         recentf-auto-cleanup 'never)
-  (recentf-mode 1)
-  :bind (
-         ("C-c C-f" . counsel-recentf)
-         ))
+  (recentf-mode 1))
 #+END_SRC
 
 ** saveplace
@@ -1004,7 +1001,6 @@ decision tree.
   :bind (
          ("C-c d"                  . crux-duplicate-current-line-or-region)
          ("C-c M-d"                . crux-duplicate-and-comment-current-line-or-region)
-         ("C-c f"                  . crux-recentf-find-file)
          ("C-c i"                  . crux-ispell-word-then-abbrev)
          ("C-c k"                  . crux-kill-line-backwards)
          ("C-c n"                  . crux-cleanup-buffer-or-region)
@@ -1384,10 +1380,10 @@ Colorize color names in buffers.
          ("C-h v"   . counsel-describe-variable)
          ("C-h f"   . counsel-describe-function)
          ("C-c a"   . counsel-ag)
+         ("C-c f"   . counsel-recentf)
          ("C-c g"   . counsel-git)
          ("C-c j"   . counsel-git-grep)
-         ("C-c l"   . counsel-locate)
-         )
+         ("C-c l"   . counsel-locate))
   :config
   (counsel-mode +1)
   (use-package amx
