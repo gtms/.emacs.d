@@ -1134,6 +1134,7 @@ major mode, same project buffers and user defined list of friendly mode buffers.
     :ensure t)
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
   (setq ivy-display-style 'fancy)
   (progn
     (global-set-key (kbd "C-c C-r") 'ivy-resume)))
@@ -1144,7 +1145,7 @@ major mode, same project buffers and user defined list of friendly mode buffers.
 (use-package swiper
   :ensure t
   :after ivy
-  :bind (("C-s"   . swiper)
+  :bind (("C-s"   . swiper-isearch)
          ("C-c q" . swiper-all)))
 #+END_SRC
 
@@ -1173,10 +1174,9 @@ major mode, same project buffers and user defined list of friendly mode buffers.
   ;; mix fuzzy with plus (.* for each space)
   ;; http://oremacs.com/2016/01/06/ivy-flx/
   (setq ivy-re-builders-alist
-        '((ivy-switch-buffer . ivy--regex-plus)
-          (swiper            . ivy--regex-plus)
-          (swiper-all        . regexp-quote)
-          (t                 . ivy--regex-fuzzy)))
+        '((counsel-M-x . ivy--regex-fuzzy)
+          (swiper-all  . regexp-quote)
+          (t           . ivy--regex-plus)))
   (setq ivy-initial-inputs-alist nil))
 #+END_SRC
 
