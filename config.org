@@ -1359,15 +1359,18 @@ file in it.
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
-  :defer t
+  :defer 5
   :init
   (setq projectile-completion-system 'ivy)
+  :bind* (("C-c TAB" . projectile-find-other-file)
+          ("C-c P" . (lambda () (interactive)
+                       (projectile-cleanup-known-projects)
+                       (projectile-discover-projects-in-search-path))))
+  :bind-keymap ("C-c p" . projectile-command-map)
   :config
   (setq projectile-cache-file (expand-file-name "projectile.cache" savefile-dir))
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (projectile-mode +1))
+  (projectile-global-mode))
 #+END_SRC
-
 ** rainbow-delimiters
 Colours paired parentheses.
 
