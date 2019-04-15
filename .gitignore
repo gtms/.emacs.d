@@ -8,6 +8,7 @@ amx-items
 smex-items
 .org-id-locations
 .mc-lists.el
+projectile-bookmarks.eld
 
 ## directories
 auto-save-list

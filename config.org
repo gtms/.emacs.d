@@ -1605,9 +1605,9 @@ Also, take a look at this reddit [[https://www.reddit.com/r/emacs/comments/akmwk
   :ensure auctex)
 
 (use-package tex-buf
-:ensure auctex
-:defer t
-:config (setq TeX-save-query nil))
+  :ensure auctex
+  :defer t
+  :config (setq TeX-save-query nil))
 
 (use-package tex
   :ensure auctex
