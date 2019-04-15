@@ -1180,6 +1180,15 @@ major mode, same project buffers and user defined list of friendly mode buffers.
   (setq ivy-initial-inputs-alist nil))
 #+END_SRC
 
+*** counsel-projectile
+#+begin_src emacs-lisp
+(use-package counsel-projectile
+  :ensure t
+  :after (counsel projectile)
+  :config
+  (counsel-projectile-mode 1))
+#+end_src
+
 *** hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra
