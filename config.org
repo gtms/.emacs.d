@@ -1489,6 +1489,12 @@ Colorize color names in buffers.
   (volatile-highlights-mode +1))
 #+END_SRC
 
+** wgrep
+#+begin_src emacs-lisp
+(use-package wgrep
+  :defer 5
+  :ensure t)
+#+end_src
 ** which-key
 #+BEGIN_SRC emacs-lisp
 (use-package which-key
