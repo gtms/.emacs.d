@@ -748,6 +748,18 @@ after quitting the session (the relevant snippet was taken from [[https://ipfs-s
   (add-hook 'ediff-quit-hook #'my-restore-pre-ediff-winconfig))
 #+end_src
 
+** grep
+This snippet is taken from John Wiegley’s [[https://github.com/jwiegley/dot-emacs][init.el]].  Most importantly, it binds
+‘find-name-dired’ to ‘M-s n’.
+
+#+begin_src emacs-lisp
+(use-package grep
+  :bind (("M-s n" . find-name-dired)
+         ("M-s F" . find-grep)
+         ("M-s G" . grep)
+         ("M-s d" . find-grep-dired)))
+#+end_src
+
 ** hl-line
 [[https://www.emacswiki.org/emacs/GnuEmacs][GnuEmacs]] version 21 has library `hl-line.el', which provides a local and a
 global minor mode for highlighting the current line.  See [[http://www.emacswiki.org/cgi-bin/info-ref?find=highlight%2520current%2520line][highlight current
