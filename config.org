@@ -1552,12 +1552,23 @@ A visual zap-to-char command for Emacs.
 * Eshell
 This Mike Petersen's [[https://www.masteringemacs.org/article/complete-guide-mastering-eshell][article]] on Eshell on his Mastering Emacs blog is a must
 read.  Also, see this [[http://howardism.org/Technical/Emacs/eshell-present.html][blogpost]] from Howard Abrams outlining some of Eshell
-strengths.
+strengths.  Howard Abrams is a great champion of Eshell and does a great job of
+showcasing its raw power as a crossover between elisp and zshell-like magic in
+another technical note [[http://www.howardism.org/Technical/Emacs/eshell-fun.html][here]].
+
+#+begin_src emacs-lisp
+(use-package eshell
+  :config
+  (use-package em-smart)
+  (setq eshell-where-to-jump 'begin)
+  (setq eshell-review-quick-commands nil)
+  (setq eshell-smart-space-goes-to-end t))
+#+end_src
 
 This snippet dispatches programs to 'ansi-term' automatically:
 
 #+BEGIN_SRC emacs-lisp
-;; (add-to-list 'eshell-visual-commands "htop")
+(add-to-list 'eshell-visual-commands "htop")
 #+END_SRC
 
 This snippet defines eshell aliases:
