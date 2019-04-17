@@ -282,7 +282,6 @@ be changed via =counsel-load-theme=.
 
 (use-package jazz-theme
   :ensure t
-  :disabled nil
   :config
   (load-theme 'jazz t))
 
