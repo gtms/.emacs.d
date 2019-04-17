@@ -247,20 +247,21 @@ specific to info previously shown in DejaVu.
 #+end_src
 
 ** theme
-Default theme is doom-solarized-light.  Themes can be changed via
-=counsel-load-theme=.
+The flavour of the moment is a dark theme called ‘jazz-theme’.  Previous themes
+I’ve used include doom-solarized-light, doom-nord-light and zenburn.  Themes can
+be changed via =counsel-load-theme=.
 
 #+BEGIN_SRC emacs-lisp
 (use-package zenburn-theme
   :ensure t
-  :defer t
+  :disabled t
   :config
   (if(display-graphic-p)
       (load-theme 'zenburn t)))
 
 (use-package solarized-theme
   :ensure t
-  :defer t
+  :disabled t
   :config
   (setq solarized-use-variable-pitch nil)
   (setq solarized-high-contrast-mode-line t)
@@ -272,11 +273,21 @@ Default theme is doom-solarized-light.  Themes can be changed via
 
 (use-package doom-themes
   :ensure t
+  :disabled t
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   (doom-themes-org-config)
   (load-theme 'doom-solarized-light t))
+
+(use-package jazz-theme
+  :ensure t
+  :config
+  (load-theme 'jazz t)
+  (custom-set-faces
+   '(company-tooltip-common ((t (:foreground "#151515" :underline nil))))
+   '(company-tooltip-common-selection ((t (:background "#385e6b" :foreground "#c6a57b" :underline nil))))
+   '(show-paren-match ((t (:background "#151515" :foreground "#385e6b" :underline nil :weight bold))))))
 #+END_SRC
 
 ** mode line
