@@ -1086,10 +1086,13 @@ as in the user's shell.
 #+END_SRC
 
 ** expand-region
+Type =C-== to increase the region by semantic units.  If you expand too far, you
+can contract the region by prefixing the binding with the negative argument (=C-
+C-==).  [[http://emacsrocks.com/e09.html][Emacs Rocks]]!
+
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
   :ensure t
-  :defer t
   :bind ("C-=" . er/expand-region))
 #+END_SRC
 
