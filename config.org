@@ -214,8 +214,6 @@ Most of these settings are taken from prelude-ui.el.
          (scroll-bar-mode -1))
        (when (fboundp 'horizontal-scroll-bar-mode)
          (horizontal-scroll-bar-mode -1)))
-;; Remove blinking cursor
-(blink-cursor-mode -1)
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
 ;; Better scrolling
