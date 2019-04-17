@@ -216,10 +216,6 @@ Most of these settings are taken from prelude-ui.el.
          (horizontal-scroll-bar-mode -1)))
 ;; Remove blinking cursor
 (blink-cursor-mode -1)
-;; Disable the ring bell
-(setq ring-bell-function 'ignore)
-;; enable visible bell
-(setq visible-bell t)
 ;; Disable startup screen
 (setq inhibit-startup-screen t)
 ;; Better scrolling
@@ -1270,6 +1266,17 @@ twice.
         (setq magit-completing-read-function 'ivy-completing-read)
   :bind (("C-x g" . magit-status)))
 #+END_SRC
+
+** mode-line-bell-mode
+Flash the Emacs mode line instead of ringing the bell.
+
+#+begin_src emacs-lisp
+(use-package mode-line-bell
+  :ensure t
+  :defer 5
+  :config
+  (mode-line-bell-mode))
+#+end_src
 
 ** markdown-mode
 =markdown-mode= is a major mode for GNU Emacs which provides syntax highlighting
