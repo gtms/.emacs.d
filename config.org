@@ -282,12 +282,11 @@ be changed via =counsel-load-theme=.
 
 (use-package jazz-theme
   :ensure t
+  :disabled nil
   :config
-  (load-theme 'jazz t)
-  (custom-set-faces
-   '(company-tooltip-common ((t (:foreground "#151515" :underline nil))))
-   '(company-tooltip-common-selection ((t (:background "#385e6b" :foreground "#c6a57b" :underline nil))))
-   '(show-paren-match ((t (:background "#151515" :foreground "#385e6b" :underline nil :weight bold))))))
+  (load-theme 'jazz t))
+
+;; (load "~/.emacs.d/personal/gil-eclipse.el")
 #+END_SRC
 
 ** mode line
