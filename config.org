@@ -1363,6 +1363,11 @@ are =lein=, =maven=, =sbt=, =scons=, =rebar= and =bundler= projects.  If you
 want to mark a folder manually as a project just create an empty =.projectile=
 file in it.
 
+The best way to interact with Projectile is through ~counsel-projectile~
+(=C-c p SPC=).  It jumps to a buffer or a file in the current project.  With a
+prefix /ARG/, invalidate the cache first.  If not inside a project, call
+~counsel-projectile-switch-project~.
+
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
