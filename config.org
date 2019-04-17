@@ -1572,17 +1572,14 @@ another technical note [[http://www.howardism.org/Technical/Emacs/eshell-fun.htm
 #+begin_src emacs-lisp
 (use-package eshell
   :config
+  (use-package em-term)
   (use-package em-smart)
-  (setq eshell-where-to-jump 'begin)
-  (setq eshell-review-quick-commands nil)
-  (setq eshell-smart-space-goes-to-end t))
+  ;; (setq eshell-where-to-jump 'begin)
+  ;; (setq eshell-review-quick-commands nil)
+  ;; (setq eshell-smart-space-goes-to-end t)
+  (add-to-list 'eshell-visual-commands "htop")
+  (setq eshell-directory-name (expand-file-name "eshell" savefile-dir)))
 #+end_src
-
-This snippet dispatches programs to 'ansi-term' automatically:
-
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'eshell-visual-commands "htop")
-#+END_SRC
 
 This snippet defines eshell aliases:
 
@@ -1603,13 +1600,6 @@ This snippet configures the prompt:
              "~" (eshell/basename (eshell/pwd)))
          (if (= (user-uid) 0) "# " "$ "))))
 #+END_SRC
-
-This snippet taken from Prelude (prelude-editor.el:335) sets Eshell's directory
-name:
-
-#+begin_src emacs-lisp
-(setq eshell-directory-name (expand-file-name "eshell" savefile-dir))
-#+end_src
 
 * CANCELLED LaTeX
 This section was taken from Aaron Culich's Emacs configuration, with minor
