@@ -1584,20 +1584,14 @@ This snippet defines eshell aliases:
 This snippet configures the prompt:
 
 #+BEGIN_SRC emacs-lisp
-(setq eshell-prompt-function
-      (lambda ()
+(setq eshell-prompt-regexp "^[^#$\n]*[#$] "
+      eshell-prompt-function
+      (lambda nil
         (concat
-         (propertize "┌─[" 'face `(:foreground "grey50"))
-         (propertize (user-login-name) 'face `(:foreground "#ff6655"))
-         (propertize "@" 'face `(:foreground "grey50"))
-         (propertize (system-name) 'face `(:foreground "#dd8844"))
-         (propertize "]──[" 'face `(:foreground "grey50"))
-         (propertize (format-time-string "%H:%M" (current-time)) 'face `(:foreground "#c678dd"))
-         (propertize "]──[" 'face `(:foreground "grey50"))
-         (propertize (concat (eshell/pwd)) 'face `(:foreground "#5699AF"))
-         (propertize "]\n" 'face `(:foreground "grey50"))
-         (propertize "└─>" 'face `(:foreground "grey50"))
-         (propertize (if (= (user-uid) 0) " # " " $ ")))))
+         (user-login-name) "@" (system-name) ":"
+         (if (string= (eshell/pwd) (getenv "HOME"))
+             "~" (eshell/basename (eshell/pwd)))
+         (if (= (user-uid) 0) "# " "$ "))))
 #+END_SRC
 
 This snippet taken from Prelude (prelude-editor.el:335) sets Eshell's directory
