@@ -247,9 +247,9 @@ specific to info previously shown in DejaVu.
 #+end_src
 
 ** theme
-The flavour of the moment is a dark theme called ‘jazz-theme’.  Previous themes
-I’ve used include doom-solarized-light, doom-nord-light and zenburn.  Themes can
-be changed via =counsel-load-theme=.
+The flavour of the moment is ‘doom-solarized-light’.  Previous themes I’ve used
+include ‘zenburn’ and ‘doom-nord-light’.  Themes can be changed via
+=counsel-load-theme=.
 
 #+BEGIN_SRC emacs-lisp
 (use-package zenburn-theme
@@ -273,7 +273,6 @@ be changed via =counsel-load-theme=.
 
 (use-package doom-themes
   :ensure t
-  :disabled t
   :config
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
@@ -282,10 +281,9 @@ be changed via =counsel-load-theme=.
 
 (use-package jazz-theme
   :ensure t
+  :disabled t
   :config
   (load-theme 'jazz t))
-
-;; (load "~/.emacs.d/personal/gil-eclipse.el")
 #+END_SRC
 
 ** mode line
