@@ -1280,7 +1280,6 @@ Flash the Emacs mode line instead of ringing the bell.
 #+begin_src emacs-lisp
 (use-package mode-line-bell
   :ensure t
-  :defer 5
   :config
   (mode-line-bell-mode))
 #+end_src
@@ -1380,7 +1379,6 @@ prefix /ARG/, invalidate the cache first.  If not inside a project, call
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
-  :defer 5
   :init
   (setq projectile-completion-system 'ivy)
   :bind* (("C-c TAB" . projectile-find-other-file)
@@ -1513,7 +1511,6 @@ Colorize color names in buffers.
 ** wgrep
 #+begin_src emacs-lisp
 (use-package wgrep
-  :defer 5
   :ensure t)
 #+end_src
 
