@@ -322,11 +322,11 @@ Some hints to configure this mode can be found in this reddit [[https://www.redd
   :ensure t
   :init
   (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
-  (setq doom-modeline-lsp nil)
-  (setq doom-modeline-icon nil)
   (setq doom-modeline-major-mode-icon nil)
-  (setq column-number-mode t)
+  (setq doom-modeline-lsp nil)
   (setq display-time-day-and-date t)
+  (setq doom-modeline-icon t)
+  (setq column-number-mode t)
   (setq display-time-default-load-average nil)
   (display-time)
   :hook (after-init . doom-modeline-mode))
