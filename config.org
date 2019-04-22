@@ -102,7 +102,7 @@ sources.
 ;; (setq next-line-add-newlines t)
 ;; Set global visual mode on
 ;; 13Feb2019
-(global-visual-line-mode 1)
+(add-hook 'text-mode-hook (lambda () (visual-line-mode 1)))
 #+END_SRC
 
 [2019-01-16 Wed]
