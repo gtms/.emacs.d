@@ -277,6 +277,7 @@ include ‘zenburn’ and ‘doom-nord-light’.  Themes can be changed via
   (setq doom-themes-enable-bold t
         doom-themes-enable-italic t)
   (doom-themes-org-config)
+  (doom-themes-visual-bell-config)
   (load-theme 'doom-solarized-light t))
 
 (use-package jazz-theme
