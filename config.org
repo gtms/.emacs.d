@@ -103,6 +103,9 @@ sources.
 ;; Set global visual mode on
 ;; 13Feb2019
 (add-hook 'text-mode-hook (lambda () (visual-line-mode 1)))
+;; 23Apr2019
+;; narrow to region is not disabled
+(put 'narrow-to-region 'disabled nil)
 #+END_SRC
 
 [2019-01-16 Wed]
