@@ -314,7 +314,7 @@ Taken on [2017-07-05 Wed]
   (sml/setup))
 #+END_SRC
 
-*** doom-modeline
+*** CANCELLED doom-modeline
 Some hints to configure this mode can be found in this reddit [[https://www.reddit.com/r/emacs/comments/aj2zmn/please_help_me_convert_emacs_doom_modeline_to_a/][post]].
 
 #+begin_src emacs-lisp
@@ -330,6 +330,16 @@ Some hints to configure this mode can be found in this reddit [[https://www.redd
   (setq display-time-default-load-average nil)
   (display-time)
   :hook (after-init . doom-modeline-mode))
+#+end_src
+
+*** mood-line
+Much simpler version of doom-modeline.  Absence of ‘atom-like’ features in the
+mode line much appreciated.
+
+#+begin_src emacs-lisp
+(use-package mood-line
+  :ensure t
+  :hook (after-init . mood-line-activate))
 #+end_src
 
 * The Theory of Movement
