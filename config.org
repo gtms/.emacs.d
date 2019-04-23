@@ -1220,7 +1220,7 @@ major mode, same project buffers and user defined list of friendly mode buffers.
          ("C-c a"   . counsel-ag)
          ("C-c f"   . counsel-recentf)
          ("C-c g"   . counsel-git)
-         ("C-c j"   . counsel-git-grep)
+         ;; ("C-c j"   . counsel-git-grep)
          ("C-c l"   . counsel-locate))
   :config
   (counsel-mode +1)
