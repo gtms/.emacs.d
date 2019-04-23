@@ -320,16 +320,22 @@ Some hints to configure this mode can be found in this reddit [[https://www.redd
 #+begin_src emacs-lisp
 (use-package doom-modeline
   :ensure t
-  :init
-  (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
-  (setq doom-modeline-major-mode-icon nil)
-  (setq doom-modeline-lsp nil)
-  (setq display-time-day-and-date t)
-  (setq doom-modeline-icon t)
-  (setq column-number-mode t)
-  (setq display-time-default-load-average nil)
-  (display-time)
-  :hook (after-init . doom-modeline-mode))
+  :config
+  ;; Configure doom-modeline variables
+  (setq find-file-visit-truename t)
+  (setq doom-modeline-bar-width 3)
+  (setq doom-modeline-height 22)
+  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (setq doom-modeline-icon nil)
+  (setq doom-modeline-lsp t)
+  ;; Define custom doom-modeline configuration
+  (doom-modeline-def-modeline 'gs
+                              '(bar buffer-info))
+  (defun setup-custom-doom-modeline ()
+    (doom-modeline-set-modeline 'gs 'default))
+  (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
+  :hook
+  (after-init . doom-modeline-mode))
 #+end_src
 
 *** mood-line
