@@ -342,6 +342,22 @@ mode line much appreciated.
   :hook (after-init . mood-line-activate))
 #+end_src
 
+*** CANCELLED moody & minions
+From Jonas Bernouilli (of Magit fame).
+
+#+begin_src emacs-lisp
+(use-package minions
+  :ensure t
+  :init
+  (minions-mode))
+
+(use-package moody
+  :ensure t
+  :config (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
+#+end_src
+
 * The Theory of Movement
 ** the basics
 ** window management
