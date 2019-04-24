@@ -926,7 +926,7 @@ displays the shell in the current window (from a Mickey Petersen
 (use-package shell
   :config
   (add-to-list 'display-buffer-alist
-             '("^\\*shell\\*$" . (display-buffer-same-window))))
+               '("^\\*shell\\*$" . (display-buffer-same-window))))
 #+END_SRC
 
 ** uniquify
@@ -1461,6 +1461,26 @@ Colorize color names in buffers.
   :config
   (add-hook 'prog-mode-hook #'rainbow-mode))
 #+END_SRC
+
+** shackle
+[[https://github.com/wasamasa/shackle][Shackle]] enables rule-based control over which new buffers are allowed to be
+displayed in a new window.  Case in point, ‘ess-run-r’ always displays the
+spawned R process in a new window and I don’t like that.  This configuration
+forces the new buffer to open on the current window.  See this discussion on
+[[https://emacs.stackexchange.com/questions/48190/emacs-opens-ess-r-buffer-in-random-window][Emacs StackExchange]].
+
+Similarly, back when Emacs 25.1 came out, invoking a new ‘shell’ process
+interactively began to display the new *shell* buffer in a new window.  See the
+Mickey Petersen post under the [[shell][shell]] entry on how this behaviour was corrected.
+
+#+begin_src emacs-lisp
+(use-package shackle
+  :ensure t
+  :after ess
+  :config
+  (setq shackle-rules '(("*R:?[0-9]?*" :regexp t :same t)))
+  (shackle-mode 1))
+#+end_src
 
 ** smartparens
 #+BEGIN_SRC emacs-lisp
