@@ -317,7 +317,7 @@ Taken on [2017-07-05 Wed]
   (sml/setup))
 #+END_SRC
 
-*** CANCELLED doom-modeline
+*** doom-modeline
 Some hints to configure this mode can be found in this reddit [[https://www.reddit.com/r/emacs/comments/aj2zmn/please_help_me_convert_emacs_doom_modeline_to_a/][post]].
 
 #+begin_src emacs-lisp
@@ -326,22 +326,22 @@ Some hints to configure this mode can be found in this reddit [[https://www.redd
   :config
   ;; Configure doom-modeline variables
   (setq find-file-visit-truename t)
-  (setq doom-modeline-bar-width 3)
-  (setq doom-modeline-height 22)
-  (setq doom-modeline-buffer-file-name-style 'truncate-upto-project)
+  (setq doom-modeline-buffer-file-name-style 'file-name)
   (setq doom-modeline-icon nil)
-  (setq doom-modeline-lsp t)
+  (setq column-number-mode t)
+  (setq doom-modeline-enable-word-count 1)
   ;; Define custom doom-modeline configuration
-  (doom-modeline-def-modeline 'gs
-                              '(bar buffer-info))
+  (doom-modeline-def-modeline 'my-modeline
+    '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position selection-info)
+    '(objed-state misc-info mu4e debug minor-modes major-mode process vcs checker))
   (defun setup-custom-doom-modeline ()
-    (doom-modeline-set-modeline 'gs 'default))
+    (doom-modeline-set-modeline 'my-modeline 'default))
   (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
   :hook
   (after-init . doom-modeline-mode))
 #+end_src
 
-*** mood-line
+*** CANCELLED mood-line
 Much simpler version of doom-modeline.  Absence of ‘atom-like’ features in the
 mode line much appreciated.
 
