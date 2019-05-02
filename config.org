@@ -1489,10 +1489,28 @@ For much more information, consult the [[http://common-lisp.net/project/slime/do
 #+begin_src emacs-lisp
 (use-package slime
   :ensure t
+  :after
+  (:all slime-company)
   :commands slime
+  :mode
+  (("\\.lisp'" . lispy-mode)
+   ("\\.lsp'"  . lispy-mode)
+   ("\\.cl'"   . lispy-mode)
+   ("\\.asd'"  . lispy-mode)
+   ("\\.fasl'" . lispy-mode))
   :init
   (setq inferior-lisp-program "sbcl"
-        slime-contribs '(slime-fancy)))
+        slime-contribs '(slime-fancy))
+  :hook
+  ((lispy-mode         . hook-lisp-mode)
+   (inferior-lisp-mode . hook-inferior-lisp-mode)))
+#+end_src
+
+*** slime-company
+#+begin_src emacs-lisp
+(use-package slime-company
+  :ensure t
+  :defer t)
 #+end_src
 
 ** shackle
