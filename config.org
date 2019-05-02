@@ -1475,6 +1475,26 @@ Colorize color names in buffers.
   (add-hook 'prog-mode-hook #'rainbow-mode))
 #+END_SRC
 
+** slime
+SLIME is the Superior Lisp Interaction Mode for Emacs.
+
+SLIME extends Emacs with support for interactive programming in Common Lisp.
+The features are centered around slime-mode, an Emacs minor-mode that
+complements the standard lisp-mode.  While lisp-mode supports editing Lisp
+source files, slime-mode adds support for interacting with a running Common Lisp
+process for compilation, debugging, documentation lookup, and so on.
+
+For much more information, consult the [[http://common-lisp.net/project/slime/doc/html/][manual]].
+
+#+begin_src emacs-lisp
+(use-package slime
+  :ensure t
+  :commands slime
+  :init
+  (setq inferior-lisp-program "sbcl"
+        slime-contribs '(slime-fancy)))
+#+end_src
+
 ** shackle
 [[https://github.com/wasamasa/shackle][Shackle]] enables rule-based control over which new buffers are allowed to be
 displayed in a new window.  Case in point, ‘ess-run-r’ always displays the
