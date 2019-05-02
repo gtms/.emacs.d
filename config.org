@@ -1195,8 +1195,6 @@ major mode, same project buffers and user defined list of friendly mode buffers.
   :ensure t
   :bind (("C-x b" . ivy-switch-buffer))
   :config
-  (use-package ivy-hydra
-    :ensure t)
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-count-format "(%d/%d) ")
@@ -1204,6 +1202,13 @@ major mode, same project buffers and user defined list of friendly mode buffers.
   (progn
     (global-set-key (kbd "C-c C-r") 'ivy-resume)))
 #+END_SRC
+
+*** ivy-hydra
+#+begin_src emacs-lisp
+(use-package ivy-hydra
+  :ensure t
+  :after (ivy hydra))
+#+end_src
 
 *** swiper
 #+BEGIN_SRC emacs-lisp
