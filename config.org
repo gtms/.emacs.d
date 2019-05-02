@@ -1289,7 +1289,7 @@ programs.  [[http://haskell.github.io/haskell-mode/][Home page]].
   (add-hook 'haskell-mode-hook '(cua-selection-mode nil)))
 #+END_SRC
 
-** hungry-delete
+** CANCELLED hungry-delete
 From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html][post]].
 
 #+BEGIN_SRC emacs-lisp
