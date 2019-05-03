@@ -291,7 +291,7 @@ include ‘zenburn’ and ‘doom-nord-light’.  Themes can be changed via
 #+END_SRC
 
 ** mode line
-*** CANCELLED what to show
+*** what to show
 From [[https://www.emacswiki.org/emacs/ModeLineConfiguration][EmacsWiki]].
 Taken on [2017-07-05 Wed]
 
@@ -304,7 +304,7 @@ Taken on [2017-07-05 Wed]
 (display-time)
 #+END_SRC
 
-*** CANCELLED smart-mode-line
+*** smart-mode-line
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line
   :ensure t
@@ -313,11 +313,11 @@ Taken on [2017-07-05 Wed]
   (setq sml/name-width 30)
   (setq sml/mode-width 'full)
   (setq sml/no-confirm-load-theme t)
-  (setf rm-whitelist " SP")
+  ;; (setf rm-whitelist " SP")
   (sml/setup))
 #+END_SRC
 
-*** doom-modeline
+*** CANCELLED doom-modeline
 Some hints to configure this mode can be found in this reddit [[https://www.reddit.com/r/emacs/comments/aj2zmn/please_help_me_convert_emacs_doom_modeline_to_a/][post]].
 
 #+begin_src emacs-lisp
