@@ -825,23 +825,18 @@ line]].
   :config (global-hl-line-mode 1))
 #+END_SRC
 
-** CANCELLED lisp-mode
+** lisp-mode
 Emacs Lisp Mode is one of the best Programming Modes that comes with Emacs for
 working with EmacsLisp.
 
 #+BEGIN_SRC emacs-lisp
 (use-package lisp-mode
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
-  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-  (define-key emacs-lisp-mode-map (kbd "C-c C-c") #'eval-defun)
-  (define-key emacs-lisp-mode-map (kbd "C-c C-b") #'eval-buffer)
-  (add-hook 'lisp-interaction-mode-hook #'eldoc-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode))
-(use-package ielm
-  :config
-  (add-hook 'ielm-mode-hook #'eldoc-mode)
-  (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
+  :mode
+  (("\\.lisp\\'" . lisp-mode)
+   ("\\.lsp\\'"  . lisp-mode)
+   ("\\.cl\\'"   . lisp-mode)
+   ("\\.asd\\'"  . lisp-mode)
+   ("\\.fasl\\'" . lisp-mode)))
 #+END_SRC
 
 ** paren
@@ -1324,12 +1319,9 @@ twice.
 (use-package lispy
   :ensure t
   :config
-  (add-hook
-   'emacs-lisp-mode-hook
-   (lambda () (lispy-mode 1)))
-  (add-hook
-   'slime-repl-mode-hook
-   (lambda () (lispy-mode 1))))
+  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'lisp-mode-hook (lambda () (lispy-mode 1)))
+  (add-hook 'slime-repl-mode-hook (lambda () (lispy-mode 1))))
 #+END_SRC
 
 *** multiple cursors
@@ -1501,15 +1493,17 @@ For much more information, consult the [[http://common-lisp.net/project/slime/do
 (use-package slime
   :ensure t
   :commands slime
-  :mode
-  (("\\.lisp'" . lispy-mode)
-   ("\\.lsp'"  . lispy-mode)
-   ("\\.cl'"   . lispy-mode)
-   ("\\.asd'"  . lispy-mode)
-   ("\\.fasl'" . lispy-mode))
   :init
   (setq inferior-lisp-program "sbcl"
         slime-contribs '(slime-fancy))
+  :config
+  (add-hook
+   'lisp-mode-hook
+   (lambda () (slime-mode t)))
+  (add-hook
+   'inferior-lisp-mode-hook
+   (lambda ()
+     (inferior-slime-mode t)))
   :bind
   (:map slime-repl-mode-map
         ("DEL" . lispy-delete-backward)))
