@@ -1,4 +1,3 @@
-
 #+TITLE: Personal Emacs Configuration
 #+AUTHOR: Gil Tomás
 #+STARTUP: overview
