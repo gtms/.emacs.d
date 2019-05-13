@@ -75,10 +75,13 @@ sources.
 ;; 27Aug2017
 ;; From Mickey Petersen's Mastering Emacs
 ;; https://www.masteringemacs.org/article/working-coding-systems-unicode-emacs
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+;; 13May2019
+;; Following a reddit comment by Eli Zaretskii, this section was commented out
+;; https://www.reddit.com/r/emacs/comments/bnwajk/my_minimal_emacs_config/
+;; (prefer-coding-system 'utf-8)
+;; (set-default-coding-systems 'utf-8)
+;; (set-terminal-coding-system 'utf-8)
+;; (set-keyboard-coding-system 'utf-8)
 ;; 26Jun2018
 ;; Activate display-line-numbers-mode on prog-mode
 (progn
@@ -132,11 +135,6 @@ From bbatov init.el file:
 
 ;; revert buffers automatically when underlying files are changed externally
 (global-auto-revert-mode t)
-
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
 
 ;; hippie expand is dabbrev expand on steroids
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev
