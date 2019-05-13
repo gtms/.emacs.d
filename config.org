@@ -782,6 +782,28 @@ toggle between real end and logical end of the buffer."
                           (compilation-previous-error 1))
 #+END_SRC
 
+*** dired-du
+From this Raimon Grau’s [[http://puntoblogspot.blogspot.com/2019/05/ncdu-vs-dired-du-mode.html][post]]:
+
+#+begin_quote
+[[https://dev.yorhel.nl/ncdu][ncdu]] a very nice utility that does what you probably want to do when you do 'du
+-sh *' repeatedly in different directories.
+
+ncdu allows for navigating through the directory structure seeing sizes and disk
+usage percentages of files and subdirectories.  Also, has vi-friendly
+keybindings.
+
+Of course, there’s a way to do a very similar thing in emacs, which is using
+`dired-du-mode`.  Take a look at the "c-x c-h" keybind to toggle human friendly
+numbers, and m-x dired-du-count-size to aggregate the sizes of all marked files.
+#+end_quote
+
+#+begin_src emacs-lisp
+  (use-package dired-du
+    :ensure t
+    :hook (dired-mode-hook . dired-du-mode))
+#+end_src
+
 ** ediff
 [[info:ediff][Ediff]] is a comprehensive visual interface to Unix diff and patch utilities built
 into Emacs.
