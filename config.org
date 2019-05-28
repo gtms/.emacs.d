@@ -800,7 +800,7 @@ numbers, and m-x dired-du-count-size to aggregate the sizes of all marked files.
 (use-package dired-du
   :ensure t
   :config
-  (add-hook 'dired-mode-hook (lambda () (dired-du-mode 1)))
+  ;; (add-hook 'dired-mode-hook (lambda () (dired-du-mode 1)))
   (setq dired-du-size-format t))
 #+end_src
 
