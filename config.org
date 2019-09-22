@@ -533,7 +533,7 @@ subdirectories to byte-compiling files, searching files, and of course visiting
 (editing) files.
 
 *** dired configuration
-This snippet is taken from [[https://github.com/aculich/.emacs.d][Aaron Culich]]'s Emacs configuration on
+This snippet is taken from [[https://github.com/aculich/.emacs.d][Aaron Culich]’s Emacs configuration on
 [2019-02-05 Tue].
 
 #+BEGIN_SRC emacs-lisp
@@ -545,7 +545,7 @@ This snippet is taken from [[https://github.com/aculich/.emacs.d][Aaron Culich]]
         ;; Better dired flags: `-l' is mandatory, `-a' shows all files, `-h'
         ;; uses human-readable sizes, and `-F' appends file-type classifiers
         ;; to file names (for better highlighting)
-        dired-listing-switches "-alh"
+        dired-listing-switches "-alhv"
         dired-ls-F-marks-symlinks t
         dired-recursive-copies 'always
         dired-dwim-target t)
