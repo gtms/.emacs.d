@@ -304,7 +304,7 @@ Taken on [2017-07-05 Wed]
 (display-time)
 #+END_SRC
 
-*** smart-mode-line
+*** CANCELLED smart-mode-line
 #+BEGIN_SRC emacs-lisp
 (use-package smart-mode-line
   :ensure t
@@ -318,28 +318,18 @@ Taken on [2017-07-05 Wed]
   (sml/setup))
 #+END_SRC
 
-*** CANCELLED doom-modeline
+*** doom-modeline
 Some hints to configure this mode can be found in this reddit [[https://www.reddit.com/r/emacs/comments/aj2zmn/please_help_me_convert_emacs_doom_modeline_to_a/][post]].
 
 #+begin_src emacs-lisp
-(use-package doom-modeline
-  :ensure t
-  :config
-  ;; Configure doom-modeline variables
-  (setq find-file-visit-truename t)
-  (setq doom-modeline-buffer-file-name-style 'file-name)
-  (setq doom-modeline-icon nil)
-  (setq column-number-mode t)
-  (setq doom-modeline-enable-word-count 1)
-  ;; Define custom doom-modeline configuration
-  (doom-modeline-def-modeline 'my-modeline
-    '(bar workspace-name window-number modals matches buffer-info remote-host buffer-position selection-info)
-    '(objed-state misc-info mu4e debug minor-modes major-mode process vcs checker))
-  (defun setup-custom-doom-modeline ()
-    (doom-modeline-set-modeline 'my-modeline 'default))
-  (add-hook 'doom-modeline-mode-hook 'setup-custom-doom-modeline)
-  :hook
-  (after-init . doom-modeline-mode))
+  (use-package doom-modeline
+    :ensure t
+    :hook
+    (after-init . doom-modeline-mode)
+    :config
+    (setq doom-modeline-enable-word-count t)
+    (setq doom-modeline-buffer-encoding nil)
+    (setq find-file-visit-truename t))
 #+end_src
 
 *** CANCELLED mood-line
