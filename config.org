@@ -327,6 +327,7 @@ Some hints to configure this mode can be found in this reddit [[https://www.redd
     :hook
     (after-init . doom-modeline-mode)
     :config
+    (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
     (setq doom-modeline-enable-word-count t)
     (setq doom-modeline-buffer-encoding nil)
     (setq find-file-visit-truename t))
@@ -1166,7 +1167,8 @@ C-==).  [[http://emacsrocks.com/e09.html][Emacs Rocks]]!
 (use-package flycheck
   :ensure t
   :commands (flycheck-mode)
-  :init (add-hook 'prog-mode-hook #'flycheck-mode))
+  :init
+  (add-hook 'prog-mode-hook #'flycheck-mode))
 #+end_src
 
 ** gitignore-mode
