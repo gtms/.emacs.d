@@ -15,7 +15,8 @@ auto-save-list
 elpa
 eshell
 personal
+request
 savefile
-url
-transient
 semanticdb
+transient
+url
