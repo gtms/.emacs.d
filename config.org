@@ -302,9 +302,11 @@ include ‘zenburn’ and ‘doom-nord-light’.  A hook was created to advise
       (run-hooks 'after-load-theme-hook))
     (defun customize-doom-solarized-light ()
       "customize doom-solarized-light theme"
-      (if (member 'doom-solarized-light custom-enabled-themes) (custom-theme-set-faces
-       'doom-solarized-light
-       '(swiper-line-face ((t (:background "#f3d3d3" :foreground "#626C6C")))))))
+      (if (member 'doom-solarized-light custom-enabled-themes)
+          (custom-theme-set-faces
+           'doom-solarized-light
+           '(swiper-line-face ((t (:background "#f3d3d3" :foreground "#626c6c"))))
+           '(swiper-match-face-1 ((t (:background "#f3e3d3")))))))
     (add-hook 'after-load-theme-hook 'customize-doom-solarized-light))
   (if (display-graphic-p)
       (load-theme 'doom-solarized-light t)
