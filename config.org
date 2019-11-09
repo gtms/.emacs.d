@@ -1006,8 +1006,8 @@ From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
     (add-hook hook #'whitespace-mode))
   :config
   (setq whitespace-line-column 80)
-  (setq whitespace-style '(face trailing tabs newline empty-line
-                                indentation newline-mark)))
+  (setq whitespace-style '(face tabs spaces trailing newline indentation empty
+                                space-mark newline-mark)))
 #+END_SRC
 
 ** windmove
