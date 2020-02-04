@@ -553,7 +553,7 @@ subdirectories to byte-compiling files, searching files, and of course visiting
 (editing) files.
 
 *** dired configuration
-This snippet is taken from [[https://github.com/aculich/.emacs.d][Aaron Culich]’s Emacs configuration on
+This snippet is taken from [[https://github.com/aculich/.emacs.d][Aaron Culich]]’s Emacs configuration on
 [2019-02-05 Tue].
 
 #+BEGIN_SRC emacs-lisp
@@ -1316,7 +1316,7 @@ programs.  [[http://haskell.github.io/haskell-mode/][Home page]].
   :ensure t
   :defer t
   :hook
-(haskell-mode . haskell-indentation-mode)
+  (haskell-mode . haskell-indentation-mode)
   :config
   (add-hook 'haskell-mode #'subword-mode)
   ;; from haskell-mode manual, chapter 5
