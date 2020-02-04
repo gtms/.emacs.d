@@ -1291,8 +1291,8 @@ major mode, same project buffers and user defined list of friendly mode buffers.
          ("C-c l"   . counsel-locate))
   :config
   (counsel-mode +1)
-  (use-package amx
-    :ensure t)
+  ;; (use-package amx
+  ;;   :ensure t)
   (use-package flx
     :ensure t)
   ;; mix fuzzy with plus (.* for each space)
@@ -1488,6 +1488,24 @@ Taken from [[https://github.com/basille/.emacs.d/blob/master/init.el][here]], on
   ("\\.md"       . poly-markdown-mode)   ; Markdown files
   ("\\.[rR]md"   . poly-markdown+r-mode) ; RMarkdown files
   ("\\.[sSrR]nw" . poly-noweb+r-mode))   ; Sweave files
+#+END_SRC
+
+** prescient
+Simple but effective sorting and filtering for Emacs.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package prescient
+    :ensure t
+    :defer t
+    :config (prescient-persist-mode))
+  (use-package ivy-prescient
+    :ensure t
+    :after ivy
+    :config (ivy-prescient-mode))
+  (use-package company-prescient
+    :ensure t
+    :after company
+    :config (company-prescient-mode))
 #+END_SRC
 
 ** projectile
