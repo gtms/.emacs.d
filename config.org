@@ -1697,9 +1697,10 @@ Mickey Petersen post under the [[shell][shell]] entry on how this behaviour was 
 #+begin_src emacs-lisp
 (use-package typo
   :ensure t
-  :init
-  (typo-global-mode 1)
-  (add-hook 'text-mode-hook 'typo-mode))
+  :config
+  (typo-global-mode t)
+  :hook
+  (text-mode . typo-mode))
 #+end_src
 
 ** undo-tree
