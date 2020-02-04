@@ -1269,7 +1269,7 @@ major mode, same project buffers and user defined list of friendly mode buffers.
 (use-package swiper
   :ensure t
   :after ivy
-  :bind (("C-s"   . swiper-isearch)
+  :bind (("C-S-s" . swiper-isearch)
          ("C-c q" . swiper-all)))
 #+END_SRC
 
