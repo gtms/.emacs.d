@@ -1243,6 +1243,19 @@ major mode, same project buffers and user defined list of friendly mode buffers.
   (progn
     (global-set-key (kbd "C-c C-r") 'ivy-resume)))
 #+END_SRC
+*** ivy-rich
+#+begin_src emacs-lisp
+  (use-package ivy-rich
+    :after ivy
+    :ensure t
+    :demand t
+    :config
+    (ivy-rich-mode t)
+    (setq ivy-virtual-abbreviate 'full
+          ivy-rich-switch-buffer-align-virtual-buffer t
+          ivy-rich-path-style 'abbrev
+          ivy-rich-parse-remote-buffer nil))
+#+end_src
 
 *** ivy-hydra
 #+begin_src emacs-lisp
