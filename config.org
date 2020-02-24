@@ -1075,6 +1075,15 @@ It reindents after every change, making it more reliable than
   :config
   (global-aggressive-indent-mode 1))
 #+END_SRC
+
+** anzu
+#+begin_src emacs-lisp
+(use-package anzu
+  :ensure t
+  :bind ([remap query-replace] . anzu-query-replace-regexp)
+  :config
+  (global-anzu-mode 1))
+#+end_src
 ** avy
 =avy= is a GNU Emacs package for jumping to visible text using a char-based
 decision tree.
