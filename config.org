@@ -424,6 +424,11 @@ Org Mode is kept up-to-date via the orgmode.org archive repository.
   (setq org-indent-mode t)
   (setq org-startup-indented t)
   (setq org-catch-invisible-edits 'smart)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((emacs-lisp . t)
+                                 (lisp . t)
+                                 (haskell . t)
+                                 (R . t)))
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'org-bullets-mode)
   (use-package org-tempo)
