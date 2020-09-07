@@ -1240,9 +1240,10 @@ allows to jump between and revert them selectively.
 #+begin_src emacs-lisp
 (use-package diff-hl
   :ensure
+  :custom
+  (diff-hl-draw-borders nil)
+  (diff-hl-side 'left)
   :config
-  (setq diff-hl-draw-borders nil)
-  (setq diff-hl-side 'left)
   (global-diff-hl-mode))
 #+end_src
 
