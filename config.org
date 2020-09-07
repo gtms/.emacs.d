@@ -1363,62 +1363,69 @@ major mode, same project buffers and user defined list of friendly mode buffers.
 ** ivy
 [[https://oremacs.com/swiper][Ivy]] is an interactive interface for completion in Emacs.
 *** ivy
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (use-package ivy
     :ensure t
-    :bind (("C-x b" . ivy-switch-buffer))
-    :config
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-count-format "(%d/%d) ")
-    (setq ivy-display-style 'fancy)
-    (setq ivy-format-functions-alist '((t . ivy-format-function-arrow)))
-    (progn
-      (global-set-key (kbd "C-c C-r") 'ivy-resume)))
-#+END_SRC
+    :demand t
+    :bind
+    (("C-x b"   . ivy-switch-buffer)
+     ("C-c C-r" . ivy-resume))
+    :bind
+    (:map ivy-switch-buffer-map
+          ("C-k" . ivy-switch-buffer-kill))
+    :custom
+    (ivy-initial-inputs-alist nil)
+    (ivy-dynamic-exhibit-delay-ms 200)
+    (ivy-re-builders-alist
+     '((swiper-isearch  . ivy--regex-ignore-order)
+       (counsel-rg      . ivy--regex-ignore-order)
+       (counsel-imenu   . ivy--regex-ignore-order)
+       (t               . ivy--regex-fuzzy)))
+    (ivy-use-virtual-buffers t)
+    (ivy-count-format "(%d/%d) ")
+    (ivy-display-style 'fancy)
+    (ivy-format-functions-alist '((t . ivy-format-function-arrow))))
+#+end_src
 
+*** counsel
+#+begin_src emacs-lisp
+  (use-package counsel
+    :ensure t
+    :after ivy
+    :bind (("M-x"     . counsel-M-x)
+           ("C-x C-f" . counsel-find-file)
+           ("C-c C-l" . counsel-find-library)
+           ("C-x d"   . counsel-dired)
+           ("C-h v"   . counsel-describe-variable)
+           ("C-h f"   . counsel-describe-function)
+           ("C-c g"   . counsel-rg)
+           ("C-c f"   . counsel-recentf))
+    :config
+    (counsel-mode)
+    :bind (("M-y" . yank-pop)))
+#+end_src
+
+*** swiper
+#+begin_src emacs-lisp
+  (use-package swiper
+    :ensure t
+    :bind
+    (("C-S-s" . swiper-isearch)
+     ("C-c q" . swiper-all)))
+#+end_src
+
+*** hydra
+#+BEGIN_SRC emacs-lisp
+  (use-package hydra
+    :ensure t)
+#+END_SRC
 *** ivy-hydra
 #+begin_src emacs-lisp
   (use-package ivy-hydra
     :ensure t
-    :after (ivy hydra))
+    :commands
+    (hydra-ivy/body))
 #+end_src
-
-*** swiper
-#+BEGIN_SRC emacs-lisp
-  (use-package swiper
-    :ensure t
-    :after ivy
-    :bind (("C-S-s" . swiper-isearch)
-           ("C-c q" . swiper-all)))
-#+END_SRC
-
-*** counsel
-#+BEGIN_SRC emacs-lisp
-  (use-package counsel
-    :ensure t
-    :after ivy
-    :bind (
-           ("M-x"     . counsel-M-x)
-           ("C-x C-f" . counsel-find-file)
-           ("C-x d"   . counsel-dired)
-           ("C-h v"   . counsel-describe-variable)
-           ("C-h f"   . counsel-describe-function)
-           ("C-c a"   . counsel-ag)
-           ("C-c f"   . counsel-recentf)
-           ("C-c g"   . counsel-git)
-           ("C-c l"   . counsel-locate))
-    :config
-    (counsel-mode +1)
-    ;; mix fuzzy with plus ( .* for each space)
-    ;; http://oremacs        .com/2016/01/06/ivy-flx/
-    (setq ivy-re-builders-alist
-          '((swiper-isearch  . ivy--regex-plus)
-            (counsel-rg      . ivy--regex-plus)
-            (counsel-imenu   . ivy--regex-plus)
-            (t               . ivy--regex-fuzzy)))
-    (setq ivy-initial-inputs-alist nil))
-#+END_SRC
 
 *** counsel-projectile
 #+begin_src emacs-lisp
@@ -1426,15 +1433,8 @@ major mode, same project buffers and user defined list of friendly mode buffers.
     :ensure t
     :after (counsel projectile)
     :config
-    (counsel-projectile-mode 1))
+    (counsel-projectile-mode))
 #+end_src
-
-*** hydra
-#+BEGIN_SRC emacs-lisp
-  (use-package hydra
-    :ensure t
-    :defer t)
-#+END_SRC
 
 ** haskell-mode
 This is an Emacs mode for editing, debugging and developing Haskell
