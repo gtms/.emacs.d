@@ -670,14 +670,11 @@ A manual comes with Emacs documenting these extra features for Dired Mode.
 Originally written by [[https://www.emacswiki.org/emacs/SebastianKremer][SebastianKremer]].
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'dired-load-hook
-          (lambda ()
-            (load "dired-x")
-            ;; Set dired-x global variables here.  For example:
-            ;; (setq dired-guess-shell-gnutar "gtar")
-            ;; (setq dired-x-hands-off-my-keys nil)
-            (setq dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$")
-            ))
+  (use-package dired-x
+    :bind
+    ("C-x C-j" . dired-jump)
+    :custom
+    (dired-omit-files "^\\.?#\\|^\\.$\\|^\\.\\.$\\|^\\..+$"))
 #+END_SRC
 
 *** dired-rsync
