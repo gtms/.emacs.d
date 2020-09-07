@@ -778,7 +778,7 @@ from the github [[https://github.com/asok/peep-dired][README]] of the project on
 This snippet has become obsolete on [2019-02-05 Tue], due to adoption of Aaron
 Culich's dired configuration (above).
 
- #+BEGIN_SRC emacs-lisp
+ #+BEGIN_SRC emacs-lisp :tangle no
  ;; 03Oct2012
  ;; http://www.emacswiki.org/emacs/DiredSortDirectoriesFirst
  (defun mydired-sort ()
