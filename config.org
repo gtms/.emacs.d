@@ -1232,6 +1232,20 @@ decision tree.
   (setq crux-shell "/bin/zsh"))
 #+END_SRC
 
+** diff-hl
+Taken on [2020-05-09 Sat] from Protesilaos Stavrou config.  The =diff-hl=
+package highlights uncommitted changes on the left side of the window, and
+allows to jump between and revert them selectively.
+
+#+begin_src emacs-lisp
+(use-package diff-hl
+  :ensure
+  :config
+  (setq diff-hl-draw-borders nil)
+  (setq diff-hl-side 'left)
+  (global-diff-hl-mode))
+#+end_src
+
 ** discover-my-major
 Discover my major enables the easy finding of the key bindings of the current
 Emacs major mode.  This headline was added on [2019-02-04 Mon].
