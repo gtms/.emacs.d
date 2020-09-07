@@ -1090,8 +1090,8 @@ From Bozhidar Batsov's [[https://github.com/bbatsov/emacs.d][init.el]].
 #+BEGIN_SRC emacs-lisp
 (use-package whitespace
   :init
-  (dolist (hook '(prog-mode-hook text-mode-hook))
-    (add-hook hook #'whitespace-mode))
+  ;; (dolist (hook '(prog-mode-hook text-mode-hook))
+  ;;   (add-hook hook #'whitespace-mode))
   :config
   (setq whitespace-line-column 80)
   (setq whitespace-style '(face tabs spaces trailing newline indentation empty
