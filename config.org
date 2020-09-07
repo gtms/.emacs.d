@@ -2112,3 +2112,11 @@ relevant, properly spaced operators (assignment, comparison, etc.) based on the
 syntactic context in the code.  It allows very easy cycling through the possible
 operators in that context.  The contexts, the operators, and their cycling order
 in each context are customizable.
+* From new config
+#+begin_src emacs-lisp
+  (setq x-gtk-use-system-tooltips nil)
+  ;; (setq doom-modeline-height 35)
+  (setq x-underline-at-descent-line t)
+  (setq kill-do-not-save-duplicates t)
+#+end_src
+
