@@ -1263,31 +1263,31 @@ Emacs major mode.  This headline was added on [2019-02-04 Mon].
 normally have to take when saving and killing stuff.  It's called ‘easy-kill’,
 but could have just as easily been named ‘easy-save’ or ‘fast-kill’.
 
-#+BEGIN_SRC emacs-lisp
-(use-package easy-kill
-  :ensure t
-  :config
-  (global-set-key [remap kill-ring-save] #'easy-kill)
-  (global-set-key [remap mark-sexp] #'easy-mark))
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package easy-kill
+    :ensure t
+    :config
+    (global-set-key [remap kill-ring-save] #'easy-kill)
+    (global-set-key [remap mark-sexp] #'easy-mark))
 #+END_SRC
 
 ** ess
 #+BEGIN_SRC emacs-lisp
-(use-package ess
-  :ensure t
-  :defer t
-  :config
-  (use-package ess-r-mode
-    :bind
-    (:map ess-r-mode-map
-          ("_" . ess-insert-assign))
-    (:map inferior-ess-r-mode-map
-          ("_" . ess-insert-assign)))
-  (add-hook 'inferior-ess-mode-hook 'smartparens-strict-mode)
-  (add-hook 'ess-mode-hook 'smartparens-strict-mode)
-  ;; (setq orgstruct-heading-prefix-regexp "## ")
-  ;; (add-hook 'ess-mode-hook 'turn-on-orgstruct)
-  )
+  (use-package ess
+    :ensure t
+    :defer t
+    :config
+    (use-package ess-r-mode
+      :bind
+      (:map ess-r-mode-map
+            ("_" . ess-insert-assign))
+      (:map inferior-ess-r-mode-map
+            ("_" . ess-insert-assign)))
+    (add-hook 'inferior-ess-mode-hook 'smartparens-strict-mode)
+    (add-hook 'ess-mode-hook 'smartparens-strict-mode)
+    ;; (setq orgstruct-heading-prefix-regexp "## ")
+    ;; (add-hook 'ess-mode-hook 'turn-on-orgstruct)
+    )
 #+END_SRC
 
 ** exec-path-from-shell
