@@ -703,6 +703,14 @@ the predicates are shown.
   :defer t)
 #+END_SRC
 
+*** diredfl
+#+begin_src emacs-lisp
+  (use-package diredfl
+    :ensure t
+    :config
+    (diredfl-global-mode 1))
+#+end_src
+
 *** dired-narrow
 This package provides live filtering of files in dired buffers.  In general,
 after calling the respective narrowing function you type a filter string into
