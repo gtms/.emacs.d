@@ -249,7 +249,7 @@ Emacs StackExchange how Emacs handles fonts and how to set them globally.
   (set-face-attribute 'variable-pitch nil :font "Frutiger Next-13.5" :weight 'semilight)
 #+END_SRC
 
-* theme
+** theme
 #+BEGIN_SRC emacs-lisp
   (use-package modus-vivendi-theme
     :disabled
@@ -292,8 +292,8 @@ Emacs StackExchange how Emacs handles fonts and how to set them globally.
     (load-theme 'sanityinc-tomorrow-bright t))
 #+END_SRC
 
-** mode line
-*** what to show
+*** mode line
+**** what to show
 From [[https://www.emacswiki.org/emacs/ModeLineConfiguration][EmacsWiki]].
 Taken on [2017-07-05 Wed]
 
@@ -306,7 +306,7 @@ Taken on [2017-07-05 Wed]
 (display-time)
 #+END_SRC
 
-*** CANCELLED smart-mode-line
+**** CANCELLED smart-mode-line
 #+BEGIN_SRC emacs-lisp
   (use-package smart-mode-line
     :disabled
@@ -321,7 +321,7 @@ Taken on [2017-07-05 Wed]
     (sml/setup))
 #+END_SRC
 
-*** doom-modeline
+**** doom-modeline
 Some hints to configure this mode can be found in this reddit [[https://www.reddit.com/r/emacs/comments/aj2zmn/please_help_me_convert_emacs_doom_modeline_to_a/][post]].
 
 #+begin_src emacs-lisp
@@ -431,7 +431,7 @@ Some hints to configure this mode can be found in this reddit [[https://www.redd
                                 '(irc-buffers matches process me/major-mode workspace-name)))
 #+END_SRC
 
-*** CANCELLED mood-line
+**** CANCELLED mood-line
 Much simpler version of doom-modeline.  Absence of ‘atom-like’ features in the
 mode line much appreciated.
 
@@ -442,7 +442,7 @@ mode line much appreciated.
     :hook (after-init . mood-line-activate))
 #+end_src
 
-*** CANCELLED moody & minions
+**** CANCELLED moody & minions
 From Jonas Bernouilli (of Magit fame).
 
 #+begin_src emacs-lisp
