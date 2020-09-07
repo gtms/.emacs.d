@@ -1613,10 +1613,10 @@ Taken from [[https://github.com/basille/.emacs.d/blob/master/init.el][here]], on
   ("\\.[sSrR]nw" . poly-noweb+r-mode))   ; Sweave files
 #+END_SRC
 
-** prescient
+** CANCELLED prescient
 Simple but effective sorting and filtering for Emacs.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
   (use-package prescient
     :ensure t
     :defer t
