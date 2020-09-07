@@ -234,89 +234,62 @@ The default font is Source Code Pro, where available.  Note that Emacs has an
 issue with properly selecting the “normal” size of Source Code Pro (it seems to
 load Source Code Pro Medium instead of Source Code Pro Regular by default;
 however, italic text shows in RegularIt, not MediumIt).  A discussion of the
-problem, and the respective solution, can be found [[https://bugzilla.redhat.com/show_bug.cgi?id=1660512][here]].
+problem, and the respective solution, can be found [[https://bugzilla.redhat.com/show_bug.cgi?id=1660512][here]].  [[https://emacs.stackexchange.com/questions/49027/how-do-i-set-up-all-the-fonts-in-my-gui-emacs][This]] post on
+Emacs StackExchange how Emacs handles fonts and how to set them globally.
 
 #+BEGIN_SRC emacs-lisp
-(set-frame-font "Source Code Pro:weight=semilight")
+  ;; (set-frame-font "Source Code Pro:weight=semilight")
+  ;; (set-face-font 'fixed-pitch "Source Code Pro:weight=semilight")
+  ;; (set-face-font 'variable-pitch "Source Sans Pro")
+  (set-face-attribute 'default nil :font "Source Code Pro" :weight 'semilight)
+  (set-face-attribute 'fixed-pitch nil :font "Source Code Pro" :weight 'semilight)
+  ;; (set-face-attribute 'variable-pitch nil :font "Source Sans Pro")
+  ;; (set-face-attribute 'variable-pitch nil :font "Helvetica Neue-13.5" :weight 'regular)
+
+  (set-face-attribute 'variable-pitch nil :font "Frutiger Next-13.5" :weight 'semilight)
 #+END_SRC
 
-The following was taken from custom.el, after having manually edited some faces
-specific to info previously shown in DejaVu.
-
-#+begin_src emacs-lisp
-(custom-set-faces
- '(variable-pitch ((t (:family "Segoe UI")))))
-#+end_src
-
-** theme
-To avoid theme bleeding when changing themes, it is best to disable all themes
-prior to run =load-theme=.  (Seen [[https://stackoverflow.com/questions/22866733/emacs-disable-theme-after-loading-a-different-one-themes-conflict][here]] on [2019-10-30 Wed].)
-
-#+begin_src emacs-lisp
-  (defun disable-all-themes ()
-    "Disable all active themes."
-    (dolist (i custom-enabled-themes)
-      (disable theme i)))
-
-  (defadvice load-theme (before disable-themes-first activate)
-    (disable-all-themes))
-#+end_src
-
-The flavour of the moment is ‘doom-solarized-light’.  Previous themes I’ve used
-include ‘zenburn’ and ‘doom-nord-light’.  A hook was created to advise
-=swiper-line-face= theming only when ‘doom-solarized-light’ is loaded (as seen
-[[https://emacs.stackexchange.com/questions/28940/how-to-overwrite-properly-a-face-for-a-particular-theme][here]] and [[https://www.reddit.com/r/emacs/comments/4v7tcj/does_emacs_have_a_hook_for_when_the_theme_changes/][here]] on [2019-10-30 Wed]).  Themes can be changed via
-=counsel-load-theme=.
-
+* theme
 #+BEGIN_SRC emacs-lisp
-(use-package zenburn-theme
-  :ensure t
-  :disabled t
-  :config
-  (if(display-graphic-p)
-      (load-theme 'zenburn t)))
+  (use-package modus-vivendi-theme
+    :disabled
+    :ensure t
+    :config
+    (setq modus-vivendi-theme-slanted-constructs t
+          modus-vivendi-theme-bold-constructs t
+          modus-vivendi-theme-rainbow-headings t
+          modus-vivendi-theme-distinct-org-blocks t
+          modus-vivendi-theme-scale-headings t))
 
-(use-package solarized-theme
-  :ensure t
-  :disabled t
-  :config
-  (setq solarized-use-variable-pitch nil)
-  (setq solarized-high-contrast-mode-line t)
-  (setq solarized-height-minus-1 1.0)
-  (setq solarized-height-plus-1 1.0)
-  (setq solarized-height-plus-2 1.0)
-  (setq solarized-height-plus-3 1.0)
-  (setq solarized-height-plus-4 1.0))
+  (use-package modus-operandi-theme
+    :disabled
+    :ensure t
+    :custom-face
+    (cursor ((t (:background "dim gray"))))
+    (minibuffer-prompt ((t (:weight bold))))
+    :config
+    (setq modus-operandi-theme-slanted-constructs t
+          modus-operandi-theme-bold-constructs t
+          modus-operandi-theme-rainbow-headings t
+          modus-operandi-theme-distinct-org-blocks t)
+    (load-theme 'modus-operandi t))
 
-(use-package doom-themes
-  :ensure t
-  :config
-  (setq doom-themes-enable-bold t
-        doom-themes-enable-italic t)
-  (doom-themes-org-config)
-  (progn
-    (defvar after-load-theme-hook nil
-      "Hook run after a color theme is loaded using `load-theme'.")
-    (defadvice load-theme (after run-after-load-theme-hook activate)
-      "Run `after-load-theme-hook'."
-      (run-hooks 'after-load-theme-hook))
-    (defun customize-doom-solarized-light ()
-      "customize doom-solarized-light theme"
-      (if (member 'doom-solarized-light custom-enabled-themes)
-          (custom-theme-set-faces
-           'doom-solarized-light
-           '(swiper-line-face ((t (:background "#f3d3d3" :foreground "#626c6c"))))
-           '(swiper-match-face-1 ((t (:background "#f3e3d3")))))))
-    (add-hook 'after-load-theme-hook 'customize-doom-solarized-light))
-  (if (display-graphic-p)
-      (load-theme 'doom-solarized-light t)
-    (load-theme 'tango)))
+  (use-package morphine-theme
+    :load-path "~/.emacs.d/site-lisp/emacs-theme-morphine"
+    :config
+    (load-theme 'morphine t))
 
-(use-package jazz-theme
-  :ensure t
-  :disabled t
-  :config
-  (load-theme 'jazz t))
+  (use-package eclipse-theme
+    :disabled
+    :ensure t
+    :config
+    (load-theme 'eclipse t))
+
+  (use-package color-theme-sanityinc-tomorrow
+    :disabled t
+    :ensure t
+    :config
+    (load-theme 'sanityinc-tomorrow-bright t))
 #+END_SRC
 
 ** mode line
