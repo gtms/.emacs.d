@@ -1582,6 +1582,13 @@ From Steve Purcell.  Github page [[https://github.com/purcell/page-break-lines][
   (global-page-break-lines-mode))
 #+END_SRC
 
+** pdf-tools
+#+begin_src emacs-lisp
+  (use-package pdf-tools
+    :ensure t
+    :config
+    (pdf-tools-install))
+#+end_src
 ** polymode
 Taken from [[https://github.com/basille/.emacs.d/blob/master/init.el][here]], on [2017-01-09 Mon].
 
