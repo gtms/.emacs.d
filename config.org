@@ -1954,7 +1954,7 @@ work.
 
 Also, take a look at this reddit [[https://www.reddit.com/r/emacs/comments/akmwko/the_best_latex_editor/][post]] (titled "The best latex Editor").
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package tex-site
   :ensure auctex)
 
