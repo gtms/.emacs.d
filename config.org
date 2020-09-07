@@ -1835,7 +1835,8 @@ Mickey Petersen post under the [[shell][shell]] entry on how this behaviour was 
   ;; autosave the undo-tree history
   (setq undo-tree-history-directory-alist
         `((".*" . ,temporary-file-directory)))
-  (setq undo-tree-auto-save-history t))
+  (setq undo-tree-auto-save-history t)
+  (global-undo-tree-mode))
 #+END_SRC
 
 ** volatile-highlights
