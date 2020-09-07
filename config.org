@@ -1440,24 +1440,24 @@ This is an Emacs mode for editing, debugging and developing Haskell
 programs.  [[http://haskell.github.io/haskell-mode/][Home page]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package haskell-mode
-  :ensure t
-  :defer t
-  :hook
-  (haskell-mode . haskell-indentation-mode)
-  :config
-  (add-hook 'haskell-mode #'subword-mode)
-  ;; from haskell-mode manual, chapter 5
-  (add-hook 'haskell-mode
-            (lambda ()
-              (set (make-local-variable 'company-backends)
-                   (append '((company-capf company-dabbrev-code)
-                             company-backends)))))
-  ;; from haskell-mode manual, chapter 6
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
-  ;; from haskell-mode manual, chapter 7
-  (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-  (add-hook 'haskell-mode-hook '(cua-selection-mode nil)))
+  (use-package haskell-mode
+    :ensure t
+    :defer t
+    :hook
+    (haskell-mode . haskell-indentation-mode)
+    :config
+    (add-hook 'haskell-mode #'subword-mode)
+    ;; from haskell-mode manual, chapter 5
+    (add-hook 'haskell-mode
+              (lambda ()
+                (set (make-local-variable 'company-backends)
+                     (append '((company-capf company-dabbrev-code)
+                               company-backends)))))
+    ;; from haskell-mode manual, chapter 6
+    (add-hook 'haskell-mode-hook 'turn-on-haskell-unicode-input-method)
+    ;; from haskell-mode manual, chapter 7
+    (add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+    (add-hook 'haskell-mode-hook '(cua-selection-mode nil)))
 #+END_SRC
 
 #+begin_src emacs-lisp
@@ -1472,10 +1472,11 @@ programs.  [[http://haskell.github.io/haskell-mode/][Home page]].
 From an Artur Malabarba [[http://endlessparentheses.com/hungry-delete-mode.html][post]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package hungry-delete
-  :ensure t
-  :config
-  (global-hungry-delete-mode))
+  (use-package hungry-delete
+    :disabled
+    :ensure t
+    :config
+    (global-hungry-delete-mode))
 #+END_SRC
 
 ** key-chord
