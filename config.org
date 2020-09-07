@@ -168,7 +168,7 @@ First, we add melpa to our list of repositories.  Packages are installed in the
 elpa folder under =user-emacs-directory=.  We then update package metadata if
 the local cache is missing.
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (require 'package)
 (setq package-archives '(("gnu"   . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
