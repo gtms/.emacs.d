@@ -1295,12 +1295,12 @@ A GNU Emacs library to ensure environment variables inside Emacs look the same
 as in the user's shell.
 
 #+BEGIN_SRC emacs-lisp
-(use-package exec-path-from-shell
-  :ensure t
-  :defer t
-  :config
-  (when (memq window-system '(mac ns))
-    (exec-path-from-shell-initialize)))
+  (use-package exec-path-from-shell
+    :disabled
+    :defer t
+    :config
+    (when (memq window-system '(mac ns))
+      (exec-path-from-shell-initialize)))
 #+END_SRC
 
 ** expand-region
