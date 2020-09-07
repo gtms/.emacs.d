@@ -1749,7 +1749,7 @@ Mickey Petersen post under the [[shell][shell]] entry on how this behaviour was 
 #+end_src
 
 ** smartparens
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (use-package smartparens
   ;; 17Aug2017
   ;; https://gist.github.com/oantolin/5751fbaa7b8ab4f9570893f2adfe1862
