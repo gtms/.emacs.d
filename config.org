@@ -1739,7 +1739,7 @@ Similarly, back when Emacs 25.1 came out, invoking a new ‘shell’ process
 interactively began to display the new *shell* buffer in a new window.  See the
 Mickey Petersen post under the [[shell][shell]] entry on how this behaviour was corrected.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle no
 (use-package shackle
   :ensure t
   :after ess
