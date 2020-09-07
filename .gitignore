@@ -9,6 +9,7 @@ smex-items
 .org-id-locations
 .mc-lists.el
 projectile-bookmarks.eld
+init.el.bak
 
 ## directories
 auto-save-list
@@ -23,3 +24,4 @@ url
 games
 var
 site-lisp
+elpa-27.1/
