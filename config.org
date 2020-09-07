@@ -1154,27 +1154,39 @@ It reindents after every change, making it more reliable than
 
 #+BEGIN_SRC emacs-lisp
 (use-package aggressive-indent
+  :disabled
   :ensure t
   :config
-  (global-aggressive-indent-mode 1))
+(global-aggressive-indent-mode 1))
 #+END_SRC
 
+** amx
+#+begin_src emacs-lisp :tangle no
+  (use-package amx
+    :ensure t
+    :config
+    (amx-mode))
+#+end_src
 ** anzu
 #+begin_src emacs-lisp
-(use-package anzu
-  :ensure t
-  :bind ([remap query-replace] . anzu-query-replace-regexp)
-  :config
-  (global-anzu-mode 1))
+  (use-package anzu
+    :ensure t
+    ;; :bind
+    ;; ([remap query-replace] . anzu-query-replace)
+    ;; ([remap query-replace-regexp] . anzu-query-replace-regexp)
+    :config
+    (global-anzu-mode 1))
 #+end_src
 ** avy
 =avy= is a GNU Emacs package for jumping to visible text using a char-based
 decision tree.
 
 #+BEGIN_SRC emacs-lisp
-(use-package avy
-  :ensure t
-  :after key-chord)
+  (use-package avy
+    :ensure t
+    :after key-chord
+    :config
+    (setq avy-background t))
 #+END_SRC
 
 ** browse-kill-ring
