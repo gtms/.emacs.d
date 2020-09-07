@@ -326,36 +326,134 @@ Some hints to configure this mode can be found in this reddit [[https://www.redd
 
 #+begin_src emacs-lisp
   (use-package doom-modeline
-    :ensure t
+    ;; :load-path "~/.emacs.d/site-lisp/doom-modeline"
     :hook
     (after-init . doom-modeline-mode)
+    :ensure t
+    :custom
+    (doom-modeline-buffer-file-name-style 'truncate-with-project)
+    (doom-modeline-enable-word-count nil)
+    (doom-modeline-buffer-encoding nil)
+    (doom-modeline-modal-icon nil)
+    (find-file-visit-truename t)
+    (doom-modeline-height 35)
     :config
-    (setq doom-modeline-buffer-file-name-style 'truncate-with-project)
-    (setq doom-modeline-enable-word-count t)
-    (setq doom-modeline-buffer-encoding nil)
-    (setq find-file-visit-truename t))
+    (progn
+      (doom-modeline-def-segment
+        me/buffer-info-dired
+        "Display only the current buffer's name, fontified as a directory."
+        (concat
+         (doom-modeline-spc)
+         (doom-modeline--buffer-mode-icon)
+         (doom-modeline--buffer-state-icon)
+         (propertize "%b"
+                     'face (cond ((and buffer-file-name (buffer-modified-p))
+                                  'doom-modeline-buffer-modified)
+                                 ((doom-modeline--active) 'doom-modeline-buffer-path)
+                                 (t 'mode-line-inactive))
+                     'mouse-face 'mode-line-highlight
+                     'help-echo "Buffer name\nmouse-1: Previous buffer\nmouse-3: Next buffer"
+                     'local-map mode-line-buffer-identification-keymap)))
+      (doom-modeline-def-modeline 'my/dired
+        '(bar matches me/buffer-info-dired)
+        '(media-info major-mode))
+      (defun doom-modeline-set-my-dired ()
+        "Set my dired mode-line."
+        (doom-modeline-set-modeline 'my/dired))
+      (add-hook 'dired-mode-hook 'doom-modeline-set-my-dired)))
 #+end_src
+
+#+BEGIN_SRC emacs-lisp :tangle no
+  (use-package doom-modeline
+    :demand t
+    :custom
+    (doom-modeline-buffer-file-name-style 'relative-to-project)
+    (doom-modeline-enable-word-count t)
+    (doom-modeline-icon t)
+    (doom-modeline-percent-position nil)
+    (doom-modeline-vcs-max-length 28)
+    :config
+    (doom-modeline-def-segment buffer-default-directory
+                               "The buffer directory."
+                               (let* ((active (doom-modeline--active))
+                                      (face (if active 'doom-modeline-buffer-path 'mode-line-inactive)))
+                                 (concat (doom-modeline-spc)
+                                         (propertize (abbreviate-file-name default-directory) 'face face)
+                                         (doom-modeline-spc))))
+    (doom-modeline-def-segment me/buffer-name
+                               "The buffer name."
+                               (concat (doom-modeline-spc) (doom-modeline--buffer-name) (doom-modeline-spc)))
+    (doom-modeline-def-segment me/buffer-name-simple
+                               "The buffer name but stimpler."
+                               (let* ((active (doom-modeline--active))
+                                      (face (cond ((and buffer-file-name (buffer-modified-p)) 'doom-modeline-buffer-modified)
+                                                  (active 'doom-modeline-buffer-file)
+                                                  (t 'mode-line-inactive))))
+                                 (concat (doom-modeline-spc) (propertize "%b" 'face face) (doom-modeline-spc))))
+    (doom-modeline-def-segment me/buffer-position
+                               "The buffer position."
+                               (let* ((active (doom-modeline--active))
+                                      (face (if active 'mode-line 'mode-line-inactive)))
+                                 (propertize (concat (doom-modeline-spc) (format-mode-line "%l:%c") (doom-modeline-spc))
+                                             'face face)))
+    (doom-modeline-def-segment me/major-mode
+                               "The current major mode, including environment information."
+                               (let* ((active (doom-modeline--active))
+                                      (face (if active 'doom-modeline-buffer-major-mode 'mode-line-inactive)))
+                                 (propertize (concat (doom-modeline-spc) mode-name (doom-modeline-spc))
+                                             'face face)))
+    (doom-modeline-def-segment me/vcs
+                               "The version control system information."
+                               (when-let ((branch doom-modeline--vcs-text))
+                                 (let ((active (doom-modeline--active))
+                                       (text (concat ":" branch)))
+                                   (concat (doom-modeline-spc)
+                                           (if active text (propertize text 'face 'mode-line-inactive))
+                                           (doom-modeline-spc)))))
+    (doom-modeline-mode 1)
+    (doom-modeline-def-modeline 'info
+                                '(bar me/buffer-name info-nodes me/buffer-position selection-info)
+                                '(irc-buffers matches process me/major-mode workspace-name))
+    (doom-modeline-def-modeline 'main
+                                '(bar me/buffer-name remote-host me/buffer-position checker selection-info)
+                                '(irc-buffers matches process me/vcs me/major-mode workspace-name))
+    (doom-modeline-def-modeline 'message
+                                '(bar me/buffer-name-simple me/buffer-position selection-info)
+                                '(irc-buffers matches process me/major-mode workspace-name))
+    (doom-modeline-def-modeline 'project
+                                '(bar buffer-default-directory)
+                                '(irc-buffers matches process me/major-mode workspace-name))
+    (doom-modeline-def-modeline 'special
+                                '(bar me/buffer-name me/buffer-position selection-info)
+                                '(irc-buffers matches process me/major-mode workspace-name))
+    (doom-modeline-def-modeline 'vcs
+                                '(bar me/buffer-name remote-host me/buffer-position selection-info)
+                                '(irc-buffers matches process me/major-mode workspace-name)))
+#+END_SRC
 
 *** CANCELLED mood-line
 Much simpler version of doom-modeline.  Absence of ‘atom-like’ features in the
 mode line much appreciated.
 
 #+begin_src emacs-lisp
-(use-package mood-line
-  :ensure t
-  :hook (after-init . mood-line-activate))
+  (use-package mood-line
+    :disabled
+    :ensure t
+    :hook (after-init . mood-line-activate))
 #+end_src
 
 *** CANCELLED moody & minions
 From Jonas Bernouilli (of Magit fame).
 
 #+begin_src emacs-lisp
-(use-package minions
-  :ensure t
-  :init
-  (minions-mode))
+  (use-package minions
+    :disabled
+    :ensure t
+    :init
+    (minions-mode))
 
 (use-package moody
+  :disabled    
   :ensure t
   :config (setq x-underline-at-descent-line t)
   (moody-replace-mode-line-buffer-identification)
