@@ -604,12 +604,12 @@ name will be inserted.  The abbrevs are automatically saved between sessions in
 a file =~/.abbrev_defs=.
 
 #+BEGIN_SRC emacs-lisp
-(use-package abbrev
-  :defer t
-  :config
-  (setq save-abbrevs 'silently)
-  (setq-default abbrev-mode t)
-  (add-hook 'text-mode-hook 'abbrev-mode))
+  (use-package abbrev
+    :defer t
+    :config
+    (setq save-abbrevs 'silently)
+    (setq-default abbrev-mode t)
+    (add-hook 'text-mode-hook 'abbrev-mode))
 #+END_SRC
 
 ** bookmarks
@@ -620,12 +620,12 @@ session to the next.  The prototypical use of bookmarks is to record where you
 reading in various files.
 
 #+begin_src emacs-lisp
-(use-package bookmarks
-  :defer t
-  :config
-  (setq bookmark-default-file
-        (expand-file-name "bookmarks" savefile-dir)
-        bookmark-save-flag 1))
+  (use-package bookmarks
+    :defer t
+    :config
+    (setq bookmark-default-file
+          (expand-file-name "bookmarks" savefile-dir)
+          bookmark-save-flag 1))
 #+end_src
 
 ** dired
